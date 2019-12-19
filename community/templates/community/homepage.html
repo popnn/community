@@ -1,13 +1,24 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ title }}</title>
-</head>
-<body>
-    Test
-</body>
-</html>
+{% extends 'community/layout.html' %}
+
+{% block content %}
+    <br><br><br>
+    <div class="container">
+        <h1>Open Forums:</h1>
+        <br>
+        <div class="card-columns">
+            {% for cardtitle in cardrange %}
+                <div class="card shadow mb-4">
+                    <div class="card-header border-0 bg-white" style="border-radius:2rem;">
+                        <h2>Sample {{cardtitle}}</h2>
+                    </div>
+                    <div class="card-body">
+                            <p class="card-text">Info about the stuff here</p>
+                            
+                    </div>
+                </div>
+            {% endfor %}   
+        </div>
+    </div>
+
+{% endblock %}

@@ -16,7 +16,8 @@ def homepage(request):
     status = verify_request(request)
     if status == True:
         context = {
-            'title': "Home"
+            'title': "Home",
+            "cardrange": range(15)
         }
         return render_template(request, 'community/homepage.html', context)
     else:
