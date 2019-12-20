@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
+from .models import *
+from .forms import *
 
 def verify_request(request):
-    return request.COOKIES.get('id', None) is not None
+    return request.COOKIES.get('id', None) is not None, request.COOKIES.get('id', None)
 
 def render_template(request, template_name, context={}):
     response = render(request, template_name, context)
@@ -11,8 +14,7 @@ def render_template(request, template_name, context={}):
 
 # Create your views here.
 def homepage(request):
-    logged_in = verify_request(request)
-    print(logged_in)
+    logged_in, user_id = verify_request(request)
     if logged_in:
         context = {
             'title': "Home",
@@ -31,21 +33,21 @@ def homepage(request):
             form = AuthenticationForm(data=request.POST)
             print(1)
             if form.is_valid():
-                print(1)
                 username = form.cleaned_data.get('username')
                 password = form.cleaned_data.get('password')
                 user = authenticate(username=username, password=password)
                 if user is not None:
                     login(request, user)
                     response = redirect('/community')
-                    response.set_cookie('id', username)
+                    user_id = UserProfiles.objects.get(username=username).user_id
+                    response.set_cookie('id', user_id)
                     return response 
         else:
             form = AuthenticationForm()
         return render_template(request, 'community/previewpage.html', {'form': form})
 
 def searchpage(request):
-    logged_in = verify_request(request)
+    logged_in, user_id = verify_request(request)
     if request.method == 'GET':
         query = request.GET.get('q', None)
     context = {
@@ -57,6 +59,25 @@ def searchpage(request):
     if query is not None:
         context['search_results'] = search(query, logged_in)
     return render_template(request, 'community/searchpage.html', context)
+
+def profilepage(request):
+    logged_in, user_id = verify_request(request)
+    if not logged_in:
+        return redirect('/')
+    else:
+        user_data = UserProfiles.objects.get(user_id=user_id)
+        user_data_main = User.objects.get(username=user_data.username)
+        context = {
+            'title': 'Profile',
+            'logged_in': logged_in,
+            'image_path': user_data.user_profile_image,
+            'first_name': user_data_main.first_name,
+            'last_name': user_data_main.last_name,
+            'username': user_data.username,
+            'email': user_data_main.email,
+            'description': user_data.user_description,
+        }
+        return render_template(request, 'community/profilepage.html', context)
 
 def search(query, logged_in):
     pass

@@ -35,11 +35,15 @@
                         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/">other Links</a>
+                        <a class="nav-link" href="/">Other Links</a>
                     </li>
                     {% if logged_in %}
+                
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout' %}">logout</a>
+                            <a class="nav-link" href="{% url 'community-profile' %}">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                         </li>
                     {% endif %}
                 </ul>
