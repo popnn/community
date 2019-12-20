@@ -31,7 +31,6 @@ def homepage(request):
     else:
         if request.method == 'POST':
             form = AuthenticationForm(data=request.POST)
-            print(1)
             if form.is_valid():
                 username = form.cleaned_data.get('username')
                 password = form.cleaned_data.get('password')
