@@ -16,14 +16,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
+from django.contrib.auth import logout
 
 def redirect_to(request):
-    response =  redirect('/community')  
-    response.set_cookie('id', 'sam')
+    response = redirect('/community')  
+    return response
+
+def logout_function(request):
+    logout(request)
+    response = redirect_to(request)
+    if request.COOKIES.get('id', None) is not None:
+        response.delete_cookie('id')
     return response
 
 urlpatterns = [
     path('', redirect_to),
     path('admin/', admin.site.urls),
-    path('community/', include('community.urls') ,name='community'),
+    path('logout/', logout_function, name='logout'),
+    path('community/', include('community.urls'), name='community'),
 ]
