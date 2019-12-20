@@ -10,22 +10,10 @@
         <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
         <script defer src="{% static 'fontawesome/js/all.min.js' %}"></script>
         <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
         <title>{{ title }}</title>
         <style>
-            @keyframes bounceIn {
-                0% {
-                    transform: scale(1.5);
-                    opacity: 0;
-                    }
-                70% {
-                    transform: scale(0.8);
-                    opacity: 1;
-                    }
-                100% {
-                    transform: scale(1);
-                    }
-}
             body{
                 font-family: 'Montserrat', sans-serif;
             }
@@ -37,8 +25,8 @@
     <body>
 
         <!--Navbar-->
-        <nav class="navbar navbar-expand-lg fixed-top navbar-light shadow" style="background-color: #b8b7fa;">
-                <h4 style="animation-duration: 0.5s;animation-name: bounceIn;font-family:'Comfortaa', cursive;"><a class="navbar-brand" href="#"><i class="fas fa-bolt"></i> pop<sup>N</sup></a></h4>
+        <nav class="navbar navbar-expand-lg fixed-top navbar-light shadow" style="background-color: #b8b7fa;border-radius:0rem 0rem 1rem 1rem;">
+                <h4 style="animation-duration: 0.5s;animation-name: bounceInLeft;font-family:'Comfortaa', cursive;"><a class="navbar-brand" href="#"><i class="fas fa-bolt"></i> pop<sup>N</sup></a></h4>
             <button class="navbar-toggler border-0 text-dark" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="fas fa-bars"></span>
             </button>

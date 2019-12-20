@@ -6,9 +6,22 @@
     <div class="row">
         <div class="col">
             <div class="card col-12">
-                <div class="card-header border-0 bg-white" style="border-radius:1rem;">
+                <div class="card-header border-0 bg-white d-flex" style="border-radius:1rem;">
                     <img src="https://source.unsplash.com/random/60x60" class="rounded-circle">
-                     &nbsp&nbsp<strong>{{ username }}</strong>
+                     &nbsp&nbsp<strong class="align-self-center w-100">{{ username }}</strong>
+                     <div class="dropdown align-self-center">
+                        <div role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-cog flex-shrink-1 align-self-center"></i>
+                        </div>
+                        <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="dropdownMenuLink" style="border-radius:1rem;">
+                            <div class="dropdown-header">Settings: </div>
+                            <a class="dropdown-item" href="#">Change Password</a>
+                            <a class="dropdown-item" href="#">Request something</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Support/Help</a>
+                        </div>
+                        </div>
+                     
                     <br><hr>
                 </div>
                     <h2> {{ first_name }} {{ last_name }}</h2>
