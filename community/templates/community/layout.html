@@ -6,12 +6,25 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <meta name="theme-color" content="#cacaf7">
+        <meta name="theme-color" content="#b8b7fa">
         <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
         <script defer src="{% static 'fontawesome/js/all.min.js' %}"></script>
         <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
         <title>{{ title }}</title>
         <style>
+            @keyframes bounceIn {
+                0% {
+                    transform: scale(1.5);
+                    opacity: 0;
+                    }
+                70% {
+                    transform: scale(0.8);
+                    opacity: 1;
+                    }
+                100% {
+                    transform: scale(1);
+                    }
+}
             body{
                 font-family: 'Montserrat', sans-serif;
             }
@@ -23,8 +36,8 @@
     <body>
 
         <!--Navbar-->
-        <nav class="navbar navbar-expand-lg fixed-top navbar-light" style="background-color: #cacaf7;">
-                <h3><a class="navbar-brand" href="#"><i class="fas fa-bolt"></i> pop<sup>N</sup></a></h3>
+        <nav class="navbar navbar-expand-lg fixed-top navbar-light" style="background-color: #b8b7fa;">
+                <h3 style="animation-duration: 0.5s;animation-name: bounceIn;"><a class="navbar-brand" href="#"><i class="fas fa-bolt"></i> pop<sup>N</sup></a></h3>
             <button class="navbar-toggler border-0 text-dark" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="fas fa-bars"></span>
             </button>
