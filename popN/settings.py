@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'community.apps.CommunityConfig',
     'bootstrap',
     'fontawesome',
+    'pwa_webpush',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +127,28 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     '/var/www/static/',
 ]
+
+#PWA settings
+
+PWA_APP_NAME = 'popN'
+PWA_APP_DESCRIPTION = "The open community"
+PWA_APP_THEME_COLOR = '#b8b7fa'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/',
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+"""
+PWA_APP_ICONS = [
+    {
+        'src': '/static/images/my_app_icon.png',
+        'sizes': '160x160'
+    }
+]
+PWA_APP_SPLASH_SCREEN = [
+    {
+        'src': '/static/images/icons/splash-640x1136.png',
+        'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+    }
+]"""
+PWA_APP_LANG = 'en-US'
