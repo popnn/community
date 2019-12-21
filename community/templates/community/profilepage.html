@@ -58,7 +58,9 @@
     <div class="col-md-5">
         <ul class="list-group">
             {% for user in following_users %}
-                <li class="list-group-item">{{ user }}</li>
+                <a href="{% url 'user.' %}">
+                    <li class="list-group-item text-dark" style="text-decoration: none;">{{ user }}</li>
+                </a>
             {% endfor %}
         </ul>
     </div>
