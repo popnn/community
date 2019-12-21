@@ -51,7 +51,9 @@
     <h3>Followed Threads: </h3>
     <div class="card-columns">
         All Threads followed come here, excluding my threads
-        {{ followed_threads }}
+        {% for user in following_users %}
+            {{ user }}
+        {% endfor %}
     </div>
 </div>
 
