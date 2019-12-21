@@ -120,7 +120,7 @@ def viewprofilepage(request, username):
     logged_in, user_id = verify_request(request)
     if not logged_in:
         return redirect('/')
-    elif username == UserProfiles.objects.get(user_id.user_id).username:
+    elif str(username) == str(UserProfiles.objects.get(user_id.user_id).username):
         return redirect('/profile/')
     else:
         user_data = UserProfiles.objects.get(user_id=User.objects.get(username=username).user_id)
