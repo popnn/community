@@ -63,7 +63,7 @@ def signuppage(request):
                 password = form.cleaned_data.get('password')
                 password_verify = form.cleaned_data.get('password_verify')
                 email = form.cleaned_data.get('email')
-                if username not in [user.username for user in Users.objects.all()] and password==password_verify:
+                if username not in [user.username for user in User.objects.all()] and password==password_verify:
                     User(username=username, password=password, email=email).save()
                     UserProfiles(username=username).save()
                     user = authenticate(username=username, password=password)
