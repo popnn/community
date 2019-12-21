@@ -31,6 +31,7 @@ def homepage(request):
             cnt = {
                 'card_title': card.discussion_title,
                 'card_text': card.discussion_description,
+                'card_url': "/discussions/{}/{}/".format(UserProfiles.objects.get(user_id=card.discussion_author_id).username, card.discussion_id),
             }
             context['all_cards'].append(cnt)
         return render_template(request, 'community/homepage.html', context)
