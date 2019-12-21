@@ -109,10 +109,40 @@ def editprofilepage(request):
         return render_template(request, 'community/editprofilepage.html', {"form":form})
 
 def alldiscussionspage(request):
-    pass
+    logged_in, user_id = verify_request(request)
+    if not logged_in:
+        return redirect('/')
+    else:
+        context = {
+            'title': "Discussions",
+            'logged_in': logged_in,
+            "all_cards": [],
+        }
+        for card in CommunityDiscussions.objects.all():
+            cnt = {
+                'card_title': card.discussion_title,
+                'card_text': card.discussion_description,
+            }
+            context['all_cards'].append(cnt)
+        return render_template(request, 'community/homepage.html', context)
 
 def mydiscussionpage(request):
-    pass
+    logged_in, user_id = verify_request(request)
+    if not logged_in:
+        return redirect('/')
+    else:
+        context = {
+            'title': "Discussions",
+            'logged_in': logged_in,
+            "all_cards": [],
+        }
+        for card in CommunityDiscussions.objects.filter(discussion_author_id=user_id):
+            cnt = {
+                'card_title': card.discussion_title,
+                'card_text': card.discussion_description,
+            }
+            context['all_cards'].append(cnt)
+        return render_template(request, 'community/homepage.html', context)
 
 def newdiscussionpage(request):
     logged_in, user_id = verify_request(request)
@@ -135,7 +165,7 @@ def newdiscussionpage(request):
                 discussion.save()
                 return redirect('/community')
         form = DiscussionForm()
-        return render_template(request, 'community/newdiscussionpage.html', {"form":form})
+        return render_template(request, 'community/newdiscussionpage.html', {"title":"New Discussion", "form":form})
 
 def search(query, logged_in):
     pass
