@@ -1,29 +1,50 @@
-{% extends 'community/layout.html' %}
-
-{% block ContentView %}
-<br><br><br><br>
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6 d-flex justify-content-center">
-                <div class="card w-80">
-                    <div class="card-header border-0 bg-white">
-                        <h3>New Registration</h3>
-                    </div>
-                    <div class="card-body">
-                        <form method="POST">
-                            <div class="form-group">
-                                {% csrf_token %}
-                                {{ form.as_p }}
-                                <button class="btn btn-light" type="submit" style="width:100%;border-radius:1rem;background-color:#b8b7fa">Sign Up</button>
-                            </div>
-                        </form>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="theme-color" content="#b8b7fa">
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+        <script defer src="{% static 'fontawesome/js/all.min.js' %}"></script>
+        <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+        <title>{{ title }}</title>
+        <style>
+            body{
+                font-family: 'Montserrat', sans-serif;
+            }
+            .card{
+                border-radius:2rem;
+            }
+        </style>
+    </head>
+    <body style="background-color:#dcdcfc">
+        <br><br>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 d-flex justify-content-center">
+                    <div class="card w-80">
+                        <div class="card-header border-0 bg-white">
+                            <h3>New Registration</h3>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST">
+                                <div class="form-group">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+                                    <button class="btn btn-light" type="submit" style="width:100%;border-radius:1rem;background-color:#b8b7fa">Sign Up</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                More content here/ Maybe AD?
-            </div>
-        </div>        
-    </div>
+                <div class="col">
+                    More content here/ Maybe AD?
+                </div>
+            </div>        
+        </div>
+    </body>
+</html>
 {% endblock %}
