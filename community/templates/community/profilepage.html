@@ -55,10 +55,12 @@
     </div>
     <br>
     <h3>Followed Users: </h3>
-    <div class="card-columns">
-        {% for user in following_users %}
-            {{ user }}
-        {% endfor %}
+    <div class="col-md-5">
+        <ul class="list-group">
+            {% for user in following_users %}
+                <li class="list-group-item">{{ user }}</li>
+            {% endfor %}
+        </ul>
     </div>
 </div>
 
