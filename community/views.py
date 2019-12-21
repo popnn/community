@@ -101,19 +101,23 @@ def profilepage(request):
     else:
         user_data = UserProfiles.objects.get(user_id=user_id)
         user_data_main = User.objects.get(username=user_data.username)
+        followers_count = sum(1 for val in UserProfiles.objects.all() if str(user_data.user_id) in val.user_following.split(", "))
+        following_users = [UserProfiles.objects.get(user_id=int(f_id)).username for f_id in user_data.user_following.split(", ") if f_id != '']
+        my_threads = [val.discussion_title for val in CommunityDiscussions.objects.filter(discussion_author_id=user_id)]
         context = {
             'title': 'Profile',
             'logged_in': logged_in,
-            'image_path': user_data.user_profile_image,
             'first_name': user_data_main.first_name,
             'last_name': user_data_main.last_name,
             'username': user_data.username,
             'email': user_data_main.email,
             'description': user_data.user_description,
-            'followers': sum(1 for val in UserProfiles.objects.all() if str(user_data.user_id) in val.user_following.split(", ")),
-            'following_users': [UserProfiles.objects.get(user_id=int(f_id)).username for f_id in user_data.user_following.split(", ") if f_id != ''],
+            'followers_count': followers_count,
+            'following_users': following_users,
+            'following_users_count': len(following_users),
             'profile_image': user_data.user_profile_image.url,
-            'my_threads': [val.discussion_title for val in CommunityDiscussions.objects.filter(discussion_author_id=user_id)]
+            'my_threads': my_threads,
+            'my_threads_count': len(my_threads),
         }
         return render_template(request, 'community/profilepage.html', context)
 
