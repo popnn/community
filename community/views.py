@@ -105,7 +105,7 @@ def editprofilepage(request):
                 user_data.user_profile_image = form.cleaned_data.get('profile_image')
                 user_data.save()
                 user_data_main.save()
-                return redirect('/community/profile/')
+                return redirect('/profile/')
         form = EditProfileForm()
         email_address = User.objects.get(username=UserProfiles.objects.get(user_id=user_id).username).email
         email = EmailMessage('popN - Profile Updated', 'Dear user,\n\n The profile update has been processed successfully.\n\nThank You\n\nTeam popN', to=[email_address])
