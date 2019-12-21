@@ -112,6 +112,35 @@ def editprofilepage(request):
         email.send()
         return render_template(request, 'community/editprofilepage.html', {"form":form})
 
+def selectdiscussionpage(request, discussion_id):
+    logged_in, user_id = verify_request(request)
+    if not logged_in:
+        return redirect('/')
+    else:
+        discussion = CommunityDiscussions.objects.get(discussion_id=discussion_id)
+        if request.method == "POST":
+            form = CommentForm(request.POST)
+            if form.is_valid:
+                comment = CommunityComments(
+                    discussion_id=discussion_id,
+                    comment_author_id=discussion.discussion_author_id,
+                    comment_description=form.cleaned_data.get("comment")
+                )
+                comment.save()
+        
+        context = {
+            'title': "Discussions",
+            'logged_in': logged_in,
+            "title": discussion.discussion_title,
+            "author": UserProfiles.objects.get(user_id=discussion.discussion_author_id).username,
+            "content": discussion.discussion_description,
+            "editable": discussion.discussion_author_id==user_id,
+            "closed": CommunityComments.objects.filter(discussion_id=discussion.discussion_id).count() > discussion.discussion_maximum_comments,
+            "date": discussion.publish_date,
+            "form": CommentForm(),
+        }
+        return render_template(request, "community/singlediscussionpage.html", context)
+
 def alldiscussionspage(request):
     logged_in, user_id = verify_request(request)
     if not logged_in:
