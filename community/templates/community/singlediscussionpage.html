@@ -6,7 +6,7 @@
     {{ content }}
     {{ author }}
     {% for comment in comments %}
-        comment.comment_description
+        {{comment.description}} - {{comment.author}} 
     {% endfor %}
     {% if not closed %}
     <div class="container-fluid">
