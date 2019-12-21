@@ -121,10 +121,11 @@ def selectdiscussionpage(request, username, discussion_id):
         if request.method == "POST":
             form = CommentForm(request.POST)
             if form.is_valid:
+                c = form.cleaned_data.get('comment')
                 comment = CommunityComments(
                     discussion_id=discussion_id,
                     comment_author_id=discussion.discussion_author_id,
-                    comment_description=form.cleaned_data.get("comment")
+                    comment_description=c
                 )
                 comment.save()
         
