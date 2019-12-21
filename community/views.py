@@ -215,7 +215,7 @@ def selectdiscussionpage(request, username, discussion_id):
                     comment_author_id=user_id,
                     comment_description=desc
                 )
-                if CommunityComments.objects.filter(discussion_id=discussion.discussion_id).count() < discussion.discussion_maximum_comments,
+                if CommunityComments.objects.filter(discussion_id=discussion.discussion_id).count() < discussion.discussion_maximum_comments:
                     comment.save()
         context = {
             'logged_in': logged_in,
