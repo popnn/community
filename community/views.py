@@ -172,7 +172,15 @@ def editprofilepage(request):
                 user_data.save()
                 user_data_main.save()
                 return redirect('/profile/')
-        form = EditProfileForm()
+        user_data = UserProfiles.objects.get(user_id=UserProfiles.objects.get(username=username).user_id)
+        user_data_main = User.objects.get(username=username)
+        form = EditProfileForm({
+            'first_name': user_data_main.first_name,
+            'last_name': user_data_main.last_name,
+            'email': user_data.email,
+            'description': user_data.user_description,
+            'profile_image': user_data.user_profile_image,
+        })
         email_address = User.objects.get(username=UserProfiles.objects.get(user_id=user_id).username).email
         email = EmailMessage('popN - Profile Updated', 'Dear user,\n\n The profile update has been processed successfully.\n\nThank You\n\nTeam popN', to=[email_address])
         email.send()
