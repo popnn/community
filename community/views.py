@@ -138,7 +138,7 @@ def viewprofilepage(request, username):
             'followed_threads': [ CommunityDiscussions.objects.get(discussion_id=int(val)).discussion_title for val in user_data.user_threads.split(", ") if val != ""],
             'profile_image': user_data.user_profile_image.url,
         }
-        return render_template(request, 'community/profilepage.html', context)
+        return render_template(request, 'community/viewprofilepage.html', context)
 
 
 def editprofilepage(request):
