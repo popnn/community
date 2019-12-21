@@ -111,8 +111,9 @@ def profilepage(request):
             'email': user_data_main.email,
             'description': user_data.user_description,
             'followers': sum(1 for val in UserProfiles.objects.all() if str(user_data.user_id) in val.user_following.split(", ")),
-            'followed_threads': [ CommunityDiscussions.objects.get(discussion_id=int(val)).discussion_title for val in user_data.user_threads.split(", ") if val != ""],
+            'followed_threads': [CommunityDiscussions.objects.get(discussion_id=int(val)).discussion_title for val in user_data.user_threads.split(", ") if val != ""],
             'profile_image': user_data.user_profile_image.url,
+            'my_threads': [val.discussion_title for val in CommunityDiscussions.objects.filter(discussion_author_id=user_id)]
         }
         return render_template(request, 'community/profilepage.html', context)
 

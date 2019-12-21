@@ -43,7 +43,9 @@
     <br>
     <h3>My threads: </h3>
     <div class="card-columns">
-        All Threads created come here
+        {% for thread in my_threads %}
+            {{ thread }}
+        {% endfor %}
     </div>
     <br>
     <h3>Followed Threads: </h3>
