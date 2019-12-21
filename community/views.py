@@ -177,7 +177,7 @@ def editprofilepage(request):
         form = EditProfileForm({
             'first_name': user_data_main.first_name,
             'last_name': user_data_main.last_name,
-            'email': user_data.email,
+            'email': user_data_main.email,
             'description': user_data.user_description,
             'profile_image': user_data.user_profile_image,
         })
