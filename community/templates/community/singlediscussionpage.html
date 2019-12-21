@@ -21,7 +21,6 @@
                 <div class="card-body">
                     {% for comment in comments %}
                     <p><strong>{{comment.author}}</strong> - {{comment.description}}</p>
-                    <br>
                     {% endfor %}
                     <br>
                     {% if not closed %}
