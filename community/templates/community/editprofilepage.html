@@ -3,9 +3,29 @@
 {% block ContentView %}
     <br><br><br><br>
     
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-light" type="submit" style="width:90%;border-radius:1rem;background-color:#b8b7fa">Submit</button>
-    </form>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card justify-content-center">
+                    <div class="card-header border-0 bg-white" style="border-radius:2rem;">
+                        <h2>Edit Profile</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <button class="btn btn-light" type="submit" style="width:90%;border-radius:1rem;background-color:#b8b7fa">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col d-none d-xs-block">
+                stuff
+            </div>
+        </div>
+    </div>
+
+    
 {% endblock %}
