@@ -141,7 +141,7 @@ def selectdiscussionpage(request, username, discussion_id):
             "comments": [],
         }
         for comment in CommunityComments.objects.filter(discussion_id=discussion_id):
-            comments.append({
+            context["comments"].append({
                 "author": UserProfiles.objects.get(user_id=comment.comment_author_id).username,
                 "description": comment.comment_description,
                 "pub_date": comment.comment_publish_date,
