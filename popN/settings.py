@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'bootstrap',
     'fontawesome',
     'pwa_webpush',
-    'updateable',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +57,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'updateable.middleware.UpdateableMiddleware',
 ]
 
 ROOT_URLCONF = 'popN.urls'
@@ -75,7 +73,6 @@ TEMPLATES = [
                 'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.core.context_processors.request',
             ],
         },
     },
