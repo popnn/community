@@ -26,10 +26,10 @@ def homepage(request):
             'logged_in': logged_in,
             "all_cards": [],
         }
-        for card_no in range(15):
+        for card in CommunityDiscussions.objects.all():
             cnt = {
-                'card_title': 'Sample Card #{}'.format(card_no),
-                'card_text': ' Sample text: Welcom to popN Community, The one stop for all thats popN ;)',
+                'card_title': card.discussion_title,
+                'card_text': card.discussion_description,
             }
             context['all_cards'].append(cnt)
         return render_template(request, 'community/homepage.html', context)
@@ -107,6 +107,65 @@ def editprofilepage(request):
                 return redirect('/community/profile/')
         form = EditProfileForm()
         return render_template(request, 'community/editprofilepage.html', {"form":form})
+
+def alldiscussionspage(request):
+    logged_in, user_id = verify_request(request)
+    if not logged_in:
+        return redirect('/')
+    else:
+        context = {
+            'title': "Discussions",
+            'logged_in': logged_in,
+            "all_cards": [],
+        }
+        for card in CommunityDiscussions.objects.all():
+            cnt = {
+                'card_title': card.discussion_title,
+                'card_text': card.discussion_description,
+            }
+            context['all_cards'].append(cnt)
+        return render_template(request, 'community/homepage.html', context)
+
+def mydiscussionpage(request):
+    logged_in, user_id = verify_request(request)
+    if not logged_in:
+        return redirect('/')
+    else:
+        context = {
+            'title': "Discussions",
+            'logged_in': logged_in,
+            "all_cards": [],
+        }
+        for card in CommunityDiscussions.objects.filter(discussion_author_id=user_id):
+            cnt = {
+                'card_title': card.discussion_title,
+                'card_text': card.discussion_description,
+            }
+            context['all_cards'].append(cnt)
+        return render_template(request, 'community/homepage.html', context)
+
+def newdiscussionpage(request):
+    logged_in, user_id = verify_request(request)
+    if not logged_in:
+        return redirect('/')
+    else:
+        if request.method == 'POST':
+            form = DiscussionForm(request.POST)
+            if form.is_valid():
+                title = form.cleaned_data.get('title')
+                description = form.cleaned_data.get('description')
+                max_comments = form.cleaned_data.get('max_comments')
+                description = form.cleaned_data.get('description')
+                discussion = CommunityDiscussions(
+                    discussion_title=title,
+                    discussion_description=description,
+                    discussion_maximum_comments=max_comments,
+                    discussion_type="OPEN",
+                    discussion_author_id=str(user_id))
+                discussion.save()
+                return redirect('/community')
+        form = DiscussionForm()
+        return render_template(request, 'community/newdiscussionpage.html', {"title":"New Discussion", "form":form})
 
 def search(query, logged_in):
     pass

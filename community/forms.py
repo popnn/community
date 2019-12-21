@@ -1,7 +1,11 @@
 from django import forms
 from PIL import Image
+
 class DiscussionForm(forms.Form):
-    pass    
+    title = forms.CharField(max_length=32)
+    description = forms.CharField(max_length=500)
+    max_comments = forms.IntegerField(initial=100)
+    description = forms.CharField(max_length=256, required=False)
 
 class CreateUserForm(forms.Form):
     pass
