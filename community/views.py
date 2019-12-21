@@ -172,8 +172,8 @@ def editprofilepage(request):
                 user_data.save()
                 user_data_main.save()
                 return redirect('/profile/')
-        user_data = UserProfiles.objects.get(user_id=UserProfiles.objects.get(username=username).user_id)
-        user_data_main = User.objects.get(username=username)
+        user_data = UserProfiles.objects.get(user_id=user_id)
+        user_data_main = User.objects.get(username=user_data.username)
         form = EditProfileForm({
             'first_name': user_data_main.first_name,
             'last_name': user_data_main.last_name,
