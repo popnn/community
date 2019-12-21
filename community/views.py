@@ -162,6 +162,7 @@ def editprofilepage(request):
         if request.method == 'POST':
             form = EditProfileForm(request.POST, request.FILES)
             if form.is_valid():
+                email_address = User.objects.get(username=UserProfiles.objects.get(user_id=user_id).username).email
                 user_data = UserProfiles.objects.get(user_id=user_id)
                 user_data_main = User.objects.get(username=user_data.username)
                 user_data_main.first_name = form.cleaned_data.get('first_name')
@@ -171,6 +172,8 @@ def editprofilepage(request):
                 user_data.user_profile_image = form.cleaned_data.get('profile_image')
                 user_data.save()
                 user_data_main.save()
+                email_text = 'popN - Profile Updated', 'Dear {},\n\n Your profile has been updated.\n\nThank You\n\nTeam popN'.format(user_data.first_name)
+                EmailMessage(email_text, to=[email_address]).send()
                 return redirect('/profile/')
         user_data = UserProfiles.objects.get(user_id=user_id)
         user_data_main = User.objects.get(username=user_data.username)
@@ -181,9 +184,7 @@ def editprofilepage(request):
             'description': user_data.user_description,
             'profile_image': user_data.user_profile_image,
         })
-        email_address = User.objects.get(username=UserProfiles.objects.get(user_id=user_id).username).email
-        email = EmailMessage('popN - Profile Updated', 'Dear user,\n\n The profile update has been processed successfully.\n\nThank You\n\nTeam popN', to=[email_address])
-        email.send()
+        
         return render_template(request, 'community/editprofilepage.html', {"form":form})
 
 def selectdiscussionpage(request, username, discussion_id):
