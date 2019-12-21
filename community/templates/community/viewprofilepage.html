@@ -25,16 +25,16 @@
                     <h5>Email: {{ email }}</h5>
                     <div class="row">
                         <div class="col">
-                            <i class="fas fa-user-friends"></i> Followers: {{ followers }}
+                            <i class="fas fa-user-friends"></i> Followers: {{ followers_count }}
                         </div>
                         <div class="col">
-                            Following : 
+                            Following : {{ following_users_count }}
                         </div>
                         <div class="col">
-                            My threads : 
+                            My threads : {{ my_threads_count }}
                         </div>
                         <div class="col">
-                            Followed threads : 
+                            Saved threads : 0
                         </div>
                     </div>
                 </div>
@@ -45,13 +45,20 @@
     <br>
     <h3>My threads: </h3>
     <div class="card-columns">
-        All Threads created come here
+        {% for thread in my_threads %}
+            {{ thread }}
+        {% endfor %}
     </div>
     <br>
-    <h3>Followed Threads: </h3>
-    <div class="card-columns">
-        All Threads followed come here, excluding my threads
-        {{ followed_threads }}
+    <h3>Followed Users: </h3>
+    <div class="col-md-5">
+        <ul class="list-group">
+            {% for user in following_users %}
+                <a href="/profile/view/{{user}}/">
+                    <li class="list-group-item text-dark" style="text-decoration: none;">{{ user }}</li>
+                </a>
+            {% endfor %}
+        </ul>
     </div>
 </div>
 

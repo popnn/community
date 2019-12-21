@@ -104,21 +104,7 @@ def profilepage(request):
         followers_count = sum(1 for val in UserProfiles.objects.all() if str(user_data.user_id) in val.user_following.split(", "))
         following_users = [UserProfiles.objects.get(user_id=int(f_id)).username for f_id in user_data.user_following.split(", ") if f_id != '']
         my_threads = [val.discussion_title for val in CommunityDiscussions.objects.filter(discussion_author_id=user_id)]
-        context = {
-            'title': 'Profile',
-            'logged_in': logged_in,
-            'first_name': user_data_main.first_name,
-            'last_name': user_data_main.last_name,
-            'username': user_data.username,
-            'email': user_data_main.email,
-            'description': user_data.user_description,
-            'followers_count': followers_count,
-            'following_users': following_users,
-            'following_users_count': len(following_users),
-            'profile_image': user_data.user_profile_image.url,
-            'my_threads': my_threads,
-            'my_threads_count': len(my_threads),
-        }
+        
         return render_template(request, 'community/profilepage.html', context)
 
 def viewprofilepage(request, username):
@@ -141,20 +127,26 @@ def viewprofilepage(request, username):
                 user_obj.save()
         user_data = UserProfiles.objects.get(user_id=UserProfiles.objects.get(username=username).user_id)
         user_data_main = User.objects.get(username=username)
+        followers_count = sum(1 for val in UserProfiles.objects.all() if str(user_data.user_id) in val.user_following.split(", "))
+        following_users = [UserProfiles.objects.get(user_id=int(f_id)).username for f_id in user_data.user_following.split(", ") if f_id != '']
+        my_threads = [val.discussion_title for val in CommunityDiscussions.objects.filter(discussion_author_id=user_data.user_id)]
         context = {
-            "following": str(UserProfiles.objects.get(username=username).user_id) in UserProfiles.objects.get(user_id=user_id).user_following.split(", "),
             'title': 'Profile',
             'logged_in': logged_in,
-            'image_path': user_data.user_profile_image,
             'first_name': user_data_main.first_name,
             'last_name': user_data_main.last_name,
             'username': user_data.username,
             'email': user_data_main.email,
             'description': user_data.user_description,
-            'followers': sum(1 for val in UserProfiles.objects.all() if str(user_data.user_id) in val.user_following.split(", ")),
-            'followed_threads': [ CommunityDiscussions.objects.get(discussion_id=int(val)).discussion_title for val in user_data.user_threads.split(", ") if val != ""],
+            'followers_count': followers_count,
+            'following_users': following_users,
+            'following_users_count': len(following_users),
             'profile_image': user_data.user_profile_image.url,
+            'my_threads': my_threads,
+            'my_threads_count': len(my_threads),
+            'following': str(UserProfiles.objects.get(username=username).user_id) in UserProfiles.objects.get(user_id=user_id).user_following.split(", "),
         }
+        
         return render_template(request, 'community/viewprofilepage.html', context)
 
 
