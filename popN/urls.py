@@ -17,11 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
 from django.contrib.auth import logout
+from django.contrib.staticfiles.urls import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from . import settings
-
-def redirect_to(request):
-    response = redirect('/community')  
-    return response
 
 def logout_function(request):
     logout(request)
@@ -31,15 +29,10 @@ def logout_function(request):
     return response
 
 urlpatterns = [
-    path('', redirect_to),
     path('admin/', admin.site.urls),
     path('logout/', logout_function, name='logout'),
-    path('community/', include('community.urls'), name='community'),
+    path('', include('community.urls'), name='community'),
 ]
 
-from django.contrib.staticfiles.urls import static
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
- 
- 
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

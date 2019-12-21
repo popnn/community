@@ -137,6 +137,7 @@ def selectdiscussionpage(request, username, discussion_id):
             "closed": CommunityComments.objects.filter(discussion_id=discussion.discussion_id).count() > discussion.discussion_maximum_comments,
             "date": discussion.discussion_publish_date,
             "form": CommentForm(),
+            "comments": CommunityComments.objects.filter(discussion_id=discussion_id),
         }
         return render_template(request, "community/singlediscussionpage.html", context)
 
@@ -175,7 +176,7 @@ def mydiscussionpage(request, username):
             }
             context['all_cards'].append(cnt)
         return render_template(request, 'community/homepage.html', context)
-
+    
 def newdiscussionpage(request):
     logged_in, user_id = verify_request(request)
     if not logged_in:

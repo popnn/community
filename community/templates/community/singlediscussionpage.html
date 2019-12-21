@@ -1,1 +1,31 @@
 {% extends 'community/layout.html' %}
+
+{% block ContentView %}
+    <br><br><br><br>
+    {{ title }}
+    {{ content }}
+    {{ author }}
+    {% for comment in comments %}
+        comment.comment_description
+    {% endfor %}
+    {% if not closed %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="card">
+                    <div class="card-header border-0 bg-white" style="border-radius:2rem;">
+                        <h2>New Discussion</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button class="btn btn-light" type="submit" style="width:100%;border-radius:1rem;background-color:#b8b7fa">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+    </div>
+    {% endif %}
+{% endblock %}
