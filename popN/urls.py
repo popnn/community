@@ -23,7 +23,7 @@ from . import settings
 
 def logout_function(request):
     logout(request)
-    response = redirect_to(request)
+    response = redirect("/")
     if request.COOKIES.get('id', None) is not None:
         response.delete_cookie('id')
     return response
