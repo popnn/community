@@ -9,6 +9,6 @@ urlpatterns = [
     path('profile/edit/', views.editprofilepage, name='community-profile-edit'),
     path('discussions/', views.alldiscussionspage, name='community-discussions'),
     path('new-discussion/', views.newdiscussionpage, name='community-discussions-new'),
-    path('discussions/<slug:username>', views.mydiscussionpage, name='community-discussions-user'),
-    path('discussions/<slug:username>/<int:discussion_id>', views.selectdiscussionpage, name='community-discussions-single'),
+    path('discussions/<slug:username>/', views.mydiscussionpage, name='community-discussions-user'),
+    path('discussions/<slug:username>/<int:discussion_id>/', views.selectdiscussionpage, name='community-discussions-single'),
 ]
