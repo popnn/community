@@ -68,6 +68,9 @@ def signuppage(request):
                     if password==password_verify:
                         User(username=username, password=password, email=email).save()
                         UserProfiles(username=username).save()
+                        Email_content="Dear " + username + ",\n\nYour user is successfully created with username " + username + " Logon to popn.ml to access your account.\n\n For support email us support@popn.ml\n\nThank You\n\nTeam popN" 
+                        email_message = EmailMessage('popN - User Created', Email_content, to=[email])
+                        email.send()
                         return redirect("/community")
                 return redirect("/")
         else:
