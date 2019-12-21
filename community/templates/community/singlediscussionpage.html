@@ -2,30 +2,37 @@
 
 {% block ContentView %}
     <br><br><br><br>
-    {{ title }}
-    {{ content }}
-    {{ author }}
-    {% for comment in comments %}
-        {{comment.description}} - {{comment.author}} 
-    {% endfor %}
-    {% if not closed %}
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-7">
-                <div class="card">
-                    <div class="card-header border-0 bg-white" style="border-radius:2rem;">
-                        <h2>New Discussion</h2>
-                    </div>
-                    <div class="card-body">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header border-0 bg-white">
+                    <h2>{{ title }}</h2>
+                    <p>{{ author }}</p>
+                </div>
+                <div class="card-body">
+                    <p>{{ content }}</p>
+                </div>
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-header border-0 bg-white">
+                    <h4>Comments</h4>
+                </div>
+                <div class="card-body">
+                    {% for comment in comments %}
+                    <p><strong>{{comment.author}}</strong> - {{comment.description}}</p>
+                    <br>
+                    {% endfor %}
+                    <br>
+                    {% if not closed %}
                         <form method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                             {{ form.as_p }}
                             <button class="btn btn-light" type="submit" style="width:100%;border-radius:1rem;background-color:#b8b7fa">Submit</button>
                         </form>
-                    </div>
+                    {% endif %}
                 </div>
-                
             </div>
-    </div>
-    {% endif %}
+        </div>
+    </diva>
 {% endblock %}
