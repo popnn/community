@@ -1,0 +1,11 @@
+{% extends 'community/layout.html' %}
+
+{% block ContentView %}
+    <br><br><br><br>
+    
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-light" type="submit" style="width:90%;border-radius:1rem;background-color:#b8b7fa">Submit</button>
+    </form>
+{% endblock %}

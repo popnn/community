@@ -5,4 +5,5 @@ urlpatterns = [
     path('', views.homepage, name='community-homepage'),
     path('search/', views.searchpage, name='community-search'),
     path('profile/', views.profilepage, name='community-profile'),
+    path('profile/edit/', views.editprofilepage, name='community-profile-edit')
 ]

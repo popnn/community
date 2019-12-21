@@ -1,15 +1,18 @@
 from django.db import models
+import json
 
 # Create your models here.
 def get_image_path(instance, filename):
-    return os.path.join('photos', str(instance.id), filename)
+    extension = filename.split('.')[-1]
+    return 'profile/{}.{}'.format(str(instance.user_id), extension)
 
 class UserProfiles(models.Model):
     user_id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=24)
     user_description = models.TextField(max_length=256, null=True)
-    user_following = models.TextField(null=True)
-    user_profile_image = models.ImageField(upload_to=get_image_path, blank=True, null=True)
+    user_following = models.TextField(default="")
+    user_threads = models.TextField(default="")
+    user_profile_image = models.ImageField(upload_to=get_image_path, default="profile/profile.jfif")
     user_date_joined = models.DateTimeField(auto_now_add=True)
 
 class CommunityDiscussions(models.Model):
