@@ -169,10 +169,12 @@ def editprofilepage(request):
                 user_data_main.last_name = form.cleaned_data.get('last_name')
                 user_data_main.email = form.cleaned_data.get('email')
                 user_data.user_description = form.cleaned_data.get('description')
-                user_data.user_profile_image = form.cleaned_data.get('profile_image')
+                img = form.cleaned_data.get('profile_image')
+                if img:
+                    user_data.user_profile_image = img
                 user_data.save()
                 user_data_main.save()
-                email_text = 'popN - Profile Updated', 'Dear {},\n\n Your profile has been updated.\n\nThank You\n\nTeam popN'.format(user_data.first_name)
+                email_text = 'popN - Profile Updated', 'Dear {},\n\n Your profile has been updated.\n\nThank You\n\nTeam popN'.format(user_data_main.first_name)
                 EmailMessage(email_text, to=[email_address]).send()
                 return redirect('/profile/')
         user_data = UserProfiles.objects.get(user_id=user_id)
