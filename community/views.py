@@ -176,7 +176,7 @@ def mydiscussionpage(request, username):
             context['all_cards'].append(cnt)
         return render_template(request, 'community/homepage.html', context)
 
-def newdiscussionpage(request, username):
+def newdiscussionpage(request):
     logged_in, user_id = verify_request(request)
     if not logged_in:
         return redirect('/')
