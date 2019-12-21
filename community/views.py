@@ -130,7 +130,7 @@ def alldiscussionspage(request):
             context['all_cards'].append(cnt)
         return render_template(request, 'community/homepage.html', context)
 
-def mydiscussionpage(request):
+def mydiscussionpage(request, username):
     logged_in, user_id = verify_request(request)
     if not logged_in:
         return redirect('/')
@@ -140,7 +140,7 @@ def mydiscussionpage(request):
             'logged_in': logged_in,
             "all_cards": [],
         }
-        for card in CommunityDiscussions.objects.filter(discussion_author_id=user_id):
+        for card in CommunityDiscussions.objects.filter(discussion_author_id=UserProfiles.objects.get(username=username).user_id):
             cnt = {
                 'card_title': card.discussion_title,
                 'card_text': card.discussion_description,
