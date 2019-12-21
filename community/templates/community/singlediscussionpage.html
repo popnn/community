@@ -3,35 +3,53 @@
 {% block ContentView %}
     <br><br><br><br>
     <div class="container-fluid">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header border-0 bg-white">
-                    <h2>{{ title }}</h2>
-                    <p>{{ author }}</p>
-                </div>
-                <div class="card-body">
-                    <p>{{ content }}</p>
-                </div>
-            </div>
-            <br>
-            <div class="card">
-                <div class="card-header border-0 bg-white">
-                    <h4>Comments</h4>
-                </div>
-                <div class="card-body">
-                    {% for comment in comments %}
-                    <p><strong>{{comment.author}}</strong> - {{comment.description}}</p>
-                    {% endfor %}
-                    <br>
-                    {% if not closed %}
-                        <form method="POST" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            {{ form.as_p }}
-                            <button class="btn btn-light" type="submit" style="width:100%;border-radius:1rem;background-color:#b8b7fa">Submit</button>
-                        </form>
-                    {% endif %}
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header border-0 bg-white">
+                        <h2>{{ title }}</h2>
+                        <p>{{ author }}</p>
+                    </div>
+                    <div class="card-body">
+                        <p>{{ content }}</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </diva>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header border-0 bg-white" style="border-radius:2rem;">
+                        <h4>Comments</h4>
+                    </div>
+                    <div class="card-body">
+                        {% for comment in comments %}
+                        <p><strong>{{comment.author}}</strong> - {{comment.description}}</p>
+                        {% endfor %}
+                        <br>
+                        {% if not closed %}
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <button class="btn btn-light" type="submit" style="width:100%;border-radius:1rem;background-color:#b8b7fa">Submit</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header border-0 bg-white" style="border-radius:2rem;">
+                        <h4>Similar Threads You might like</h4>
+                    </div>
+                    <div class="card-body">
+                        Links to similar thread comes here
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
