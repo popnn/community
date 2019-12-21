@@ -48,11 +48,9 @@
     </div>
     <br>
     <h3>My threads: </h3>
-    <div class="appscroll">
+    <div class="card-columns">
         {% for thread in my_threads %}
-        <ul class="hs">
-            <li>{{ thread }}</li>
-        </ul>
+            {{ thread }}
         {% endfor %}
     </div>
     <br>
