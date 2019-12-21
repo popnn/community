@@ -64,19 +64,16 @@ def signuppage(request):
                 password = form.cleaned_data.get('password')
                 password_verify = form.cleaned_data.get('password_verify')
                 email = form.cleaned_data.get('email')
-                if username not in [user.username for user in User.objects.all()]:
-                    if password==password_verify:
-                        User(username=username, password=password, email=email).save()
-                        UserProfiles(username=username).save()
-                        Email_content="Dear " + username + ",\n\nYour user is successfully created with username " + username + " Logon to popn.ml to access your account.\n\n For support email us support@popn.ml\n\nThank You\n\nTeam popN" 
-                        email_message = EmailMessage('popN - User Created', Email_content, to=[email])
-                        email.send()
-                        return redirect("/community")
-                return redirect("/")
+                if username not in [user.username for user in User.objects.all()] and str(password)==str(password_verify):
+                    User.objects.create_user(username=username, password=password, email=email).save()
+                    UserProfiles(username=username).save()
+                    Email_content="Dear " + username + ",\n\nYour user is successfully created with username " + username + " Logon to popn.ml to access your account.\n\n For support email us support@popn.ml\n\nThank You\n\nTeam popN" 
+                    email_message = EmailMessage('popN - User Created', Email_content, to=[email])
+                    email_message.send()
+                    return redirect("/")
         else:
             form = CreateUserForm()
         return render_template(request, 'community/signuppage.html', {'form': form})
-
 
 def searchpage(request):
     logged_in, user_id = verify_request(request)
