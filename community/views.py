@@ -216,7 +216,7 @@ def selectdiscussionpage(request, username, discussion_id):
             "author": UserProfiles.objects.get(user_id=discussion.discussion_author_id).username,
             "content": discussion.discussion_description,
             "editable": discussion.discussion_author_id==user_id,
-            "closed": CommunityComments.objects.filter(discussion_id=discussion.discussion_id).count() > discussion.discussion_maximum_comments,
+            "closed": CommunityComments.objects.filter(discussion_id=discussion.discussion_id).count() >= discussion.discussion_maximum_comments,
             "date": discussion.discussion_publish_date,
             "form": CommentForm(),
             "comments": [],
