@@ -123,9 +123,21 @@ def viewprofilepage(request, username):
     elif str(username) == str(UserProfiles.objects.get(user_id=user_id).username):
         return redirect('/profile/')
     else:
+        if request.method == "POST":
+            if request.POST.get("follow"):
+                user_obj = UserProfiles.objects.get(user_id=user_id)
+                user_obj.user_following = ", ".join(user_obj.user_following.split(", ") + [str(UserProfiles.objects.get(username=username).user_id)])
+                user_obj.save()
+            elif request.POST.get("unfollow"):
+                user_obj = UserProfiles.objects.get(user_id=user_id)
+                base = (user_obj.user_following.split(", ")
+                base.remove(str(UserProfiles.objects.get(username=username).user_id))
+                user_obj.user_following = ", ".join(base)
+                user_obj.save()
         user_data = UserProfiles.objects.get(user_id=UserProfiles.objects.get(username=username).user_id)
         user_data_main = User.objects.get(username=username)
         context = {
+            "following": str(UserProfiles.objects.get(username=username).user_id) in UserProfiles.objects.get(user_id=user_id).user_following.split(", "),
             'title': 'Profile',
             'logged_in': logged_in,
             'image_path': user_data.user_profile_image,
