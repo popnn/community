@@ -43,7 +43,7 @@ def homepage(request):
                 user = authenticate(username=username, password=password)
                 if user is not None:
                     login(request, user)
-                    response = redirect('/community')
+                    response = redirect('/')
                     user_id = UserProfiles.objects.get(username=username).user_id
                     response.set_cookie('id', user_id)
                     return response 
@@ -124,7 +124,7 @@ def selectdiscussionpage(request, username, discussion_id):
                 desc = form.cleaned_data.get('comment')
                 comment = CommunityComments(
                     discussion_id=discussion_id,
-                    comment_author_id=discussion.discussion_author_id,
+                    comment_author_id=user_id,
                     comment_description=desc
                 )
                 comment.save()
