@@ -186,8 +186,8 @@ def editprofilepage(request):
                 user_data_main.save()
                 email_subject = 'popN - Profile Updated'
                 email_body = 'Dear {},\n\nYour profile has been updated.\n\nThank You\n\nTeam popN'.format(user_data_main.first_name)
-                email = EmailMessage(email_subject, email_body, to=[email_address])
-                email.send() 
+                email = EmailMessage(email_subject,email_body, to=[email_address])
+                email.send()
                 return redirect('/profile/')
         user_data = UserProfiles.objects.get(user_id=user_id)
         user_data_main = User.objects.get(username=user_data.username)
