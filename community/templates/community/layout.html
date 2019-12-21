@@ -26,7 +26,7 @@
 
         <!--Navbar-->
         <nav class="navbar navbar-expand-lg fixed-top navbar-light shadow" style="background-color: #b8b7fa;border-radius:0rem 0rem 1rem 1rem;">
-                <h4 style="animation-duration: 0.5s;animation-name: bounceInLeft;font-family:'Comfortaa', cursive;"><a class="navbar-brand" href="#"><i class="fas fa-bolt"></i> pop<sup>N</sup></a></h4>
+                <h4 style="animation-duration: 0.7s;animation-name: bounceInDown;font-family:'Comfortaa', cursive;"><a class="navbar-brand" href="#"><i class="fas fa-bolt"></i> pop<sup>N</sup></a></h4>
             <button class="navbar-toggler border-0 text-dark" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="fas fa-bars"></span>
             </button>
@@ -43,6 +43,9 @@
                 
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'community-profile' %}"><i class="fas fa-user"></i> Profile</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="{% url 'community-discussions-new' %}"><i class="fas fa-plus"></i> New Thread</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
