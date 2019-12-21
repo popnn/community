@@ -20,6 +20,22 @@
             .card{
                 border-radius:2rem;
             }
+            .appscroll {
+            display: grid;
+            grid-template-columns: 20px 1fr 20px;
+            }
+            .appscroll > * {
+            grid-column: 2 / -2;
+            }
+            .appscroll > .full {
+            grid-column: 1 / -1;
+            }
+            .hs {
+            display: grid;
+            grid-gap: 10px;
+            grid-template-columns: repeat(6, calc(50% - 40px));
+            grid-template-rows: minmax(150px, 1fr);
+            }
         </style>
     </head>
     <body>
