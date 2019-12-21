@@ -184,14 +184,9 @@ def editprofilepage(request):
                     user_data.user_profile_image = img
                 user_data.save()
                 user_data_main.save()
-<<<<<<< HEAD
-                email_text = 'Dear {},\n\n Your profile has been updated.\n\nThank You\n\nTeam popN'.format(user_data_main.first_name)
-                email = EmailMessage('popN - Profile Updated', email_text, to=[email_address])
-=======
                 email_subject = 'popN - Profile Updated'
                 email_body = 'Dear {},\n\nYour profile has been updated.\n\nThank You\n\nTeam popN'.format(user_data_main.first_name)
                 email = EmailMessage(email_subject,email_body, to=[email_address])
->>>>>>> 97942803b02ab7ac90d5ce34bad96670f58954c2
                 email.send()
                 return redirect('/profile/')
         user_data = UserProfiles.objects.get(user_id=user_id)
