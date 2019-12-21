@@ -1,33 +1,68 @@
-{% extends 'community/layout.html' %}
+{% load static %}
 
-{% block ContentView %}
-    <br><br><br><br>
-    <div class="container-fluid">
-        <center>
-            <div class="col">
-                <div class="row d-flex justify-content-center">
-                    <div class="card shadow ">
-                        <div class="card-header border-0 bg-white" style="border-radius:2rem;">
-                            <h2>Login</h2>
-                        </div>
-                        <div class="card-body">
-                            <form method="POST" >
-                                {% csrf_token %}
-                                <div class="form-group">
-                                    <label for="UsernameInput">Username: </label>
-                                    {{form.username}}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="theme-color" content="#b8b7fa">
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+        <script defer src="{% static 'fontawesome/js/all.min.js' %}"></script>
+        <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+        <title>{{ title }}</title>
+        <style>
+            body{
+                font-family: 'Montserrat', sans-serif;
+            }
+            .card{
+                border-radius:2rem;
+            }
+        </style>
+    </head>
+    <body style="background-color:#dcdcfc">
+        <br class="d-none d-block-sm">
+        <br class="d-none d-block-sm">
+        <div class="container-fluid">
+            <center>
+                <br>
+                
+                <div class="row d-flex">. 
+                    <div class="col">
+                        <h1 style="animation-duration: 1s;animation-name: bounceInDown;font-family:'Comfortaa', cursive;" class="display-3"><i class="fas fa-bolt"></i> pop<sup>N</sup></h1>
+                        <br>
+                        <div class="container">
+                            <div class="row d-flex justify-content-center">
+                                <div class="card shadow">
+                                    <div class="card-header border-0 bg-white" style="border-radius:2rem;">
+                                        <h2>Login</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <form method="POST" >
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <label for="UsernameInput">Username: </label>
+                                                {{form.username}}
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="PasswordInput">Password:  </label>
+                                                {{form.password}}
+                                            </div>
+                                            <br>
+                                            <button class="btn btn-light" type="submit" style="width:90%;border-radius:1rem;background-color:#b8b7fa">Login</button>
+                                        </form>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="PasswordInput">Password:  </label>
-                                    {{form.password}}
-                                </div>
-                                <br>
-                                <button class="btn btn-light" type="submit" style="width:90%;border-radius:1rem;background-color:#b8b7fa">Login</button>
-                            </form>
+                            </div>
                         </div>
                     </div>
+                    <div class="col align-self-center">
+                        <br class="d-block d-none-sm">
+                        content/image/Ad placement here
+                    </div>
                 </div>
-            </div>
-        </center>
-    </div>
-{% endblock %}
+            </center>
+        </div>
+    </body>
+</html>
