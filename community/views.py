@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
+from django.core.mail import EmailMessage
 from PIL import Image
 from .models import *
 from .forms import *
@@ -106,6 +107,9 @@ def editprofilepage(request):
                 user_data_main.save()
                 return redirect('/community/profile/')
         form = EditProfileForm()
+        email_address = User.object.get(username=UserProfiles.object.get(user_id=user_id).username).email
+        email = EmailMessage('popN - Profile Updated', 'Dear user,\n\n The profile update has been processed successfully.\n\nThank You\n\nTeam popN', to=[email_address])
+        email.send()
         return render_template(request, 'community/editprofilepage.html', {"form":form})
 
 def alldiscussionspage(request):
