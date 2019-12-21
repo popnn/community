@@ -64,16 +64,13 @@ def signuppage(request):
                 password = form.cleaned_data.get('password')
                 password_verify = form.cleaned_data.get('password_verify')
                 email = form.cleaned_data.get('email')
-                if username not in [user.username for user in User.objects.all()]:
-                    if str(password)==str(password_verify):
-                        User.objects.create_user(username=username, password=password, email=email).save()
-                        UserProfiles(username=username).save()
-                        return redirect("/community")
-                return redirect("/")
+                if username not in [user.username for user in User.objects.all()] and str(password)==str(password_verify):
+                    User.objects.create_user(username=username, password=password, email=email).save()
+                    UserProfiles(username=username).save()
+                    return redirect("/")
         else:
             form = CreateUserForm()
         return render_template(request, 'community/signuppage.html', {'form': form})
-
 
 def searchpage(request):
     logged_in, user_id = verify_request(request)
