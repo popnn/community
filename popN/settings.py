@@ -30,6 +30,12 @@ ALLOWED_HOSTS = ['community.popn.ml','192.168.29.47', '127.0.0.1']
 
 # Application definition
 
+from django.utils.deprecation import MiddlewareMixin
+
+class UpdateableMiddleware(MiddlewareMixin):
+    def process_exception(self, request, exception):
+        return HttpResponse("in exception")
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
