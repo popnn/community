@@ -52,9 +52,9 @@
                         </li>
                     {% endif %}
                 </ul>
-                <form class="form-inline my-2 my-lg-0" action="{% url 'community-search' %}" method="get">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                <form class="form-inline" action="{% url 'community-search' %}" method="get">
+                    <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="q" style="border-radius:1rem;">
+                    <button class="btn btn-outline-success rounded-circle" type="submit"><i class="fas fa-search"></i></button>
                 </form>
             </div>
         </nav>
