@@ -74,7 +74,7 @@ def signuppage(request):
                     return response 
         else:
             form = CreateUserForm()
-        return render_template(request, 'community/previewpage.html', {'form': form})
+        return render_template(request, 'community/signuppage.html', {'form': form})
 
 
 def searchpage(request):
