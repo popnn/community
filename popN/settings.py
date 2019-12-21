@@ -92,7 +92,7 @@ DATABASES = {
         'NAME': 'django_db',
         'USER': 'djangouser',
         'PASSWORD': 'popnsecurepassword',
-        'HOST': 'eventdips.ga',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
