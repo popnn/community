@@ -51,6 +51,32 @@ def homepage(request):
             form = AuthenticationForm()
         return render_template(request, 'community/previewpage.html', {'form': form})
 
+def signuppage(request):
+    logged_in, user_id = verify_request(request)
+    if logged_in:
+        return redirect("/")
+    else:
+        if request.method == 'POST':
+            form = CreateUserForm(request.POST)
+            if form.is_valid():
+                username = form.cleaned_data.get('username')
+                password = form.cleaned_data.get('password')
+                password_verify = form.cleaned_data.get('password_verify')
+                email = form.cleaned_data.get('email')
+                if username not in [user.username for user in Users.objects.all()] and password==password_verify:
+                    User(username=username, password=password, email=email).save()
+                    UserProfiles(username=username).save()
+                    user = authenticate(username=username, password=password)
+                    login(request, user)
+                    response = redirect('/')
+                    user_id = UserProfiles.objects.get(username=username).user_id
+                    response.set_cookie('id', user_id)
+                    return response 
+        else:
+            form = CreateUserForm()
+        return render_template(request, 'community/previewpage.html', {'form': form})
+
+
 def searchpage(request):
     logged_in, user_id = verify_request(request)
     if request.method == 'GET':

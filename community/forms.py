@@ -11,7 +11,10 @@ class CommentForm(forms.Form):
     comment = forms.CharField(max_length=500, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
 class CreateUserForm(forms.Form):
-    pass
+    username = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(max_length=256, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(max_length=30, widget=forms.PasswordInput)
+    password_verify = forms.CharField(max_length=30, widget=forms.PasswordInput) 
 
 class EditProfileForm(forms.Form):
     first_name = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class': 'form-control'}))
