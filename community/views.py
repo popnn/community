@@ -124,7 +124,7 @@ def selectdiscussionpage(request, username, discussion_id):
                 desc = form.cleaned_data.get('comment')
                 comment = CommunityComments(
                     discussion_id=discussion_id,
-                    comment_author_id=discussion.discussion_author_id,
+                    comment_author_id=user_id,
                     comment_description=desc
                 )
                 comment.save()
