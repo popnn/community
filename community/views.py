@@ -118,7 +118,6 @@ def profilepage(request):
             'profile_image': user_data.user_profile_image.url,
             'my_threads': my_threads,
             'my_threads_count': len(my_threads),
-            'following': str(UserProfiles.objects.get(username=username).user_id) in UserProfiles.objects.get(user_id=user_id).user_following.split(", "),
         }
         return render_template(request, 'community/profilepage.html', context)
 
