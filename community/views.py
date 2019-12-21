@@ -284,9 +284,22 @@ def newdiscussionpage(request):
                     discussion_type="OPEN",
                     discussion_author_id=str(user_id))
                 discussion.save()
-                return redirect('/community')
+                return redirect('/')
         form = DiscussionForm()
         return render_template(request, 'community/newdiscussionpage.html', {"title":"New Discussion", "form":form})
 
 def search(query, logged_in):
-    pass
+    res = {
+        "threads":[],
+    }
+    for thread in CommunityDiscussions.objects.all():
+        for data in [thread.discussion_title, thread.discussion_description]:
+            if query.lower() in data.lower():
+                break
+        else:
+            continue
+        res["threads"].append({
+            'card_title': thread.discussion_title,
+            'card_text': thread.discussion_description,
+        })
+    return res["threads"]
