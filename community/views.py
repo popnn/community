@@ -121,11 +121,11 @@ def selectdiscussionpage(request, username, discussion_id):
         if request.method == "POST":
             form = CommentForm(request.POST)
             if form.is_valid():
-                c = form.cleaned_data.get('comment')
+                desc = form.cleaned_data.get('comment')
                 comment = CommunityComments(
                     discussion_id=discussion_id,
                     comment_author_id=discussion.discussion_author_id,
-                    comment_description=c
+                    comment_description=desc
                 )
                 comment.save()
         
@@ -138,8 +138,14 @@ def selectdiscussionpage(request, username, discussion_id):
             "closed": CommunityComments.objects.filter(discussion_id=discussion.discussion_id).count() > discussion.discussion_maximum_comments,
             "date": discussion.discussion_publish_date,
             "form": CommentForm(),
-            "comments": CommunityComments.objects.filter(discussion_id=discussion_id),
+            "comments": [],
         }
+        for comment in CommunityComments.objects.filter(discussion_id=discussion_id):
+            comments.append({
+                "author": UserProfiles.objects.get(user_id=comment.comment_author_id).username,
+                "description": comment.comment_description,
+                "pub_date": comment.comment_publish_date,
+            })
         return render_template(request, "community/singlediscussionpage.html", context)
 
 def alldiscussionspage(request):
