@@ -5,8 +5,8 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6">
-                <div class="card">
+            <div class="col-md-6 d-flex justify-content-center">
+                <div class="card w-80">
                     <div class="card-header border-0 bg-white">
                         <h3>New Registration</h3>
                     </div>
@@ -15,7 +15,7 @@
                             <div class="form-group">
                                 {% csrf_token %}
                                 {{ form.as_p }}
-                                <button class="btn btn-light" type="submit" style="width:10%;border-radius:1rem;background-color:#b8b7fa"">Sign Up</button>
+                                <button class="btn btn-light" type="submit" style="width:100%;border-radius:1rem;background-color:#b8b7fa">Sign Up</button>
                             </div>
                         </form>
                     </div>
