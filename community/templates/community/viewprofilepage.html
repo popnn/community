@@ -9,6 +9,12 @@
                 <div class="card-header border-0 bg-white d-flex" style="border-radius:1rem;">
                     <img src="{{ profile_image }}" class="rounded-circle"style="width: 80px;" >
                      &nbsp&nbsp<strong class="align-self-center w-100">{{ username }}</strong>
+                     <div class="justify-content-right">
+                        <form method="POST" enctype="multipart/form-data">
+                            <button class="btn btn-light" style="border-radius:1rem;background-color: b8b7fa;" >Follow</button>
+                            <button class="btn btn-light" style="border-radius:1rem;background-color: b8b7fa;" >UnFollow</button>
+                        </form>
+                    </div>
                 </div>
                     <h2> {{ first_name }} {{ last_name }}</h2>
                     <h6> {{ description }} </h6>
@@ -23,7 +29,7 @@
                         </div>
                     </div>
                 <br>
-            </div>
+            </divss>
         </div>
     </div>
     <br>
