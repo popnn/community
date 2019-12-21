@@ -11,8 +11,11 @@
                      &nbsp&nbsp<strong class="align-self-center w-100">{{ username }}</strong>
                     <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <button class="btn btn-light" style="border-radius:1rem;background-color: #9dfc99;" >Follow</button>
-                        <button class="btn btn-light" style="border-radius:1rem;background-color: #f89c8c;" >UnFollow</button>
+                        {% if not following %}
+                            <button name="follow" value="true" class="btn btn-light" style="border-radius:1rem;background-color: #9dfc99;" >Follow</button>
+                        {% else %}
+                            <button name="unfollow" value="true" class="btn btn-light" style="border-radius:1rem;background-color: #f89c8c;" >UnFollow</button>
+                        {% endif %}
                     </form>  
                 </div>
                 <div class="card-body">
