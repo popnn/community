@@ -66,7 +66,7 @@ def signuppage(request):
                 email = form.cleaned_data.get('email')
                 if username not in [user.username for user in User.objects.all()]:
                     if password==password_verify:
-                        User(username=username, password=password, email=email).save()
+                        User.objects.create_user(username=username, password=password, email=email).save()
                         UserProfiles(username=username).save()
                         return redirect("/community")
                 return redirect("/")
