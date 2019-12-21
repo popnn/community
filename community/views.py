@@ -130,7 +130,7 @@ def viewprofilepage(request, username):
                 user_obj.save()
             elif request.POST.get("unfollow"):
                 user_obj = UserProfiles.objects.get(user_id=user_id)
-                base = (user_obj.user_following.split(", ")
+                base = user_obj.user_following.split(", ")
                 base.remove(str(UserProfiles.objects.get(username=username).user_id))
                 user_obj.user_following = ", ".join(base)
                 user_obj.save()
