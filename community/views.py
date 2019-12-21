@@ -68,7 +68,7 @@ def signuppage(request):
                     UserProfiles(username=username).save()
                     user = authenticate(username=username, password=password)
                     login(request, user)
-                    response = redirect('/')
+                    response = redirect('/profile/edit')
                     user_id = UserProfiles.objects.get(username=username).user_id
                     response.set_cookie('id', user_id)
                     return response 
