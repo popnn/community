@@ -43,7 +43,7 @@ def homepage(request):
                 user = authenticate(username=username, password=password)
                 if user is not None:
                     login(request, user)
-                    response = redirect('/community')
+                    response = redirect('/')
                     user_id = UserProfiles.objects.get(username=username).user_id
                     response.set_cookie('id', user_id)
                     return response 
