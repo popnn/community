@@ -70,7 +70,12 @@ def signuppage(request):
                     Email_content="Dear " + username + ",\n\nYour user is successfully created with username " + username + " Logon to popn.ml to access your account.\n\n For support email us support@popn.ml\n\nThank You\n\nTeam popN" 
                     email_message = EmailMessage('popN - User Created', Email_content, to=[email])
                     email_message.send()
-                    return redirect("/")
+                    user = authenticate(username=username, password=password)
+                    login(request, user)
+                    response = redirect("/profile/edit")
+                    user_id = UserProfiles.objects.get(username=username).user_id
+                    response.set_cookie('id', user_id)
+                    return response 
         else:
             form = CreateUserForm()
         return render_template(request, 'community/signuppage.html', {'form': form})
@@ -96,7 +101,6 @@ def profilepage(request):
     else:
         user_data = UserProfiles.objects.get(user_id=user_id)
         user_data_main = User.objects.get(username=user_data.username)
-        print(user_data.user_following)
         context = {
             'title': 'Profile',
             'logged_in': logged_in,
@@ -111,6 +115,31 @@ def profilepage(request):
             'profile_image': user_data.user_profile_image.url,
         }
         return render_template(request, 'community/profilepage.html', context)
+
+def viewprofilepage(request, username):
+    logged_in, user_id = verify_request(request)
+    if not logged_in:
+        return redirect('/')
+    elif username == UserProfiles.objects.get(user_id.user_id).username:
+        return redirect('/profile/')
+    else:
+        user_data = UserProfiles.objects.get(user_id=User.objects.get(username=username).user_id)
+        user_data_main = User.objects.get(username=username)
+        context = {
+            'title': 'Profile',
+            'logged_in': logged_in,
+            'image_path': user_data.user_profile_image,
+            'first_name': user_data_main.first_name,
+            'last_name': user_data_main.last_name,
+            'username': user_data.username,
+            'email': user_data_main.email,
+            'description': user_data.user_description,
+            'followers': sum(1 for val in UserProfiles.objects.all() if str(user_data.user_id) in val.user_following.split(", ")),
+            'followed_threads': [ CommunityDiscussions.objects.get(discussion_id=int(val)).discussion_title for val in user_data.user_threads.split(", ") if val != ""],
+            'profile_image': user_data.user_profile_image.url,
+        }
+        return render_template(request, 'community/profilepage.html', context)
+
 
 def editprofilepage(request):
     logged_in, user_id = verify_request(request)
