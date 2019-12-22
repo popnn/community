@@ -12,7 +12,10 @@ from .forms import *
 import json
 import os
 from popN.settings import BASE_DIR 
+import datetime
 
+#TODO Account_status 
+ 
 def verify_request(request):
     return request.COOKIES.get('id', None) is not None, request.COOKIES.get('id', None)
 
@@ -95,7 +98,6 @@ def searchpage(request):
         'query': query,
         'logged_in': logged_in,
     }
-    
     if query is not None:
         context['search_results'] = search(query, logged_in)
     return render_template(request, 'community/searchpage.html', context)
@@ -166,7 +168,6 @@ def viewprofilepage(request, username):
             'my_threads_count': len(my_threads),
             'following': str(UserProfiles.objects.get(username=username).user_id) in UserProfiles.objects.get(user_id=user_id).user_following.split(", "),
         }
-        
         return render_template(request, 'community/viewprofilepage.html', context)
 
 
@@ -204,8 +205,53 @@ def editprofilepage(request):
             'description': user_data.user_description,
             'profile_image': user_data.user_profile_image,
         })
-        
         return render_template(request, 'community/editprofilepage.html', {"form":form})
+
+def allconversationspages(request):
+    logged_in, user_id = verify_request(request)
+    if not logged_in:
+        return redirect('/')
+    else:
+        pass
+
+def selectconversationpage(request, conversation_id):
+    logged_in, user_id = verify_request(request)
+    if not logged_in:
+        return redirect('/')
+    else:
+        if request.method == "POST":
+            form = ConversationForm(request.POST)
+            if form.is_valid():
+                comment = form.cleaned_data.get("message")
+                conv = Conversations.objects.get(conversation_id=conversation_id)
+                conv.conversation_history = conv.conversation_history + "{!!!}" + str(user_id) + "{!}" + str(comment) + "{!}" + str(datetime.dateime.now())
+        conv = Conversations.objects.get(conversation_id=conversation_id)
+        users = [int(val) for val in conv.user_ids.split(", ")]
+        raw_conv_data = conv.conversation_history.split("{!!!}")[::-1]
+        conv_data = []
+        for data in raw_conv_data:
+            user_id, message, datestamp = raw_conv_data.split("{!}")
+            datestamp = eval(datestamp)
+            username = UserProfiles.ojects.get(user_id=int(user_id)).username
+            conv_data.append({"username":username, "datestamp":datestamp, "message":message})
+        title = conv.conversation_name
+        form = ConversationForm()
+        context = {
+            "form": form,
+            "title": title,
+            "conv_data": conv_data,
+            }
+        return render_template(request, 'community/conversationpage.html', context)
+
+def newconversationpage(request, other_user_id):
+    logged_in, user_id = verify_request(request)
+    if not logged_in:
+        return redirect('/')
+    else:
+        usrs = str(other_user_id) + ", " + str(user_id)
+        conv = Conversations(user_ids=usrs, admin_id=str(user_id))
+        conv.save()
+        return redirect("conversations/{}/".format(conv.conversation_id))
 
 def selectdiscussionpage(request, username, discussion_id):
     logged_in, user_id = verify_request(request)

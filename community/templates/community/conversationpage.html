@@ -1,0 +1,12 @@
+{% extends 'community/layout.html' %}
+{% block ContentView %}
+    <br><br><br><br>
+    {% for value in conv_data %}
+        {{ value.username }}: {{ value.message }} <br>
+    {% endfor %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" value="1">></button>
+    </form>
+{% endblock %}
