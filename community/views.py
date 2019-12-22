@@ -212,7 +212,16 @@ def allconversationspages(request):
     if not logged_in:
         return redirect('/')
     else:
-        pass
+        context = {
+            "title": "Conv",
+            "conv_list": []
+        }
+        for conversation in Conversations.objects.all():
+            if str(user_id) in conversation.user_ids.split(', '):
+                name = conversation.conversation_title if conversation.conversation_title != '' else "CHAT"
+                context["conv_list"].append({"name":name, "url":"/conversations/{}".format(conversation.conversation_id)})
+        return render_template(request, 'community/allconversatonspage.html', context)
+
 
 def selectconversationpage(request, conversation_id):
     logged_in, user_id = verify_request(request)
