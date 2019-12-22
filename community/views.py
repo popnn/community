@@ -222,7 +222,14 @@ def allconversationspages(request):
         }
         for conversation in Conversations.objects.all():
             if str(user_id) in conversation.user_ids.split(', '):
-                name = conversation.conversation_title if conversation.conversation_title != '' else conversation.user_ids[:30]
+                if conversation.conversation_title != '':
+                    name = conversation.conversation_title 
+                else:
+                    ref = conversation.user_ids.split(', ')
+                    ref.remove(str(user_id))
+                    name = ", ".join(UserProfiles.objects.get(user_id=int(f_id)).username for f_id in ref)
+                    if len(name) > 100:
+                        name = name[:97] + "..."
                 context["conv_list"].append({"name":name, "url":"/conversations/{}".format(conversation.conversation_id)})
         return render_template(request, 'community/allconversationspage.html', context)
 
