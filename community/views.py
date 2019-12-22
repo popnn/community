@@ -152,6 +152,7 @@ def viewprofilepage(request, username):
         followers_count = sum(1 for val in UserProfiles.objects.all() if str(user_data.user_id) in val.user_following.split(", "))
         following_users = [UserProfiles.objects.get(user_id=int(f_id)).username for f_id in user_data.user_following.split(", ") if f_id != '']
         my_threads = [val.discussion_title for val in CommunityDiscussions.objects.filter(discussion_author_id=user_data.user_id)]
+        chat_creation_url = '/new-conversation/{}/'.format(user_data.user_id)
         context = {
             'title': 'Profile',
             'logged_in': logged_in,
@@ -167,6 +168,7 @@ def viewprofilepage(request, username):
             'my_threads': my_threads,
             'my_threads_count': len(my_threads),
             'following': str(UserProfiles.objects.get(username=username).user_id) in UserProfiles.objects.get(user_id=user_id).user_following.split(", "),
+            'chat_creation_url': chat_creation_url,
         }
         return render_template(request, 'community/viewprofilepage.html', context)
 
