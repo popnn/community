@@ -164,7 +164,7 @@ PWA_APP_START_URL = '/'
 
 PWA_APP_ICONS = [
     {
-        'src': '/static/popN.png',
+        'src': '/static/popNcroppedblack.png',
         'sizes': '300x300'
     }
 ]
