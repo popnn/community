@@ -228,7 +228,7 @@ def selectconversationpage(request, conversation_id):
                 conv.save()
         conv = Conversations.objects.get(conversation_id=conversation_id)
         users = [int(val) for val in conv.user_ids.split(", ")]
-        raw_conv_data = conv.conversation_history.split("{!!!}")[::-1]
+        raw_conv_data = conv.conversation_history.split("{!!!}")
         conv_data = []
         for data in raw_conv_data:
             if data != '':
