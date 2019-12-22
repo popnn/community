@@ -367,7 +367,7 @@ def newdiscussionpage(request):
                 description = form.cleaned_data.get('description')
                 discussion = CommunityDiscussions(
                     discussion_title=title,
-                    discussion_description=description,
+                    discussion_description=re.sub('[\xF0-\xF7][\x80-\xBF][\x80-\xBF][\x80-\xBF]', '', str(description)),
                     discussion_maximum_comments=max_comments,
                     discussion_type="OPEN",
                     discussion_author_id=str(user_id))
