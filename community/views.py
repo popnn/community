@@ -3,7 +3,9 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage,EmailMultiAlternatives
+from django.template import Context
+from django.template.loader import render_to_string
 from PIL import Image
 from .models import *
 from .forms import *
@@ -67,9 +69,13 @@ def signuppage(request):
                 if username not in [user.username for user in User.objects.all()] and str(password)==str(password_verify):
                     User.objects.create_user(username=username, password=password, email=email).save()
                     UserProfiles(username=username).save()
-                    Email_content="Dear " + username + ",\n\nYour user is successfully created with username " + username + " Logon to popn.ml to access your account.\n\n For support email us support@popn.ml\n\nThank You\n\nTeam popN" 
-                    email_message = EmailMessage('popN - User Created', Email_content, to=[email])
-                    email_message.send()
+                    #Email_content="Dear " + username + ",\n\nYour user is successfully created with username " + username + " Logon to popn.ml to access your account.\n\n For support email us support@popn.ml\n\nThank You\n\nTeam popN" 
+                    subject="popN - Profile created"
+                    html_body = render_to_string("email-template/user_created.html",{'username':username})
+                    #email_message = EmailMessage('popN - User Created', Email_content, to=[email])
+                    msg = EmailMultiAlternatives(subject=subject,to=[email])
+                    msg.attach_alternative(html_body, "text/html")
+                    msg.send()
                     user = authenticate(username=username, password=password)
                     login(request, user)
                     response = redirect("/profile/edit")
