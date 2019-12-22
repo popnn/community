@@ -17,7 +17,11 @@ class CreateUserForm(forms.Form):
     email = forms.EmailField(max_length=256, widget=forms.TextInput(attrs={'class': 'form-control'}))
     password = forms.CharField(max_length=30, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     password_verify = forms.CharField(max_length=30, widget=forms.PasswordInput(attrs={'class': 'form-control'})) 
-    captcha = ReCaptchaField(widget=ReCaptchaV3)
+    captcha = ReCaptchaField(
+        widget=ReCaptchaV3,
+        public_key='6LfNLskUAAAAAJ8wFJXXblKm94vMO1cUiEoJ8Frv',
+        private_key='6LfNLskUAAAAAEqM3Vi8fHMZ2w4KM4KLXeKbGiGP',
+        )
 
 class EditProfileForm(forms.Form):
     first_name = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class': 'form-control'}))
