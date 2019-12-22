@@ -224,7 +224,7 @@ def selectconversationpage(request, conversation_id):
             if form.is_valid():
                 comment = form.cleaned_data.get("message")
                 conv = Conversations.objects.get(conversation_id=conversation_id)
-                conv.conversation_history = conv.conversation_history + "{!!!}" + str(user_id) + "{!}" + str(comment) + "{!}" + str(datetime.dateime.now())
+                conv.conversation_history = conv.conversation_history + "{!!!}" + str(user_id) + "{!}" + str(comment) + "{!}" + str(datetime.datetime.now())
         conv = Conversations.objects.get(conversation_id=conversation_id)
         users = [int(val) for val in conv.user_ids.split(", ")]
         raw_conv_data = conv.conversation_history.split("{!!!}")[::-1]
