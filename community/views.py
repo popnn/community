@@ -222,7 +222,7 @@ def allconversationspages(request):
         }
         for conversation in Conversations.objects.all():
             if str(user_id) in conversation.user_ids.split(', '):
-                name = conversation.conversation_title if conversation.conversation_title != '' else "CHAT"
+                name = conversation.conversation_title if conversation.conversation_title != '' else conversation.user_ids[:30]
                 context["conv_list"].append({"name":name, "url":"/conversations/{}".format(conversation.conversation_id)})
         return render_template(request, 'community/allconversationspage.html', context)
 
@@ -264,10 +264,14 @@ def newconversationpage(request, other_user_id):
     if not logged_in:
         return redirect('/')
     else:
-        usrs = str(other_user_id) + ", " + str(user_id)
-        conv = Conversations(user_ids=usrs, admin_id=str(user_id))
-        conv.save()
-        return redirect("conversations/{}/".format(conv.conversation_id))
+        for conv in Conversations.objects.get(conversation_id=conversation_id):
+            if  str(user_id) in conv.user_ids.split(', '):
+                break
+        else:
+            usrs = str(other_user_id) + ", " + str(user_id)
+            conv = Conversations(user_ids=usrs, admin_id=str(user_id))
+            conv.save()
+        return redirect("/conversations/{}/".format(conv.conversation_id))
 
 def selectdiscussionpage(request, username, discussion_id):
     logged_in, user_id = verify_request(request)
