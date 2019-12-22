@@ -1,6 +1,7 @@
 from django import forms
 from PIL import Image
 from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV3
 
 class DiscussionForm(forms.Form):
     title = forms.CharField(max_length=32, widget=forms.TextInput(attrs={'class': 'form-control'}))
