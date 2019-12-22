@@ -39,11 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'community.apps.CommunityConfig',
+    #useradded
+    'django.contrib.sites',
     'bootstrap',
     'fontawesome',
     'pwa_webpush',
     'captcha',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
