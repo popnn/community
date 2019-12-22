@@ -32,6 +32,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('logout/', logout_function, name='logout'),
     path('', include('community.urls'), name='community'),
+    path('',  include('pwa_webpush.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
