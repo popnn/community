@@ -1,12 +1,36 @@
 {% extends 'community/layout.html' %}
 {% block ContentView %}
     <br><br><br><br>
-    {% for value in conv_data %}
-        {{ value.username }}: {{ value.message }} <br>
-    {% endfor %}
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" value="1">></button>
-    </form>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header border-0 bg-white" style="border-radius:2rem;">
+                        <h3>Private Chat</h3>
+                    </div>
+                    <div class="card-body">
+                        {% for value in conv_data %}
+                            <p><strong>{{ value.username }} :</strong> {{ value.message }}</p>
+                        {% endfor %}
+                        <hr>
+                        <form method="POST" class="form-inline">
+                            {% csrf_token %}
+                            {{ form.message }}
+                            <button type="submit" class="btn btn-light" style="border-radius:1rem;background-color:#b8b7fa" value="1"></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header border-0 bg-white" style="border-radius:2rem;">
+                        <h3>More conversations</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>More users</p>
+                    </div>
+                </div>
+            </diva>
+        </div>
+    </divass>
 {% endblock %}
