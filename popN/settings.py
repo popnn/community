@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'bootstrap',
     'fontawesome',
     'pwa_webpush',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -179,3 +180,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'no-reply@popn.ml'
 EMAIL_HOST_PASSWORD = 'popnpassnoreply'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+#Recaptcha
+RECAPTCHA_PUBLIC_KEY = '6LfNLskUAAAAAJ8wFJXXblKm94vMO1cUiEoJ8Frv'
+RECAPTCHA_PRIVATE_KEY = '6LfNLskUAAAAAEqM3Vi8fHMZ2w4KM4KLXeKbGiGP'
