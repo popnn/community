@@ -235,7 +235,7 @@ def selectconversationpage(request, conversation_id):
                 datestamp = eval(datestamp)
                 username = UserProfiles.ojects.get(user_id=int(user_id)).username
                 conv_data.append({"username":username, "datestamp":datestamp, "message":message})
-        title = conv.conversation_name
+        title = conv.conversation_title
         form = ConversationForm()
         context = {
             "form": form,
