@@ -48,14 +48,14 @@
     </div>
     <br>
     <h3>My threads: </h3>
-    <div class="card-columns">
+    <div class="col-md-6">
         {% for thread in my_threads %}
             {{ thread }}
         {% endfor %}
     </div>
     <br>
     <h3>Followed Users: </h3>
-    <div class="col-md-5">
+    <div class="col">
         <ul class="list-group">
             {% for user in following_users %}
                 <a href="/profile/view/{{user}}/">
