@@ -5,7 +5,17 @@
         <h1>Search: {{ query }}</h1>
         <br>
         <div class="card-columns">
-            {% for card_data in search_results %}
+            {% for card_data in search_results.users %}
+                <a href="{{ card_data.url }}">
+                    <div class="card shadow mb-4 text-dark" style="text-decoration: none;">
+                        <div class="card-header border-0 bg-white" style="border-radius:2rem;">
+                            <h2> {{ card_data.username }}</h2>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+            
+            {% for card_data in search_results.threads %}
                 <a href="{{ card_data.card_url }}">
                     <div class="card shadow mb-4 text-dark" style="text-decoration: none;">
                         <div class="card-header border-0 bg-white" style="border-radius:2rem;">

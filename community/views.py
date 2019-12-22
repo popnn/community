@@ -378,6 +378,7 @@ def newdiscussionpage(request):
 def search(query, logged_in):
     res = {
         "threads":[],
+        "users":[]
     }
     for thread in CommunityDiscussions.objects.all():
         for data in [thread.discussion_title, thread.discussion_description]:
@@ -389,4 +390,10 @@ def search(query, logged_in):
             'card_title': thread.discussion_title,
             'card_text': thread.discussion_description,
         })
-    return res["threads"]
+    for user in UserProfiles.objects.all():
+        if query in user.username:
+            res["users"].append({
+                'username': user.username,
+                'url': "/profile/view/{}/".format(user.username),
+            }) 
+    return res
