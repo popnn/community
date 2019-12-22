@@ -1,6 +1,6 @@
 {% extends 'community/layout.html' %}
 {% block ContentView %}
     {% for conv in conv_list %}
-        <button onclick="location.href='{{ conv.url }};'">{{ conv.name }}</button>
+        <button onclick="location.href='{{ conv.url }};'">{{ conv.name }}</button><br>
     {% endfor %}
 {% endblock %}
