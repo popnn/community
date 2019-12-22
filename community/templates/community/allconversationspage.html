@@ -6,10 +6,10 @@
             {% for conv in conv_list %}
                 <div class="card">
                     <div class="card-header border-0 bg-white">
-                        <h4>[USERNAME HERE]</h4>
+                        <h4>{{ conv.name }}</h4>
                     </div>
                     <div class="card-body">
-                        <button onclick="location.href='{{ conv.url }}';" class="btn btn-light" style="border-radius:1rem;background-color:#b8b7fa;">{{ conv.name }}</button>
+                        <button onclick="location.href='{{ conv.url }}';" class="btn btn-light" style="border-radius:1rem;background-color:#b8b7fa;">Chat with {{ conv.name }}</button>
                     </div>
                 </div>
             {% endfor %}
