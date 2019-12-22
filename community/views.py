@@ -230,7 +230,7 @@ def selectconversationpage(request, conversation_id):
         raw_conv_data = conv.conversation_history.split("{!!!}")[::-1]
         conv_data = []
         for data in raw_conv_data:
-            user_id, message, datestamp = raw_conv_data.split("{!}")
+            user_id, message, datestamp = data.split("{!}")
             datestamp = eval(datestamp)
             username = UserProfiles.ojects.get(user_id=int(user_id)).username
             conv_data.append({"username":username, "datestamp":datestamp, "message":message})
