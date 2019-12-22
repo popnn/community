@@ -14,6 +14,7 @@ class UserProfiles(models.Model):
     user_threads = models.TextField(default="")
     user_profile_image = models.ImageField(upload_to=get_image_path, default="profile/profile.jfif")
     user_date_joined = models.DateTimeField(auto_now_add=True)
+    user_saved_threads = models.TextField(default="")
 
 class CommunityDiscussions(models.Model):
     discussion_id = models.AutoField(primary_key=True)
@@ -23,6 +24,7 @@ class CommunityDiscussions(models.Model):
     discussion_description = models.TextField(max_length=500)
     discussion_maximum_comments = models.IntegerField(default=100)
     discussion_type = models.CharField(max_length=8)
+    discussion_tags = models.TextField(default="")
     
 class CommunityComments(models.Model):
     comment_id = models.AutoField(primary_key=True)
@@ -30,3 +32,11 @@ class CommunityComments(models.Model):
     comment_author_id = models.CharField(max_length=64)
     comment_publish_date = models.DateTimeField(auto_now_add=True)
     comment_description = models.TextField(max_length=500)
+
+class Conversations(model.Model):
+    conversation_id = models.AutoField(primary_key=True)
+    user_ids = models.TextField(default='')
+    conversation_title = models.CharField(max_length=32, default='')
+    conversation_history = models.TextField(default='')
+    admin_id = models.CharField(max_length=24)
+    
