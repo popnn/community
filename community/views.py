@@ -204,6 +204,7 @@ def editprofilepage(request):
             'email': user_data_main.email,
             'description': user_data.user_description,
             'profile_image': user_data.user_profile_image,
+            'logged_in': logged_in,
         })
         return render_template(request, 'community/editprofilepage.html', {"form":form})
 
@@ -214,13 +215,14 @@ def allconversationspages(request):
     else:
         context = {
             "title": "Conv",
-            "conv_list": []
+            "conv_list": [],
+            'logged_in': logged_in,
         }
         for conversation in Conversations.objects.all():
             if str(user_id) in conversation.user_ids.split(', '):
                 name = conversation.conversation_title if conversation.conversation_title != '' else "CHAT"
                 context["conv_list"].append({"name":name, "url":"/conversations/{}".format(conversation.conversation_id)})
-        return render_template(request, 'community/allconversatonspage.html', context)
+        return render_template(request, 'community/allconversationspage.html', context)
 
 
 def selectconversationpage(request, conversation_id):
@@ -251,6 +253,7 @@ def selectconversationpage(request, conversation_id):
             "form": form,
             "title": title,
             "conv_data": conv_data,
+            'logged_in': logged_in,
             }
         return render_template(request, 'community/conversationpage.html', context)
 
@@ -357,7 +360,7 @@ def newdiscussionpage(request):
                 discussion.save()
                 return redirect('/')
         form = DiscussionForm()
-        return render_template(request, 'community/newdiscussionpage.html', {"title":"New Discussion", "form":form})
+        return render_template(request, 'community/newdiscussionpage.html', {"title":"New Discussion", "form":form, 'logged_in': logged_in})
 
 def search(query, logged_in):
     res = {
