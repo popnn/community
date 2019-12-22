@@ -168,6 +168,7 @@ def viewprofilepage(request, username):
             'my_threads': my_threads,
             'my_threads_count': len(my_threads),
             'following': str(UserProfiles.objects.get(username=username).user_id) in UserProfiles.objects.get(user_id=user_id).user_following.split(", "),
+            'chat_creation_url': chat_creation_url,
         }
         return render_template(request, 'community/viewprofilepage.html', context)
 
