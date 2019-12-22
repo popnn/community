@@ -1,7 +1,18 @@
 {% extends 'community/layout.html' %}
 {% block ContentView %}
 <br><br><br><br>
-    {% for conv in conv_list %}
-        <button onclick="location.href='{{ conv.url }}';">{{ conv.name }}</button><br>
-    {% endfor %}
+    <div class="container">
+        <div class="card-columns">
+            {% for conv in conv_list %}
+                <div class="card">
+                    <div class="card-header border-0 bg-white">
+                        <h4>[USERNAME HERE]</h4>
+                    </div>
+                    <div class="card-body">
+                        <button onclick="location.href='{{ conv.url }}';" class="btn btn-light" style="border-radius:1rem;background-color:#b8b7fa;">{{ conv.name }}</button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
