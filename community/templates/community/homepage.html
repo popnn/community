@@ -4,7 +4,7 @@
 {% block ContentView %}
     <br><br><br>
     <div class="container">
-        <h2>My Threads:</h2>
+        <h2>All Threads:</h2>
         <br>
         <div class="card-columns">
             {% for card_data in all_cards %}
@@ -21,9 +21,9 @@
             {% endfor %}
         </div>
         <br>
-        <h2>Followed Threads: </h2>
-            <br>
-            <div class="card-columns">
+        <!--<h2>Followed Threads: </h2>
+        <br>
+        <div class="card-columns">
             {% for card_data in all_cards %}
                 <a href="{{ card_data.card_url }}">
                     <div class="card shadow mb-4 text-dark" style="text-decoration: none;">
