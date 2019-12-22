@@ -13,6 +13,7 @@ import json
 import os
 from popN.settings import BASE_DIR 
 import datetime
+import re
 
 #TODO Account_status 
  
@@ -293,7 +294,7 @@ def selectdiscussionpage(request, username, discussion_id):
                 comment = CommunityComments(
                     discussion_id=discussion_id,
                     comment_author_id=user_id,
-                    comment_description=desc
+                    comment_description=re.sub('[\xF0-\xF7][\x80-\xBF][\x80-\xBF][\x80-\xBF]', '', str(desc))
                 )
                 if CommunityComments.objects.filter(discussion_id=discussion.discussion_id).count() < discussion.discussion_maximum_comments:
                     comment.save()
