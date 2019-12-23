@@ -292,7 +292,7 @@ def selectconversationpage(request, conversation_id):
             "title": title,
             "conv_data": conv_data,
             'logged_in': logged_in,
-            "conversation_id": conversation_id
+            "conversation_id": conversation_id,
             "current_date": current_date
             }
         return render_template(request, 'community/conversationpage.html', context)
