@@ -15,10 +15,10 @@
                             {% endfor %}
                         </div>
                         <hr>
-                        <form method="POST" class="form-inline">
+                        <form method="POST" class="form-inline" action="#formscroll">
                             {% csrf_token %}
                             {{ form.message }}
-                            <button type="submit" class="btn btn-light" style="border-radius:0rem 1rem 1rem 0rem;background-color:#b8b7fa" value="1">Send</button>
+                            <button type="submit" class="btn btn-light" style="border-radius:0rem 1rem 1rem 0rem;background-color:#b8b7fa" value="1" id="formscroll">Send</button>
                         </form>
                     </div>
                 </div>
