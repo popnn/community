@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'bootstrap',
     'fontawesome',
-    'pwa_webpush',
     'captcha',
     'django_user_agents',
     'tracking_analyzer',
