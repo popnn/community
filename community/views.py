@@ -7,6 +7,7 @@ from django.core.mail import EmailMessage,EmailMultiAlternatives
 from django.template import Context
 from django.template.loader import render_to_string
 from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 from PIL import Image
 from .models import *
 from .forms import *
@@ -30,7 +31,6 @@ def render_template(request, template_name, context={}):
 def ajax_response(request):
     print("#"*100)
     if request.method=="POST":
-        
         conv_id = request.POST.get('conversation_id')
         outbox = []
         for conv in Conversations.objects.get(conversation_id=int(conv_id)).conversation_history.split("{!!!}"):
