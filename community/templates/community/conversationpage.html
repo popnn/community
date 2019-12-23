@@ -41,7 +41,7 @@
 setInterval(function() {
     var res = {{ discussion_id }};
     $.ajax({
-        url:"{% url 'server-response' %}",
+        url:"{% url 'ajax-response' %}",
         method:'GET',
         data : {'conversation_id' : res}, 
         success: function(data) {
