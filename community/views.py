@@ -64,7 +64,7 @@ def homepage(request):
             }
             context['all_cards'].append(cnt)
         user = UserProfiles.objects.get(user_id=user_id)
-        Tracker.objects.create_from_request(self.request, user)
+        Tracker.objects.create_from_request(request, user)
         return render_template(request, 'community/homepage.html', context)
     else:
         if request.method == 'POST':
