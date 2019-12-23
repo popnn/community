@@ -38,10 +38,8 @@
 {% endblock %}
 {% block Scripts %}
 <script>
-function reload(){
-    alert("Hi");
-    var res = {{ discussion_id }};
-    alert(res);
+setInterval(function(){
+    res = "{{ conversation_id }}";
     $.ajax({
         url:"{% url 'ajax-response' %}",
         method:'GET',
@@ -55,15 +53,7 @@ function reload(){
             }        
         }
     }); 
-}
-var myVar;
+}, 3000);
 
-function myFunction() {
-  myVar = setInterval(alertFunc, 3000);
-}
-
-function alertFunc() {
-  alert("Hello!");
-}
 </script>
 {% endblock %}

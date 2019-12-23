@@ -31,7 +31,7 @@ def ajax_response(request):
     if request.method=="GET":
         conv_id = request.GET.get('conversation_id')
         outbox = []
-        for conv in Conversations.objects.get(conversation_id=conv_id).conversation_history.split("{!!!}"):
+        for conv in Conversations.objects.get(conversation_id=int(conv_id)).conversation_history.split("{!!!}"):
             try:
                 user, message, time = conv.split("{!}")
                 time_dif = (datetime.datetime.strptime(request.COOKIES.get('load'), "%H:%M:%S.%f %b %d %Y") - datetime.datetime.strptime(time, "%H:%M:%S.%f %b %d %Y")).seconds 
