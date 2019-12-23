@@ -37,6 +37,13 @@
     </div>
     <script> 
     $(document).ready(function(){
+$.ajax({ url: "database/update.html",
+        context: document.body,
+        success: function(){
+           alert("done");
+        }});
+});
+    $(document).ready(function(){
             $.ajax({       
                 url:"ajax-serverside-query/",
                 type:"POST",
