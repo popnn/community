@@ -41,7 +41,7 @@ def ajax_response(request):
                     line = "<p><strong>{}:</strong>{}</p>".format(UserProfiles.objects.get(user_id=msg.user_id).username, msg.message_text)
                     outbox.append(line)
             except:
-                pass
+                print("PPPPPP")
         result = {"new_data":outbox}
         response = JsonResponse(result)
         response.set_cookie('load', datetime.datetime.now().strftime("%H:%M:%S.%f %b %d %Y"))
