@@ -36,8 +36,7 @@
         </div>
     </div>
     <script> 
-    window.onload = function(){
-            alert("hi");
+    $(document).ready(function(){alert("hi");});
             /*$.ajax({       
                 url:"ajax-serverside-query/",
                 type:"POST",
@@ -53,9 +52,9 @@
                 error: function(data){
                 alert('error; '+ eval(error));
                 }
-            });*/
+            });
         }
-        /*
+        
         setInterval(function(){
             alert("hi");
             $.ajax({       
