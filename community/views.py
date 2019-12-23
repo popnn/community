@@ -30,6 +30,7 @@ def render_template(request, template_name, context={}):
 def ajax_response(request):
     print("#"*100)
     if request.method=="POST":
+        
         conv_id = request.POST.get('conversation_id')
         outbox = []
         for conv in Conversations.objects.get(conversation_id=int(conv_id)).conversation_history.split("{!!!}"):
