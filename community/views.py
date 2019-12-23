@@ -38,7 +38,7 @@ def ajax_response(request):
             try:
                 msg = ConversationMessages.objects.get(message_id=int(msg_id))
                 time_dif = (datetime.datetime.strptime(request.COOKIES.get('load'), "%H:%M:%S.%f %b %d %Y") - msg.message_time).seconds 
-                if time_dif < 3 and request.COOKIES.get('id', None) != user:
+                if time_dif < 3 and request.COOKIES.get('id', None) != msg.user_id:
                     line = "<p><strong>{}:</strong>{}</p>".format(UserProfiles.objects.get(user_id=msg.user_id).username, msg.message_text)
                     outbox.append(line)
             except:
