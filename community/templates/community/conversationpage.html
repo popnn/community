@@ -37,30 +37,13 @@
     </div>
     <script> 
     $(document).ready(function(){
-$.ajax({ url: "ajax-serverside-query/",
-        context: document.body,
-        success: function(){
-           alert("done");
-        }});
+        $.ajax({ url: "ajax-serverside-query/",
+                context: document.body,
+                success: function(){
+                alert("done");
+                }});
 });
-    $(document).ready(function(){
-            $.ajax({       
-                url:"ajax-serverside-query/",
-                type:"POST",
-                data : {'conversation_id' : 3}, 
-                success: function(data) {
-                    alert("HI");
-                    var new_data=data["new_data"];
-                    $('#content').html('');
-                    for (i = 0; i < new_data.length; i++) {
-                        $('#content').append(<p><strong>new_data["username"] :</strong> new_data["message"]</p>);
-                    }        
-                },
-                error: function(data){
-                alert('error; '+ eval(error));
-                }
-            });
-        });
+
         /*
         setInterval(function(){
             alert("hi");
