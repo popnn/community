@@ -12,7 +12,7 @@
                         <div id="content">
                             {% for value in conv_data %}
                                 <p>
-                                    <b>{{ value.username }} :</b> {{ value.message }}  <small class="text-secondary">{{ value.datestamp.time }}{% ifequal current_date value.datestamp.date %}{{ value.datestamp.date }}{% endifequal %}</small>
+                                    <b>{{ value.username }} :</b> {{ value.message }}  <small class="text-secondary">{% ifequal current_date value.datestamp.date %}{{ value.datestamp.time }}{% else %}{{ value.datestamp }}{% endifequal %}</small>
                                 </p>
                             {% endfor %}
                         </div>
