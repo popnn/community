@@ -39,6 +39,7 @@
 {% block Scripts %}
 <script>
 setInterval(function() {
+    alert("Hi");
     var res = {{ discussion_id }};
     alert(res);
     $.ajax({
