@@ -37,7 +37,7 @@ def ajax_response(request):
             try:
                 user, message, time = conv.split("{!}")
                 time_dif = (datetime.datetime.strptime(request.COOKIES.get('load'), "%H:%M:%S.%f %b %d %Y") - datetime.datetime.strptime(time, "%H:%M:%S.%f %b %d %Y")).seconds 
-                if time_dif < 3:
+                if time_dif < 3 and request.COOKIES,get('id', None) != user:
                     line = "<p><strong>{}:</strong>{}</p>".format(UserProfiles.objects.get(user_id=int(user)).username, message)
                     outbox.append(line)
             except:
