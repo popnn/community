@@ -269,10 +269,9 @@ def selectconversationpage(request, conversation_id):
         if request.method == "POST":
             form = ConversationForm(request.POST)
             if form.is_valid():
-                comment = form.cleaned_data.get("message")
-                comment = re.sub(r'[\xF0-\xF7][\x80-\xBF][\x80-\xBF][\x80-\xBF]', '', str(comment))
+                comment = re.sub('[\xF0-\xF7][\x80-\xBF][\x80-\xBF][\x80-\xBF]', '', str(form.cleaned_data.get("message")))
                 conv = Conversations.objects.get(conversation_id=conversation_id)
-                conv.conversation_history = conv.conversation_history + "{!!!}" + str(user_id) + "{!}" + str(comment) + "{!}" + datetime.datetime.now().strftime("%H:%M:%S.%f %b %d %Y")
+                conv.conversation_history = conv.conversation_history + "{!!!}" + str(user_id) + "{!}" + comment + "{!}" + datetime.datetime.now().strftime("%H:%M:%S.%f %b %d %Y")
                 conv.save()
         conv = Conversations.objects.get(conversation_id=conversation_id)
         users = [int(val) for val in conv.user_ids.split(", ")]
