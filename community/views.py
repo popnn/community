@@ -37,11 +37,11 @@ def ajax_response(request):
                 user, message, time = conv.split("{!}")
                 time_dif = (datetime.datetime.strptime(request.COOKIES.get('load'), "%H:%M:%S.%f %b %d %Y") - datetime.datetime.strptime(time, "%H:%M:%S.%f %b %d %Y")).seconds 
                 if time_dif > 0:
-                    outbox.append({"username":UserProfiles.objects.get(user_id=int(user)).username, "datestamp":time, "message":message})
+                    line = "<p><strong>{}:</strong>{}</p>".format(UserProfiles.objects.get(user_id=int(user)).username, message)
+                    outbox.append(line)
             except:
                 pass
         result = {"new_data":outbox}
-        
         response = JsonResponse(result)
         response.set_cookie('load', datetime.datetime.now().strftime("%H:%M:%S.%f %b %d %Y"))
         return response

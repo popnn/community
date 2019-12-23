@@ -44,9 +44,8 @@
                 success: function(data){
                     var new_data = data["new_data"];
                     if (new_data){
-                        for (i=0; i<new_data.length; i++){
-                            $("#content").append("<p><strong>" | new_data["username"] | ":</strong>" | new_data["message"] | "</p>");
-                        }
+                        $("#content").append(new_data);
+                        
                     }
                     
                 }
