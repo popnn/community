@@ -41,7 +41,7 @@ def ajax_response(request):
                 pass
         result = {"new_data":outbox}
         response = JsonResponse(result)
-        response.set_cookie('load': datetime.datetime.now().strftime("%H:%M:%S.%f %b %d %Y"))
+        response.set_cookie('load', datetime.datetime.now().strftime("%H:%M:%S.%f %b %d %Y"))
         return response
 
 # Create your views here.
