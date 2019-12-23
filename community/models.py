@@ -33,7 +33,6 @@ class CommunityComments(models.Model):
     comment_publish_date = models.DateTimeField(auto_now_add=True)
     comment_description = models.TextField(max_length=500)
 
-
 class Conversations(models.Model):
     conversation_id = models.AutoField(primary_key=True)
     user_ids = models.TextField(default='')
