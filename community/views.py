@@ -28,6 +28,7 @@ def render_template(request, template_name, context={}):
 
 @csrf_exempt
 def ajax_response(request):
+    print("#"*10)
     if request.method=="GET":
         conv_id = request.GET.get('conversation_id')
         outbox = []
@@ -40,7 +41,7 @@ def ajax_response(request):
             except:
                 pass
         result = {"new_data":outbox}
-        print("#"*10)
+        
         response = JsonResponse(result)
         response.set_cookie('load', datetime.datetime.now().strftime("%H:%M:%S.%f %b %d %Y"))
         return response
