@@ -40,8 +40,8 @@
             event.preventDefault();
             alert("hi");
             $.ajax({       
-                url:"{% url 'ajax-response' %}",
-                method:"POST",
+                url:"ajax-serverside-query/",
+                type:"POST",
                 data : {'conversation_id' : res}, 
                 success: function(data) {
                     alert("HI");
@@ -50,6 +50,9 @@
                     for (i = 0; i < new_data.length; i++) {
                         $('#content').append(<p><strong>new_data["username"] :</strong> new_data["message"]</p>);
                     }        
+                },
+                error: function(data){
+                alert('error; '+ eval(error));
                 }
             }); 
         }, 3000);
