@@ -30,6 +30,7 @@ def render_template(request, template_name, context={}):
 
 @csrf_exempt
 def ajax_response(request):
+    print("#"*10)
     if request.method=="POST":
         conv_id = int(request.POST.get('conversation_id'))
         outbox = []
