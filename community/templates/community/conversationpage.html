@@ -40,12 +40,13 @@
 <script>
 setInterval(function(){
     res = "{{ conversation_id }}";
+    alert("hi");
     $.ajax({
         url:"{% url 'ajax-response' %}",
         method:'GET',
         data : {'conversation_id' : res}, 
         success: function(data) {
-            alert("hi");
+            
             var new_data=data["new_data"];
             $('#content').html('');
             for (i = 0; i < new_data.length; i++) {
