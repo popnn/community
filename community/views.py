@@ -63,7 +63,7 @@ def homepage(request):
                 'card_url': "/discussions/{}/{}/".format(UserProfiles.objects.get(user_id=card.discussion_author_id).username, card.discussion_id),
             }
             context['all_cards'].append(cnt)
-        Tracker.objects.create_from_request(request, user_id)
+        Tracker.objects.create_from_request(request, User.objects.get(user_id=user_id))
         return render_template(request, 'community/homepage.html', context)
     else:
         if request.method == 'POST':
