@@ -23,7 +23,7 @@ def verify_request(request):
 
 def render_template(request, template_name, context={}):
     response = render(request, template_name, context)
-    response.set_cookie('load': datetime.datetime.now().strftime("%H:%M:%S.%f %b %d %Y"))
+    response.set_cookie('load', datetime.datetime.now().strftime("%H:%M:%S.%f %b %d %Y"))
     return response
 
 @csrf_exempt
@@ -36,7 +36,7 @@ def ajax_response(request):
                 user, message, time = conv.split("{!}")
                 time_dif = (datetime.datetime.strptime(request.COOKIES.get('load'), "%H:%M:%S.%f %b %d %Y") - datetime.datetime.strptime(time, "%H:%M:%S.%f %b %d %Y")).seconds 
                 if time_dif > 0:
-                    outbox.append({"username":UserProfiles.objects.get(user_id=int(user)).username, "datestamp":timep, "message":message})
+                    outbox.append({"username":UserProfiles.objects.get(user_id=int(user)).username, "datestamp":time, "message":message})
             except:
                 pass
         result = {"new_data":outbox}
