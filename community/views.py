@@ -277,7 +277,7 @@ def selectconversationpage(request, conversation_id):
                 conv.save()
         conv = Conversations.objects.get(conversation_id=conversation_id)
         users = [int(val) for val in conv.user_ids.split(", ")]
-        message_id = conv.conversation_history.split(",")
+        raw_conv_id = conv.conversation_history.split(",")
         conv_data = []
         for message_id in raw_conv_data:
             if message_id != '':
