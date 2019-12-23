@@ -9,9 +9,11 @@
                         <h3>Private Chat</h3>
                     </div>
                     <div class="card-body">
-                        {% for value in conv_data %}
-                            <p><strong>{{ value.username }} :</strong> {{ value.message }}</p>
-                        {% endfor %}
+                        <div id="content">
+                            {% for value in conv_data %}
+                                <p><strong>{{ value.username }} :</strong> {{ value.message }}</p>
+                            {% endfor %}
+                        </div>
                         <hr>
                         <form method="POST" class="form-inline">
                             {% csrf_token %}
@@ -33,4 +35,24 @@
             </diva>
         </div>
     </divass>
+{% endblock %}
+{% block Scripts %}
+<script>
+setInterval(function() {
+    var res = {{ discussion_id }};
+    $.ajax({
+        url:"{% url 'server-response' %}",
+        method:'GET',
+        data : {'conversation_id' : res}, 
+        success: function(data) {
+            var new_data=data["new_data"];
+            $('#content').html('');
+            for (i = 0; i < new_data.length; i++) {
+                $('#content').append(<p><strong>new_data["username"] :</strong> new_data["message"]</p>);
+            }        
+        }
+	});
+}, 3000);
+
+</script>
 {% endblock %}

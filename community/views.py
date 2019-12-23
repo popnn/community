@@ -6,6 +6,7 @@ from django.core.files.storage import FileSystemStorage
 from django.core.mail import EmailMessage,EmailMultiAlternatives
 from django.template import Context
 from django.template.loader import render_to_string
+from django.views.decorators.csrf import csrf_exempt
 from PIL import Image
 from .models import *
 from .forms import *
@@ -22,7 +23,26 @@ def verify_request(request):
 
 def render_template(request, template_name, context={}):
     response = render(request, template_name, context)
+    response.set_cookie('load': datetime.datetime.now().strftime("%H:%M:%S.%f %b %d %Y"))
     return response
+
+@csrf_exempt
+def ajax_response(request):
+    if request.method=="GET":
+        conv_id = request.GET.get('conversation_id')
+        outbox = []
+        for conv in Conversations.objects.get(conversation_id=conv_id).conversation_history.split("{!!!}"):
+            try:
+                user, message, time = conv.split("{!}")
+                time_dif = (datetime.datetime.strptime(request.COOKIES.get('load'), "%H:%M:%S.%f %b %d %Y") - datetime.datetime.strptime(time, "%H:%M:%S.%f %b %d %Y")).seconds 
+                if time_dif > 0:
+                    outbox.append({"username":UserProfiles.objects.get(user_id=int(user)).username, "datestamp":timep, "message":message})
+            except:
+                pass
+        result = {"new_data":outbox}
+        response = JsonResponse(result)
+        response.set_cookie('load': datetime.datetime.now().strftime("%H:%M:%S.%f %b %d %Y"))
+        return response
 
 # Create your views here.
 def homepage(request):
@@ -245,7 +265,7 @@ def selectconversationpage(request, conversation_id):
             if form.is_valid():
                 comment = form.cleaned_data.get("message")
                 conv = Conversations.objects.get(conversation_id=conversation_id)
-                conv.conversation_history = conv.conversation_history + "{!!!}" + str(user_id) + "{!}" + str(comment) + "{!}" + str(datetime.datetime.now())
+                conv.conversation_history = conv.conversation_history + "{!!!}" + str(user_id) + "{!}" + str(comment) + "{!}" + datetime.datetime.now().strftime("%H:%M:%S.%f %b %d %Y")
                 conv.save()
         conv = Conversations.objects.get(conversation_id=conversation_id)
         users = [int(val) for val in conv.user_ids.split(", ")]
@@ -264,6 +284,7 @@ def selectconversationpage(request, conversation_id):
             "title": title,
             "conv_data": conv_data,
             'logged_in': logged_in,
+            "conversation_id": conversation_id
             }
         return render_template(request, 'community/conversationpage.html', context)
 

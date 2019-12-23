@@ -15,4 +15,5 @@ urlpatterns = [
     path('new-discussion/', views.newdiscussionpage, name='community-discussions-new'),
     path('discussions/<slug:username>/', views.mydiscussionpage, name='community-discussions-user'),
     path('discussions/<slug:username>/<int:discussion_id>/', views.selectdiscussionpage, name='community-discussions-single'),
+    path('ajax-serverside-query/', views.ajax_response, name='ajax-response'),
 ]
