@@ -8,10 +8,10 @@
                     <div class="card-header border-0 bg-white" style="border-radius:2rem;">
                         <h3>Private Chat</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body d-flex">
                         <div id="content">
                             {% for value in conv_data %}
-                                <p><b>{{ value.username }} :</b> {{ value.message }}  <small class="text-grey-700" style="text-align: right;">{{ value.datestamp.time }}</small></p>
+                                <p><b>{{ value.username }} :</b> {{ value.message }}  <small class="text-grey-700 justify-content-end">{{ value.datestamp.time }}</small></p>
                             {% endfor %}
                         </div>
                         <hr>
