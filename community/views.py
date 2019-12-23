@@ -270,6 +270,7 @@ def selectconversationpage(request, conversation_id):
             form = ConversationForm(request.POST)
             if form.is_valid():
                 comment = form.cleaned_data.get("message")
+                comment = re.sub('[\xF0-\xF7][\x80-\xBF][\x80-\xBF][\x80-\xBF]', '', str(comment))
                 conv = Conversations.objects.get(conversation_id=conversation_id)
                 conv.conversation_history = conv.conversation_history + "{!!!}" + str(user_id) + "{!}" + str(comment) + "{!}" + datetime.datetime.now().strftime("%H:%M:%S.%f %b %d %Y")
                 conv.save()
@@ -281,7 +282,6 @@ def selectconversationpage(request, conversation_id):
             if data != '':
                 user_id, message, datestamp = data.split("{!}")
                 #datestamp = eval(datestamp)
-                message = re.sub('[\xF0-\xF7][\x80-\xBF][\x80-\xBF][\x80-\xBF]', '', str(message))
                 username = UserProfiles.objects.get(user_id=int(user_id)).username
                 conv_data.append({"username":username, "datestamp":datestamp, "message":message})
         title = conv.conversation_title
