@@ -280,6 +280,7 @@ def selectconversationpage(request, conversation_id):
             if data != '':
                 user_id, message, datestamp = data.split("{!}")
                 #datestamp = eval(datestamp)
+                message = re.sub('[\xF0-\xF7][\x80-\xBF][\x80-\xBF][\x80-\xBF]', '', str(message))
                 username = UserProfiles.objects.get(user_id=int(user_id)).username
                 conv_data.append({"username":username, "datestamp":datestamp, "message":message})
         title = conv.conversation_title
