@@ -282,7 +282,7 @@ def selectconversationpage(request, conversation_id):
         for message_id in raw_conv_data:
             if message_id != '':
                 msg = ConversationMessages.objects.get(message_id=int(message_id))
-                datestamp = msg.message_timr
+                datestamp = msg.message_time
                 message = msg.message_text
                 username = UserProfiles.objects.get(user_id=int(msg.user_id)).username
                 conv_data.append({"username":username, "datestamp":datestamp, "message":message})
