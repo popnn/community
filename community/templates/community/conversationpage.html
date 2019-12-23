@@ -40,7 +40,7 @@
             $.ajax({
                 url: "/ajax-serverside-query/",
                 type: "POST",
-                data: {"conversation_id": "3"},
+                data: {"conversation_id": "{{ conversation_id }}"},
                 success: function(data){
                     var new_data = data["new_data"];
                     if (new_data){
