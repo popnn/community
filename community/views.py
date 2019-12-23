@@ -37,7 +37,7 @@ def ajax_response(request):
             try:
                 user, message, time = conv.split("{!}")
                 time_dif = (datetime.datetime.strptime(request.COOKIES.get('load'), "%H:%M:%S.%f %b %d %Y") - datetime.datetime.strptime(time, "%H:%M:%S.%f %b %d %Y")).seconds 
-                if time_dif > 0:
+                if time_dif > 3:
                     line = "<p><strong>{}:</strong>{}</p>".format(UserProfiles.objects.get(user_id=int(user)).username, message)
                     outbox.append(line)
             except:
@@ -63,7 +63,7 @@ def homepage(request):
                 'card_url': "/discussions/{}/{}/".format(UserProfiles.objects.get(user_id=card.discussion_author_id).username, card.discussion_id),
             }
             context['all_cards'].append(cnt)
-        Tracker.objects.create_from_request(self.request, user_id)
+        Tracker.objects.create_from_request(request, user_id)
         return render_template(request, 'community/homepage.html', context)
     else:
         if request.method == 'POST':
