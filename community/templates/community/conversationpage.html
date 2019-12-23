@@ -40,7 +40,7 @@
             
             $.ajax({
                 url:"{% url 'ajax-response' %}",
-                method:'GET',
+                method:"POST",
                 data : {'conversation_id' : res}, 
                 success: function(data) {
                     alert("HI");
