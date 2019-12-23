@@ -36,11 +36,9 @@
         </div>
     </div>
     <script>
+        setInterval(function(){ alert("Hello"); }, 3000);
         setInterval(function(){
-            alert("HI");
-        }, 1);
-        setInterval(function(){
-            
+            /*
             $.ajax({
                 url:"{% url 'ajax-response' %}",
                 method:'GET',
@@ -54,8 +52,8 @@
                     }        
                 }
             }); 
-        }, 3000);
-        </script>
+        }, 3000);*/
+    </script>
 {% endblock %}
 
 {% block Scripts %}
