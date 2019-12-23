@@ -36,8 +36,8 @@
         </div>
     </div>
     <script> 
-    $(document).ready(function(){alert("hi");});
-            /*$.ajax({       
+    $(document).ready(function(){
+            $.ajax({       
                 url:"ajax-serverside-query/",
                 type:"POST",
                 data : {'conversation_id' : 3}, 
@@ -53,8 +53,8 @@
                 alert('error; '+ eval(error));
                 }
             });
-        }
-        
+        });
+        /*
         setInterval(function(){
             alert("hi");
             $.ajax({       
