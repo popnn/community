@@ -40,7 +40,7 @@ class Conversations(models.Model):
     conversation_title = models.CharField(max_length=32, default='')
     conversation_history = models.TextField(default='')
     admin_id = models.CharField(max_length=24)
-    """
+    """ 
 
 class ConversationMessages(models.Model):
     conversation_id = models.IntegerField()
