@@ -34,14 +34,12 @@ def ajax_response(request):
         conv_id = int(request.POST.get('conversation_id'))
         outbox = []
         for msg_id in Conversations.objects.get(conversation_id=int(conv_id)).conversation_history.split(","):
-            try:
+            if msg_id != '':
                 msg = ConversationMessages.objects.get(message_id=int(msg_id))
-                time_dif = (datetime.datetime.strptime(request.COOKIES.get('load'), "%H:%M:%S.%f %b %d %Y") - msg.message_time).seconds 
+                time_dif = (datetime.datetime.now(datetime.timezone.utc) - msg.message_time).seconds 
                 if time_dif < 3 and request.COOKIES.get('id', None) != msg.user_id:
                     line = "<p><strong>{}:</strong>{}</p>".format(UserProfiles.objects.get(user_id=msg.user_id).username, msg.message_text)
                     outbox.append(line)
-            except Exception as p:
-                print(p)
         result = {"new_data":outbox}
         response = JsonResponse(result)
         response.set_cookie('load', datetime.datetime.now().strftime("%H:%M:%S.%f %b %d %Y"))
