@@ -40,8 +40,8 @@ def ajax_response(request):
                 if time_dif < 3 and request.COOKIES.get('id', None) != msg.user_id:
                     line = "<p><strong>{}:</strong>{}</p>".format(UserProfiles.objects.get(user_id=msg.user_id).username, msg.message_text)
                     outbox.append(line)
-            except:
-                print("PPPPPP")
+            except Exception as p:
+                print(p)
         result = {"new_data":outbox}
         response = JsonResponse(result)
         response.set_cookie('load', datetime.datetime.now().strftime("%H:%M:%S.%f %b %d %Y"))
