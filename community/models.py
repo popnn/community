@@ -39,3 +39,10 @@ class Conversations(models.Model):
     conversation_title = models.CharField(max_length=32, default='')
     conversation_history = models.TextField(default='')
     admin_id = models.CharField(max_length=24)
+
+class ConversationMessages(models.Model):
+    conversation_id = models.IntegerField()
+    message_id = models.AutoField(primary_key=True)
+    message_text = models.TextField(max_length=500)
+    user_id = models.IntegerField()
+    message_time = models.DateTimeField(auto_now_add=True) 

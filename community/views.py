@@ -33,12 +33,12 @@ def ajax_response(request):
     if request.method=="POST":
         conv_id = int(request.POST.get('conversation_id'))
         outbox = []
-        for conv in Conversations.objects.get(conversation_id=int(conv_id)).conversation_history.split("{!!!}"):
+        for msg_id in Conversations.objects.get(conversation_id=int(conv_id)).conversation_history.split(","):
             try:
-                user, message, time = conv.split("{!}")
-                time_dif = (datetime.datetime.strptime(request.COOKIES.get('load'), "%H:%M:%S.%f %b %d %Y") - datetime.datetime.strptime(time, "%H:%M:%S.%f %b %d %Y")).seconds 
+                msg = ConversationMessages.objects.get(message_id=int(msg_id))
+                time_dif = (datetime.datetime.strptime(request.COOKIES.get('load'), "%H:%M:%S.%f %b %d %Y") - msg.message_time).seconds 
                 if time_dif < 3 and request.COOKIES.get('id', None) != user:
-                    line = "<p><strong>{}:</strong>{}</p>".format(UserProfiles.objects.get(user_id=int(user)).username, message)
+                    line = "<p><strong>{}:</strong>{}</p>".format(UserProfiles.objects.get(user_id=msg.user_id).username, msg.message_text)
                     outbox.append(line)
             except:
                 pass
@@ -271,17 +271,20 @@ def selectconversationpage(request, conversation_id):
             if form.is_valid():
                 comment = re.sub('[\xF0-\xF7][\x80-\xBF][\x80-\xBF][\x80-\xBF]', '', str(form.cleaned_data.get("message")))
                 conv = Conversations.objects.get(conversation_id=conversation_id)
-                conv.conversation_history = conv.conversation_history + "{!!!}" + str(user_id) + "{!}" + comment + "{!}" + datetime.datetime.now().strftime("%H:%M:%S.%f %b %d %Y")
+                msg = ConversationMessages(user_id=int(user_id), conversation_id=int(conversation_id), message_text=comment)
+                msg.save()
+                conv.conversation_history = conv.conversation_history + "," + str(msg.message_id)
                 conv.save()
         conv = Conversations.objects.get(conversation_id=conversation_id)
         users = [int(val) for val in conv.user_ids.split(", ")]
-        raw_conv_data = conv.conversation_history.split("{!!!}")
+        message_id = conv.conversation_history.split(",")
         conv_data = []
-        for data in raw_conv_data:
-            if data != '':
-                user_id, message, datestamp = data.split("{!}")
-                datestamp = ''#eval(datestamp)
-                username = UserProfiles.objects.get(user_id=int(user_id)).username
+        for message_id in raw_conv_data:
+            if message_id != '':
+                msg = ConversationMessages.objects.get(message_id=int(message_id))
+                datestamp = msg.message_timr
+                message = msg.message_text
+                username = UserProfiles.objects.get(user_id=int(msg.user_id)).username
                 conv_data.append({"username":username, "datestamp":datestamp, "message":message})
         title = conv.conversation_title
         form = ConversationForm()
