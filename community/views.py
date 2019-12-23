@@ -40,6 +40,7 @@ def ajax_response(request):
             except:
                 pass
         result = {"new_data":outbox}
+        print("#"*10)
         response = JsonResponse(result)
         response.set_cookie('load', datetime.datetime.now().strftime("%H:%M:%S.%f %b %d %Y"))
         return response
