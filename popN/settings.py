@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'fontawesome',
     'pwa_webpush',
     'captcha',
+    'django_user_agents',
+    'tracking_analyzer',
 ]
 
 SITE_ID = 1
