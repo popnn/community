@@ -12,8 +12,10 @@
                         <div id="content">
                             {% for value in conv_data %}
                                 <p>
-                                    <div class="col"><b>{{ value.username }} :</b> {{ value.message }}</div>
-                                    <div class="col-1"><small class="text-secondary">{{ value.datestamp }}</small></div>
+                                    <div class="row">
+                                        <div class="col-8"><b>{{ value.username }} :</b> {{ value.message }}</div>
+                                        <div class="col"><small class="text-secondary">{{ value.datestamp }}</small></div>
+                                    </div>
                                 </p>
                             {% endfor %}
                         </div>
