@@ -36,9 +36,11 @@
         </div>
     </div>
     <script>
+        
         setInterval(function(){
-            
+            alert("hi");
             $.ajax({
+                
                 url:"{% url 'ajax-response' %}",
                 method:"POST",
                 data : {'conversation_id' : res}, 
