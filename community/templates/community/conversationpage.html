@@ -35,28 +35,25 @@
             </div>
         </div>
     </div>
-    <script>alert("hi");</script>
+    <script>
+        setInterval(function(){
+            $.ajax({
+                url:"{% url 'ajax-response' %}",
+                method:'GET',
+                data : {'conversation_id' : res}, 
+                success: function(data) {
+                    alert("HI");
+                    var new_data=data["new_data"];
+                    $('#content').html('');
+                    for (i = 0; i < new_data.length; i++) {
+                        $('#content').append(<p><strong>new_data["username"] :</strong> new_data["message"]</p>);
+                    }        
+                }
+            }); 
+        }, 3000);
+        </script>
 {% endblock %}
 
 {% block Scripts %}
-<script>
-document.write("HEY");
 
-setInterval(function(){
-    res = "{{ conversation_id }}";
-    alert("hi");
-    $.ajax({
-        url:"{% url 'ajax-response' %}",
-        method:'GET',
-        data : {'conversation_id' : res}, 
-        success: function(data) {
-            var new_data=data["new_data"];
-            $('#content').html('');
-            for (i = 0; i < new_data.length; i++) {
-                $('#content').append(<p><strong>new_data["username"] :</strong> new_data["message"]</p>);
-            }        
-        }
-    }); 
-}, 3000);
-</script>
 {% endblock %}
