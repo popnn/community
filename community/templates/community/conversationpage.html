@@ -38,7 +38,7 @@
 {% endblock %}
 {% block Scripts %}
 <script>
-setInterval(function() {
+function reload(){
     alert("Hi");
     var res = {{ discussion_id }};
     alert(res);
@@ -54,7 +54,16 @@ setInterval(function() {
                 $('#content').append(<p><strong>new_data["username"] :</strong> new_data["message"]</p>);
             }        
         }
-	}); }, 3000);
+    }); 
+}
+var myVar;
 
+function myFunction() {
+  myVar = setInterval(alertFunc, 3000);
+}
+
+function alertFunc() {
+  alert("Hello!");
+}
 </script>
 {% endblock %}
