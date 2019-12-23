@@ -200,3 +200,6 @@ WEBPUSH_SETTINGS = {
     "VAPID_PRIVATE_KEY":"ePR1uNXX_WWHpCEsoMwfX4QU4IgOfzAl6Vi3AYcAIok",
     "VAPID_ADMIN_EMAIL": "arham@popn.ml"
 }
+
+
+GEOIP_PATH =os.path.join(BASE_DIR, 'geoip/')
