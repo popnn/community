@@ -23,21 +23,21 @@
                         <form method="POST" class="form-inline" action="#formscroll">
                             {% csrf_token %}
                             {{ form.message }}
-                            <button type="submit" class="btn btn-light" style="border-radius:0rem 1rem 1rem 0rem;background-color:#91eef5" value="1" id="formscroll">Send</button>
+                            <button type="submit" class="btn btn-light" style="border-radius:1rem;background-color:#91eef5" value="1" id="formscroll">Send</button>
                         </form>
                     </div>
                 </div>
             </div>
             <div class="col">
+                <br>
                 <div class="card">
                     <div class="card-header border-0 bg-white" style="border-radius:2rem;">
                         <h3>Participants </h3>
                     </div>
-                    {% for particpant in participants %}
-                        <div class="card-body">
-                            <p>{{ particpant.username }}</p>
-                        </div>
-                    {% endfor %}
+                    <div class="card-body">
+                        <p>Name and profile image of users here SAMAY</p>
+                        <button class="btn btn-light" style="border-radius:1rem;background-color:#91eef5"><i class="fas fa-plus"></i> Add new participants</button>
+                    </div>
                 </div>
             </div>
         </div>
