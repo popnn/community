@@ -70,6 +70,13 @@ def ajax_response(request):
 def homepage(request):
     logged_in, user_id = verify_request(request)
     if logged_in:
+        obj_list =  Conversations.objects.all()
+        for conv in obj_list:
+            conv.user_ids = ",".join(sorted(list(set([int(i) for i in conv.user_ids.split(",")]))))
+            if len(conv.user_ids) == 1:
+                Conversations.objects.get(conversation_id=conv.conversation_id).delete()
+            else:
+                conv.save()
         context = {
             'title': "Home",
             'logged_in': logged_in,
@@ -272,7 +279,7 @@ def allconversationspages(request):
                 usernames = list(set([username.strip() for username in form.cleaned_data.get('usernames').split(",")]))
                 user_ids = ",".join(str(UserProfiles.objects.get(username=username).user_id) for username in usernames if username in [str(obj.username) for obj in UserProfiles.objects.all()])
                 if len(user_ids) > 0:
-                    user_ids = str(user_id) + "," + user_ids
+                    user_ids = ",".join(sorted(list(set([int(i) for i in str(user_id) + "," + user_ids]))))
                     conv = Conversations(user_ids=user_ids, admin_id=str(user_id))
                     conv.save()
                     return redirect("/conversations/{}/".format(conv.conversation_id))
@@ -322,8 +329,6 @@ def selectconversationpage(request, conversation_id):
         form = ConversationForm()
         current_date = datetime.datetime.now().date
         participants = []
-        conv.user_ids = ",".join(list(set(conv.user_ids.split(","))))
-        conv.save()
         for user in conv.user_ids.split(","):
             data = {
                 "username": UserProfiles.objects.get(user_id=int(user)).username + (" - admin" if int(conv.admin_id) == int(user) else ""),
