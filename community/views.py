@@ -72,7 +72,7 @@ def homepage(request):
     if logged_in:
         obj_list =  Conversations.objects.all()
         for conv in obj_list:
-            conv.user_ids = ",".join(sorted(list(set([int(i) for i in conv.user_ids.split(",")]))))
+            conv.user_ids = ",".join(map(str,sorted(list(set(map(int, conv.user_ids.split(",")))))))
             if len(conv.user_ids) == 1:
                 Conversations.objects.get(conversation_id=conv.conversation_id).delete()
             else:
@@ -279,7 +279,7 @@ def allconversationspages(request):
                 usernames = list(set([username.strip() for username in form.cleaned_data.get('usernames').split(",")]))
                 user_ids = ",".join(str(UserProfiles.objects.get(username=username).user_id) for username in usernames if username in [str(obj.username) for obj in UserProfiles.objects.all()])
                 if len(user_ids) > 0:
-                    user_ids = ",".join(sorted(list(set([int(i) for i in str(user_id) + "," + user_ids]))))
+                    user_ids = ",".join(map(str,sorted(list(set(map(int, str(user_id) + "," + user_ids))))))
                     conv = Conversations(user_ids=user_ids, admin_id=str(user_id))
                     conv.save()
                     return redirect("/conversations/{}/".format(conv.conversation_id))
