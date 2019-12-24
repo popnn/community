@@ -257,6 +257,7 @@ def allconversationspages(request):
                 user_ids = ",".join(str(UserProfiles.objects.get(username=username).user_id) for username in usernames if username in [obj.username for obj in UserProfiles.objects.all()])
                 conv = Conversations(user_ids=user_ids, admin=str(user_id))
                 conv.save()
+                return redirect("/conversations/{}/".format(conv.conversation_id))
         for conversation in Conversations.objects.all():
             if str(user_id) in conversation.user_ids.split(','):
                 if conversation.conversation_title != '':

@@ -26,12 +26,27 @@
         </div>
     </div>
     <div id="New_Conversation">
-        <div class="card-body">
-            <button onclick="hide_form();" class="btn btn-light" style="border-radius:1rem;background-color:#91eef5;">New Conversation</button>
+        <div class="container">
+            <div class="card-columns">
+                <div class="card">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="card-header border-0 bg-white">
+                            <h4>{% form.as_p %}</h4>
+                        </div>
+                        <div class="card-body">
+                            <button class="btn btn-light" style="border-radius:1rem;background-color:#91eef5;"  type="submit"> Start Conversation</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-body">
+                    <button onclick="hide_form();" class="btn btn-light" style="border-radius:1rem;background-color:#91eef5;">Cancel</button>
+                </div>
+            </div>
         </div>
     </div>
     <script>
-        document.getElementById("New_Conversation").style.display = "none";
+        hide_form();
         function show_form(){
             document.getElementById("Conversation_List").style.display = "none";
             document.getElementById("New_Conversation").style.display = "block";
