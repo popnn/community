@@ -376,6 +376,37 @@ def selectdiscussionpage(request, username, discussion_id):
             })
         return render_template(request, "community/singlediscussionpage.html", context)
 
+def editdiscussionpage(request, username, discussion_id):
+    logged_in, user_id = verify_request(request)
+    if not logged_in:
+        return redirect('/')
+    elif username != UserProfiles.objects.get(user_id=int(user_id)).username:
+        return redirect('/')
+    else:
+        if request.method == 'POST':
+            form = DiscussionForm(request.POST)
+            if form.is_valid():
+                title = form.cleaned_data.get('title')
+                max_comments = form.cleaned_data.get('max_comments')
+                description = form.cleaned_data.get('description')
+                discussion = CommunityDiscussions.objects.get(discussion_id=int(discussion_id))
+                discussion.discussion_title=title
+                discussion.discussion_description=re.sub('[\xF0-\xF7][\x80-\xBF][\x80-\xBF][\x80-\xBF]', '', str(description))
+                discussion.discussion_maximum_comments=max_comments
+                discussion.discussion_type="OPEN"
+                discussion.discussion_author_id=str(user_id)
+                discussion.save()
+                return redirect('/')
+        discussion = CommunityDiscussions.objects.get(discussion_id=int(discussion_id))
+        form_data = {
+            "title": discussion.discussion_title,
+            "description": discussion.discussion_description,
+            "max_comments": discussion.discussion_maximum_comments
+        }
+        form = DiscussionForm(form_data)
+        return render_template(request, 'community/newdiscussionpage.html', {"title":"New Discussion", "form":form, 'logged_in': logged_in})
+
+
 def alldiscussionspage(request):
     logged_in, user_id = verify_request(request)
     if not logged_in:
