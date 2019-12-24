@@ -305,6 +305,7 @@ def newconversationpage(request, other_user_id):
         for conv in Conversations.objects.all():
             if str(user_id) in conv.user_ids.split(','):
                 conv_id = conv.conversation_id
+                break
         else:
             usrs = str(other_user_id) + "," + str(user_id)
             conv = Conversations(user_ids=usrs, admin_id=str(user_id))
