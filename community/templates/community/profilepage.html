@@ -29,10 +29,10 @@
                         <h5>Email: {{ email }}</h5>
                         <div class="row">
                             <div class="col">
-                                <i class="fas fa-user-friends"></i> <a onclick="show_following();"> Followers: {{ followers_count }}</a>
+                                <i class="fas fa-user-friends"></i> <a onclick="show_followers();"> Followers: {{ followers_count }}</a>
                             </div>
                             <div class="col">
-                                <a onclick="show_followers();"> Following : {{ following_users_count }}</a>
+                                <a onclick="show_following();"> Following : {{ following_users_count }}</a>
                             </div>
                             <div class="col">
                                 <a onclick="show_my_threads();"> My threads : {{ my_threads_count }}</a>
@@ -77,7 +77,7 @@
                 <ul class="list-group">
                     {% for thread in my_threads %}
                         <a href="{{ thread.url }}">
-                            <li class="list-group-item text-dark" style="text-decoration: none;">{{ my_threads }}</li>
+                            <li class="list-group-item text-dark" style="text-decoration: none;">{{ thread.title }}</li>
                         </a>
                     {% endfor %}
                 </ul>
