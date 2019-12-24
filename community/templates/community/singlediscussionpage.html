@@ -26,9 +26,9 @@
                                 <form method="POST" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     {% if not saved %}
-                                        <button name="switch" value="true" class="btn btn-light" style="border-radius:1rem;background-color: #9dfc99;" >Save</button>
+                                        <a name="switch" value="true" style="text-decoration:none;"><i class="far fa-bookmark"></i></a>
                                     {% else %}
-                                        <button name="switch" value="true" class="btn btn-light" style="border-radius:1rem;background-color: #f89c8c;" >Saved</button>
+                                        <a name="switch" value="true" style="text-decoration:none;"><i class="fas fa-bookmark"></i></button>
                                     {% endif %}
                                 </form>  
                             {% endif %}
