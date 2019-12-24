@@ -45,8 +45,13 @@
                 <button onclick="hide_form();" class="btn btn-light" style="border-radius:1rem;background-color:#91eef5;">Cancel</button>
             </div>
         </div>
-    </div>
     <script>
+        var card = document.querySelector('.card');
+        card.addEventListener( 'click', function() {
+        card.classList.toggle('is-flipped');
+        });
+    </script>
+    <!--<script>
         hide_form();
         function show_form(){
             document.getElementById("Conversation_List").style.display = "none";
@@ -71,6 +76,6 @@
                 }
             })
         }
-        
+
     </script>
 {% endblock %}
