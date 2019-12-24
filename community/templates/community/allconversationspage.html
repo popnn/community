@@ -13,26 +13,28 @@
                     </div>
                 </div>
             {% endfor %}
-            <div class="card" style="position: relative; transition: transform 1s; transform-style: preserve-3d;">
-                <div class="card__face card__face--front">
-                    <div class="card-header border-0" style="background-color: #91eef5; border-radius:2rem;">
-                        <h4>New Conversation</h4>
-                    </div>
-                    <div class="card-body">
-                        Click here to create a new conversation
-                    </div>
-                </div>
-                <div class="card__face card__face--back">
-                    <form method="POST">
-                        {% csrf_token %}
-                        <div class="card-header border-0 bg-white">
-                            <h4>{{ form.as_p }}</h4>
+            <div class="scene scene--card">
+                <div class="card">
+                    <div class="card__face card__face--front">
+                        <div class="card-header border-0" style="background-color: #91eef5; border-radius:2rem;">
+                            <h4>New Conversation</h4>
                         </div>
                         <div class="card-body">
-                            <button class="btn btn-light" style="border-radius:1rem;background-color:#91eef5;"  type="submit"> Start Conversation</button>
-                            <button onclick="hide_form();" class="btn btn-light" style="border-radius:1rem;background-color:#f5a891;"><i class="fas fa-trash"></i>Cancel</button>
+                            Click here to create a new conversation
                         </div>
-                    </form>
+                    </div>
+                    <div class="card__face card__face--back">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="card-header border-0 bg-white">
+                                <h4>{{ form.as_p }}</h4>
+                            </div>
+                            <div class="card-body">
+                                <button class="btn btn-light" style="border-radius:1rem;background-color:#91eef5;"  type="submit"> Start Conversation</button>
+                                <button onclick="hide_form();" class="btn btn-light" style="border-radius:1rem;background-color:#f5a891;"><i class="fas fa-trash"></i>Cancel</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
