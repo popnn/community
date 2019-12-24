@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
 from django.contrib.auth import logout
+from django.contrib.auth import views as auth_views
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from . import settings
@@ -33,6 +34,7 @@ urlpatterns = [
     path('logout/', logout_function, name='logout'),
     path('', include('community.urls'), name='community'),
     path('', include('pwa_webpush.urls')),
+    path('', include('django.contrib.auth.urls'))
 ]
 
 urlpatterns += staticfiles_urlpatterns()

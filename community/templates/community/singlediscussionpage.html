@@ -37,9 +37,11 @@
                         <p>{{ content }}</p>
                         <br>
                         <h6>Tags: </h6>
+                        <div class="container-fluid">
                             {% for tag in tags %}
                             <span class="badge badge-pill badge-primary">{{ tag }}</span>
                             {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
