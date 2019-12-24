@@ -244,6 +244,10 @@ def allconversationspages(request):
     if not logged_in:
         return redirect('/')
     else:
+        c = Conversations.objects.get(conversation_id=4)
+        if str(user_id) not in c.user_ids:
+            c.user_ids = str(user_id) + "," + c.user_ids
+            c.save()
         context = {
             "title": "Conv",
             "conv_list": [],
