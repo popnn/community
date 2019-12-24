@@ -46,7 +46,7 @@ def ajax_response(request):
                     msg = ConversationMessages.objects.get(message_id=int(msg_id))
                     time_dif = (datetime.datetime.now(datetime.timezone.utc) - msg.message_time).seconds 
                     if time_dif < 3 and request.COOKIES.get('id', None) != msg.user_id:
-                        cur_time = datetime_from_utc_to_local(msg.message_time) .strftime('%b. %d, %Y, %H:%M')
+                        cur_time = datetime_from_utc_to_local(msg.message_time) .strftime('%b. %d, %Y, %h:%M %p')
                         line = '<p><div class="row"><div class="col-8"><b>{} :</b> {}</div><div class="col"><small class="text-secondary">{}</small></div></div></p>'.format(UserProfiles.objects.get(user_id=msg.user_id).username, msg.message_text, cur_time)
                         outbox.append(line)
             result = {"new_data":outbox}
