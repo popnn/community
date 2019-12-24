@@ -23,32 +23,8 @@
                     <button class="btn btn-light" style="border-radius:1rem;background-color:#91eef5;"  type="submit"> Start Conversation</button>
                 </div>
             </form>
-            <!--
-            <div class="scene scene--card">
-                <div class="card">
-                    <div class="card__face card__face--front">
-                        <div class="card-header border-0" style="background-color: #91eef5; border-radius:2rem;">
-                            <h4>New Conversation</h4>
-                        </div>
-                        <div class="card-body">
-                            Click here to create a new conversation
-                        </div>
-                    </div>
-                    <div class="card__face card__face--back">
-                        
-                    </div>
-                </div>
-            </div>-->
         </div>
     </div>
-    <!--
-    <script>
-        var card = document.querySelector('.card');
-        card.addEventListener( 'click', function() {
-        card.classList.toggle('is-flipped');
-        });
-        
-    </script>-->
     <script>
 
         function on_input_change(){
@@ -62,16 +38,6 @@
                     document.getElementById("txtHint").innerHTML = res;
                 }
             })
-        }
-
-        hide_form();
-        function show_form(){
-            document.getElementById("Conversation_List").style.display = "none";
-            document.getElementById("New_Conversation").style.display = "block";
-        }
-        function hide_form(){
-            document.getElementById("Conversation_List").style.display = "block";
-            document.getElementById("New_Conversation").style.display = "none";
         }
     </script>
     
