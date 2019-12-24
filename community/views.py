@@ -255,7 +255,7 @@ def allconversationspages(request):
             if form.is_valid():
                 usernames = [username.strip() for username in form.cleaned_data.get('usernames').split(",")]
                 user_ids = ",".join(str(UserProfiles.objects.get(username=username).user_id) for username in usernames if username in [str(obj.username) for obj in UserProfiles.objects.all()])
-                if len(user_ids) > 0
+                if len(user_ids) > 0:
                     user_ids = str(user_id) + "," + user_ids
                     conv = Conversations(user_ids=user_ids, admin_id=str(user_id))
                     conv.save()
