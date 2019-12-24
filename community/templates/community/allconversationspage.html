@@ -1,18 +1,43 @@
 {% extends 'community/layout.html' %}
 {% block ContentView %}
 <br><br><br><br>
-    <div class="container">
-        <div class="card-columns">
-            {% for conv in conv_list %}
+    <div id="Conversation_List">
+        <div class="container">
+            <div class="card-columns">
+                {% for conv in conv_list %}
+                    <div class="card">
+                        <div class="card-header border-0 bg-white">
+                            <h4>{{ conv.name }}</h4>
+                        </div>
+                        <div class="card-body">
+                            <button onclick="location.href='{{ conv.url }}';" class="btn btn-light" style="border-radius:1rem;background-color:#91eef5;">Chat with {{ conv.name }}</button>
+                        </div>
+                    </div>
+                {% endfor %}
                 <div class="card">
                     <div class="card-header border-0 bg-white">
-                        <h4>{{ conv.name }}</h4>
+                        <h4>New Conversation</h4>
                     </div>
                     <div class="card-body">
-                        <button onclick="location.href='{{ conv.url }}';" class="btn btn-light" style="border-radius:1rem;background-color:#91eef5;">Chat with {{ conv.name }}</button>
+                        <button onclick="show_form();" class="btn btn-light" style="border-radius:1rem;background-color:#91eef5;">New Conversation</button>
                     </div>
                 </div>
-            {% endfor %}
+            </div>
         </div>
     </div>
+    <div id="New_Conversation">
+        <div class="card-body">
+            <button onclick="hide_form();" class="btn btn-light" style="border-radius:1rem;background-color:#91eef5;">New Conversation</button>
+        </div>
+    </div>
+    <script>
+        function show_form(){
+            document.getElementById("Conversation_List").style.display = "none";
+            document.getElementById("New_Conversation").style.display = "block";
+        }
+        function hide_form(){
+            document.getElementById("Conversation_List").style.display = "block";
+            document.getElementById("New_Conversation").style.display = "none";
+        }
+    </script>
 {% endblock %}

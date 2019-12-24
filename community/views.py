@@ -31,19 +31,23 @@ def render_template(request, template_name, context={}):
 @csrf_exempt
 def ajax_response(request):
     if request.method=="POST":
-        conv_id = int(request.POST.get('conversation_id'))
-        outbox = []
-        for msg_id in Conversations.objects.get(conversation_id=int(conv_id)).conversation_history.split(","):
-            if msg_id != '':
-                msg = ConversationMessages.objects.get(message_id=int(msg_id))
-                time_dif = (datetime.datetime.now(datetime.timezone.utc) - msg.message_time).seconds 
-                if time_dif < 3 and request.COOKIES.get('id', None) != msg.user_id:
-                    line = "<p><strong>{}:</strong>{}</p>".format(UserProfiles.objects.get(user_id=msg.user_id).username, msg.message_text)
-                    outbox.append(line)
-        result = {"new_data":outbox}
-        response = JsonResponse(result)
-        response.set_cookie('load', datetime.datetime.now().strftime("%H:%M:%S.%f %b %d %Y"))
-        return response
+        mode = str(request.POST.get('action'))
+        if mode == 'conversation-reload':
+            conv_id = int(request.POST.get('conversation_id'))
+            outbox = []
+            for msg_id in Conversations.objects.get(conversation_id=int(conv_id)).conversation_history.split(","):
+                if msg_id != '':
+                    msg = ConversationMessages.objects.get(message_id=int(msg_id))
+                    time_dif = (datetime.datetime.now(datetime.timezone.utc) - msg.message_time).seconds 
+                    if time_dif < 3 and request.COOKIES.get('id', None) != msg.user_id:
+                        line = "<p><strong>{}:</strong>{}</p>".format(UserProfiles.objects.get(user_id=msg.user_id).username, msg.message_text)
+                        outbox.append(line)
+            result = {"new_data":outbox}
+            response = JsonResponse(result)
+            response.set_cookie('load', datetime.datetime.now().strftime("%H:%M:%S.%f %b %d %Y"))
+            return response
+        elif mode == 'new-conversation':
+            pass
 
 # Create your views here.
 def homepage(request):
@@ -244,7 +248,15 @@ def allconversationspages(request):
             "title": "Conv",
             "conv_list": [],
             'logged_in': logged_in,
+            "form": NewConversationGroupForm()
         }
+        if request.method == "POST":
+            form = NewConversationGroupForm(request.POST)
+            if form.isvalid():
+                usernames = [username.strip() for username in form.cleaned_data.get('usernames')]
+                user_ids = ",".join(str(UserProfiles.objects.get(username=username).user_id) for username in usernames if username in [obj.username for obj in UserProfiles.objects.all()])
+                conv = Conversations(user_ids=user_ids, admin=str(user_id))
+                conv.save()
         for conversation in Conversations.objects.all():
             if str(user_id) in conversation.user_ids.split(','):
                 if conversation.conversation_title != '':
@@ -257,7 +269,6 @@ def allconversationspages(request):
                         name = name[:97] + "..."
                 context["conv_list"].append({"name":name, "url":"/conversations/{}".format(conversation.conversation_id)})
         return render_template(request, 'community/allconversationspage.html', context)
-
 
 def selectconversationpage(request, conversation_id):
     logged_in, user_id = verify_request(request)
