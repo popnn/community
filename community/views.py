@@ -261,19 +261,19 @@ def allconversationspages(request):
 
 def selectconversationpage(request, conversation_id):
     logged_in, user_id = verify_request(request)
-    if not logged_in or str(user_id) not in Conversations.objects.get(conversation_id=conversation_id).user_ids.split(", "):
+    if not logged_in or str(user_id) not in Conversations.objects.get(conversation_id=int(conversation_id)).user_ids.split(","):
         return redirect('/')
     else:
         if request.method == "POST":
             form = ConversationForm(request.POST)
             if form.is_valid():
                 comment = re.sub('[\xF0-\xF7][\x80-\xBF][\x80-\xBF][\x80-\xBF]', '', str(form.cleaned_data.get("message")))
-                conv = Conversations.objects.get(conversation_id=conversation_id)
+                conv = Conversations.objects.get(conversation_id=int(conversation_id))
                 msg = ConversationMessages(user_id=int(user_id), conversation_id=int(conversation_id), message_text=comment)
                 msg.save()
                 conv.conversation_history = conv.conversation_history + "," + str(msg.message_id)
                 conv.save()
-        conv = Conversations.objects.get(conversation_id=conversation_id)
+        conv = Conversations.objects.get(conversation_id=int(conversation_id))
         users = [int(val) for val in conv.user_ids.split(", ")]
         raw_conv_data = conv.conversation_history.split(",")
         conv_data = []
