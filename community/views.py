@@ -443,19 +443,22 @@ def editdiscussionpage(request, username, discussion_id):
                 title = form.cleaned_data.get('title')
                 max_comments = form.cleaned_data.get('max_comments')
                 description = form.cleaned_data.get('description')
+                tags = ",".join(str(tag).strip().lower() for tag in form.cleaned_data.get('tags').split(","))
                 discussion = CommunityDiscussions.objects.get(discussion_id=int(discussion_id))
                 discussion.discussion_title=title
                 discussion.discussion_description=re.sub('[\xF0-\xF7][\x80-\xBF][\x80-\xBF][\x80-\xBF]', '', str(description))
                 discussion.discussion_maximum_comments=max_comments
                 discussion.discussion_type="OPEN"
                 discussion.discussion_author_id=str(user_id)
+                discussion.discussion_tags = tags
                 discussion.save()
                 return redirect('/')
         discussion = CommunityDiscussions.objects.get(discussion_id=int(discussion_id))
         form_data = {
             "title": discussion.discussion_title,
             "description": discussion.discussion_description,
-            "max_comments": discussion.discussion_maximum_comments
+            "max_comments": discussion.discussion_maximum_comments,
+            "tags": discussion.discussion_tags,
         }
         form = DiscussionForm(form_data)
         return render_template(request, 'community/newdiscussionpage.html', {"title":"Edit Discussion", "form":form, 'logged_in': logged_in})
@@ -508,12 +511,14 @@ def newdiscussionpage(request):
                 description = form.cleaned_data.get('description')
                 max_comments = form.cleaned_data.get('max_comments')
                 description = form.cleaned_data.get('description')
+                tags = ",".join(str(tag).strip().lower() for tag in form.cleaned_data.get('tags').split(","))
                 discussion = CommunityDiscussions(
                     discussion_title=title,
                     discussion_description=re.sub('[\xF0-\xF7][\x80-\xBF][\x80-\xBF][\x80-\xBF]', '', str(description)),
                     discussion_maximum_comments=max_comments,
                     discussion_type="OPEN",
-                    discussion_author_id=str(user_id))
+                    discussion_author_id=str(user_id),
+                    discussion_tags=tags)
                 discussion.save()
                 return redirect('/')
         form = DiscussionForm()

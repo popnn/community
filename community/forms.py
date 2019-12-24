@@ -8,6 +8,7 @@ class DiscussionForm(forms.Form):
     description = forms.CharField(max_length=500, widget=forms.TextInput(attrs={'class': 'form-control'}))
     max_comments = forms.IntegerField(initial=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
     description = forms.CharField(max_length=256, required=False, widget=forms.Textarea(attrs={'class': 'form-control'}))
+    tags = forms.CharField(max_length=64, required=False, widget=forms.Textarea(attrs={'class': 'form-control'}))
 
 class CommentForm(forms.Form):
     comment = forms.CharField(max_length=500, widget=forms.TextInput(attrs={'class': 'form-control'}))
