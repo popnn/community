@@ -303,13 +303,14 @@ def newconversationpage(request, other_user_id):
         return redirect('/')
     else:
         for conv in Conversations.objects.all():
-            if str(user_id) in conv.user_ids.split(', '):
-                break
+            if str(user_id) in conv.user_ids.split(','):
+                conv_id = conv.conversation_id
         else:
-            usrs = str(other_user_id) + ", " + str(user_id)
+            usrs = str(other_user_id) + "," + str(user_id)
             conv = Conversations(user_ids=usrs, admin_id=str(user_id))
             conv.save()
-        return redirect("/conversations/{}/".format(conv.conversation_id))
+            conv_id = conv.conversation_id
+        return redirect("/conversations/{}/".format(conv_id))
 
 def selectdiscussionpage(request, username, discussion_id):
     logged_in, user_id = verify_request(request)
