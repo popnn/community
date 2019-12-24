@@ -62,6 +62,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
                             </li>
+                            <li class="nav-item">
+                                {% webpush_button %}
+                            </li>
                         {% endif %}
                     </ul>
                     <hr class="d-block d-sm-none">
