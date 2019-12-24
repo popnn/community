@@ -38,21 +38,41 @@
                 </div>
             </div>
         </div>
+    </div>
     <script>
         var card = document.querySelector('.card');
         card.addEventListener( 'click', function() {
         card.classList.toggle('is-flipped');
         });
     </script>
-    <!--<script>
-        hide_form();
-        function show_form(){
-            document.getElementById("Conversation_List").style.display = "none";
-            document.getElementById("New_Conversation").style.display = "block";
+    <script>
+        $("usernames").change(function(){
+            autocomplete()
+        });
+        function autocomplete(){
+            var query = document.getElementById('usernames').value;
+            $.ajax({
+                url: "/ajax-serverside-query/",
+                type: "POST",
+                data: {"query": query, "action":"autocomplete-username"},
+                success: function(data){
+                    var res = data["res"]
+                    document.getElementById("dropdown").innerHTML = res;
+                }
+            })
         }
-        function hide_form(){
-            document.getElementById("Conversation_List").style.display = "block";
-            document.getElementById("New_Conversation").style.display = "none";
-        }
-    </script>-->
+    </script>
+    <!--
+        <script>
+            hide_form();
+            function show_form(){
+                document.getElementById("Conversation_List").style.display = "none";
+                document.getElementById("New_Conversation").style.display = "block";
+            }
+            function hide_form(){
+                document.getElementById("Conversation_List").style.display = "block";
+                document.getElementById("New_Conversation").style.display = "none";
+            }
+        </script>
+    -->
 {% endblock %}
