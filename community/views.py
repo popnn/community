@@ -160,10 +160,11 @@ def profilepage(request):
     else:
         user_data = UserProfiles.objects.get(user_id=user_id)
         user_data_main = User.objects.get(username=user_data.username)
-        followers_count = sum(1 for val in UserProfiles.objects.all() if str(user_data.user_id) in val.user_following.split(","))
+        followers = [val.username for val in UserProfiles.objects.all() if str(user_data.user_id) in val.user_following.split(",")]
         following_users = [UserProfiles.objects.get(user_id=int(f_id)).username for f_id in user_data.user_following.split(",") if f_id != '']
-        my_threads = [val.discussion_title for val in CommunityDiscussions.objects.filter(discussion_author_id=user_id)]
+        user_threads = [{"title":val.discussion_title, "url":"/discussions/{}/{}".format(UserProfiles.objects.get(user_id=int(val.discussion_author_id)).username, val.discussion_id)} for val in CommunityDiscussions.objects.filter(discussion_author_id=user_data.user_id)]
         saved_threads = [CommunityDiscussions.objects.get(discussion_id=int(discussion_id)).discussion_title for discussion_id in user_data.user_saved_threads.split(",") if discussion_id != '']
+        chat_creation_url = '/new-conversation/{}/'.format(user_data.user_id)
         context = {
             'title': 'Profile',
             'logged_in': logged_in,
@@ -172,14 +173,17 @@ def profilepage(request):
             'username': user_data.username,
             'email': user_data_main.email,
             'description': user_data.user_description,
-            'followers_count': followers_count,
+            "followers": followers,
+            'followers_count': len(followers),
             'following_users': following_users,
             'following_users_count': len(following_users),
             'profile_image': user_data.user_profile_image.url,
-            'my_threads': my_threads,
-            'my_threads_count': len(my_threads),
+            'my_threads': user_threads,
+            'my_threads_count': len(user_threads),
             'saved_threads': saved_threads,
             'saved_threads_count': len(saved_threads),
+            'following': str(UserProfiles.objects.get(username=username).user_id) in UserProfiles.objects.get(user_id=user_id).user_following.split(","),
+            'chat_creation_url': chat_creation_url,
         }
         return render_template(request, 'community/profilepage.html', context)
 
@@ -203,7 +207,7 @@ def viewprofilepage(request, username):
                 user_obj.save()
         user_data = UserProfiles.objects.get(user_id=UserProfiles.objects.get(username=username).user_id)
         user_data_main = User.objects.get(username=username)
-        followers = [val.username for val in UserProfiles.objects.all() if str(user_data.user_id) in val.user_following.split(","))
+        followers = [val.username for val in UserProfiles.objects.all() if str(user_data.user_id) in val.user_following.split(",")]
         following_users = [UserProfiles.objects.get(user_id=int(f_id)).username for f_id in user_data.user_following.split(",") if f_id != '']
         user_threads = [{"title":val.discussion_title, "url":"/discussions/{}/{}".format(UserProfiles.objects.get(user_id=int(val.discussion_author_id)).username, val.discussion_id)} for val in CommunityDiscussions.objects.filter(discussion_author_id=user_data.user_id)]
         saved_threads = [CommunityDiscussions.objects.get(discussion_id=int(discussion_id)).discussion_title for discussion_id in user_data.user_saved_threads.split(",") if discussion_id != '']
