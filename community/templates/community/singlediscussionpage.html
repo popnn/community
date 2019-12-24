@@ -13,9 +13,11 @@
                                 <i class="fas fa-cog flex-shrink-1 align-self-center"></i>
                             </div>
                             <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="dropdownMenuLink" style="border-radius:1rem;">
-                                <div class="dropdown-header">Settings: </div>
-                                <a class="dropdown-item" href="#"><i class="fas fa-edit"></i>Edit Thread</a>
-                                <a class="dropdown-item text-danger" href="#"><i class="fas fa-trash"></i>Delete Thread</a>
+                                {% if editable %}
+                                    <div class="dropdown-header">Settings: </div>
+                                    <a class="dropdown-item" href="{{ edit_url }}"><i class="fas fa-edit"></i>Edit Thread</a>
+                                    <a class="dropdown-item text-danger" href="#"><i class="fas fa-trash"></i>Delete Thread</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

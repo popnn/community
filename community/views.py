@@ -368,6 +368,8 @@ def selectdiscussionpage(request, username, discussion_id):
             "form": CommentForm(),
             "comments": [],
         }
+        if context["editable"]:
+            context["edit_url"] = "/edit-discussion/{}/{}/".format(username, discussion_id)
         for comment in CommunityComments.objects.filter(discussion_id=discussion_id):
             context["comments"].append({
                 "author": UserProfiles.objects.get(user_id=comment.comment_author_id).username,
@@ -405,7 +407,6 @@ def editdiscussionpage(request, username, discussion_id):
         }
         form = DiscussionForm(form_data)
         return render_template(request, 'community/newdiscussionpage.html', {"title":"New Discussion", "form":form, 'logged_in': logged_in})
-
 
 def alldiscussionspage(request):
     logged_in, user_id = verify_request(request)
