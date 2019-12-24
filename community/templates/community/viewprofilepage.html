@@ -25,16 +25,16 @@
                         <button name="chat" value="true" class="btn btn-light" style="border-radius:1rem;background-color:#91eef5;" onclick="location.href='{{chat_creation_url}}';"><i class="fas fa-user"></i>Chat</button>
                         <div class="row">
                             <div class="col">
-                                <i class="fas fa-user-friends"></i> Followers: {{ followers_count }}
+                                <i class="fas fa-user-friends"></i> <a onclick="show_followers();"> Followers: {{ followers_count }}</a>
                             </div>
                             <div class="col">
-                                Following : {{ following_users_count }}
+                                <a onclick="show_following();"> Following : {{ following_users_count }}</a>
                             </div>
                             <div class="col">
-                                User threads : {{ user_threads_count }}
+                                <a onclick="show_my_threads();"> My threads : {{ my_threads_count }}</a>
                             </div>
                             <div class="col">
-                                Saved threads : {{ saved_threads_count }}
+                                <a onclick="show_saved_threads();"> Saved threads : {{ saved_threads_count }}</a>
                             </div>
                         </div>
                     </div>
@@ -43,22 +43,101 @@
             </div>
         </div>
         <br>
-        <h3>My threads: </h3>
-        <div class="card-columns">
-            {% for thread in my_threads %}
-                {{ thread }}
-            {% endfor %}
+        <div id="followers">
+            <h3>Followers: </h3>
+            <div class="col">
+                <ul class="list-group">
+                    {% for user in followers %}
+                        <a href="/profile/view/{{ user }}/">
+                            <li class="list-group-item text-dark" style="text-decoration: none;">{{ user }}</li>
+                        </a>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
-        <br>
-        <h3>Followed Users: </h3>
-        <div class="col-md-5">
-            <ul class="list-group">
-                {% for user in following_users %}
-                    <a href="/profile/view/{{user}}/">
-                        <li class="list-group-item text-dark" style="text-decoration: none;">{{ user }}</li>
-                    </a>
-                {% endfor %}
-            </ul>
+        <div id="following">
+            <h3>Following: </h3>
+            <div class="col">
+                <ul class="list-group">
+                    {% for user in following_users %}
+                        <a href="/profile/view/{{ user }}/">
+                            <li class="list-group-item text-dark" style="text-decoration: none;">{{ user }}</li>
+                        </a>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div id="my_threads">
+            <h3>My Threads: </h3>
+            <div class="col">
+                <ul class="list-group">
+                    {% for thread in user_threads %}
+                        <a href="{{ thread.url }}">
+                            <li class="list-group-item text-dark" style="text-decoration: none;">{{ thread.title }}</li>
+                        </a>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div id="saved_threads">
+            <h3>Saved Threads: </h3>
+            <div class="col">
+                <ul class="list-group">
+                    {% for thread in saved_threads %}
+                        <a href="{{thread.url}}">
+                            <li class="list-group-item text-dark" style="text-decoration: none;">{{ thread.title }}</li>
+                        </a>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
+{% endblock %}
+
+{% block Scripts %}
+<script>
+    hide_all();
+    function show_followers(){
+        var status = document.getElementById("followers");
+        if (status.style.display === "block"){
+            hide_all();
+        }else{
+            hide_all();
+            status.style.display = "block";
+        }
+    }
+    function show_following(){
+        var status = document.getElementById("following");
+        if (status.style.display === "block"){
+            hide_all();
+        }else{
+            hide_all();
+            status.style.display = "block";
+        }
+    }
+    function show_my_threads(){
+        var status = document.getElementById("my_threads");
+        if (status.style.display === "block"){
+            hide_all();
+        }else{
+            hide_all();
+            status.style.display = "block";
+        }
+    }
+    function show_saved_threads(){
+        var status = document.getElementById("saved_threads");
+        if (status.style.display === "block"){
+            hide_all();
+        }else{
+            hide_all();
+            status.style.display = "block";
+        }
+    }
+    function hide_all(){
+        document.getElementById("followers").style.display = "none";
+        document.getElementById("following").style.display = "none";
+        document.getElementById("my_threads").style.display = "none";
+        document.getElementById("saved_threads").style.display = "none";
+    }
+</script>
 {% endblock %}
