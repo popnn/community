@@ -255,10 +255,13 @@ def allconversationspages(request):
             if form.is_valid():
                 usernames = [username.strip() for username in form.cleaned_data.get('usernames').split(",")]
                 user_ids = ",".join(str(UserProfiles.objects.get(username=username).user_id) for username in usernames if username in [str(obj.username) for obj in UserProfiles.objects.all()])
-                user_ids = str(user_id) + "," + user_ids
-                conv = Conversations(user_ids=user_ids, admin_id=str(user_id))
-                conv.save()
-                return redirect("/conversations/{}/".format(conv.conversation_id))
+                if len(user_ids) > 0
+                    user_ids = str(user_id) + "," + user_ids
+                    conv = Conversations(user_ids=user_ids, admin_id=str(user_id))
+                    conv.save()
+                    return redirect("/conversations/{}/".format(conv.conversation_id))
+                else:
+                    return redirect("/conversations/")
         for conversation in Conversations.objects.all():
             if str(user_id) in conversation.user_ids.split(','):
                 if conversation.conversation_title != '':
@@ -269,11 +272,6 @@ def allconversationspages(request):
                     name = ", ".join(UserProfiles.objects.get(user_id=int(f_id)).username for f_id in ref if f_id != "")
                     if len(name) > 100:
                         name = name[:97] + "..."
-                    if name == "":
-                        name = "NAME: {}".format(conversation.user_ids)
-                        conversation.delete()
-                        conversation.save()
-                        continue
                 context["conv_list"].append({"name":name, "url":"/conversations/{}".format(conversation.conversation_id)})
         return render_template(request, 'community/allconversationspage.html', context)
 
