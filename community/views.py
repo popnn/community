@@ -531,7 +531,7 @@ def newdiscussionpage(request):
                     discussion_author_id=str(user_id),
                     discussion_tags=tags)
                 discussion.save()
-                payload = {"head": discussion.discussion_title, "body": "NEW DISCUSSION"}
+                payload = {"head": title, "body": "NEW DISCUSSION"}
                 user = request.user
                 push_infos = user.webpush_info.select_related("subscription")
                 for push_info in push_infos:
