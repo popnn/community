@@ -182,7 +182,7 @@ def profilepage(request):
             'my_threads_count': len(user_threads),
             'saved_threads': saved_threads,
             'saved_threads_count': len(saved_threads),
-            'following': str(UserProfiles.objects.get(username=username).user_id) in UserProfiles.objects.get(user_id=user_id).user_following.split(","),
+            'following': str(user_id) in UserProfiles.objects.get(user_id=user_id).user_following.split(","),
             'chat_creation_url': chat_creation_url,
         }
         return render_template(request, 'community/profilepage.html', context)
