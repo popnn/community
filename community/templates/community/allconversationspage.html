@@ -15,7 +15,7 @@
             {% endfor %}
             <form method="POST">
                 {% csrf_token %}
-                <input type="text" id="username_val">
+                <input type="text" id="username_val" name="username_val">
                 <p>Suggestions: <span id="txtHint"></span></p>
                 <div class="card-header border-0 bg-white">
                     <h4>{{ form.as_p }}</h4>
@@ -64,18 +64,16 @@
                 }
             })
         });
+
+        hide_form();
+        function show_form(){
+            document.getElementById("Conversation_List").style.display = "none";
+            document.getElementById("New_Conversation").style.display = "block";
+        }
+        function hide_form(){
+            document.getElementById("Conversation_List").style.display = "block";
+            document.getElementById("New_Conversation").style.display = "none";
+        }
     </script>
-    
-        <script>
-            hide_form();
-            function show_form(){
-                document.getElementById("Conversation_List").style.display = "none";
-                document.getElementById("New_Conversation").style.display = "block";
-            }
-            function hide_form(){
-                document.getElementById("Conversation_List").style.display = "block";
-                document.getElementById("New_Conversation").style.display = "none";
-            }
-        </script>
     
 {% endblock %}
