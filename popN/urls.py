@@ -34,7 +34,7 @@ urlpatterns = [
     path('logout/', logout_function, name='logout'),
     path('', include('community.urls'), name='community'),
     path('', include('pwa_webpush.urls')),
-    path('password-reset/$', auth_views.password_reset,{'template_name':'registration/password_reset_form'},name='password_reset')
+    path('', include('django.contrib.auth.urls'))
 ]
 
 urlpatterns += staticfiles_urlpatterns()
