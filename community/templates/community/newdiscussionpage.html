@@ -12,7 +12,8 @@
                         <form method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                             {{ form.as_p }}
-                            <small class="text-secondary">Tags seperated by spaces</small>
+                            <small class="text-secondary">Tags seperated by commas</small>
+                            <br>
                             <button class="btn btn-light" type="submit" style="width:100%;border-radius:1rem;background-color:#91eef5">Submit</button>
                         </form>
                     </div>
@@ -20,5 +21,5 @@
             </div> 
         </div>
     </div>
-    
+
 {% endblock %}
