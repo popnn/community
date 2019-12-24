@@ -55,17 +55,14 @@ def ajax_response(request):
             return JsonResponse(result)
         elif mode == "autocomplete-username":
             query = request.POST.get("query")
-            result = {"res": "HELLO WORLD {}".format(query)}
-            return JsonResponse(result)
             raw_res = []
-            
             for f_id in user_data.user_following.split(","):
                 if len(raw_res) == 3:
                     break
                 if f_id.strip() != '':
                     if query in UserProfiles.objects.get(user_id=int(f_id.strip())).username:
                         raw_res.append(UserProfiles.objects.get(user_id=int(f_id.strip())).username)
-            result = {"res": "HELLO WORLD "}
+            result = {"res": "#" + " ".join(raw_res)}
             return JsonResponse(result)
 
 # Create your views here.
