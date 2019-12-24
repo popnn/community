@@ -55,6 +55,7 @@
 
         function on_input_change(){
             var query = document.getElementById('username_val').value;
+            alert(query);
             $.ajax({
                 url: "/ajax-serverside-query/",
                 type: "POST",
