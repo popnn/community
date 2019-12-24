@@ -16,7 +16,7 @@
                                 {% if editable %}
                                     <div class="dropdown-header">Settings: </div>
                                     <a class="dropdown-item" href="{{ edit_url }}"><i class="fas fa-edit"></i>Edit Thread</a>
-                                    <a class="dropdown-item text-danger" href="#"><i class="fas fa-trash"></i>Delete Thread</a>
+                                    <a class="dropdown-item text-danger" onclick="delete_discussion();"><i class="fas fa-trash"></i>Delete Thread</a>
                                 {% endif %}
                             </div>
                         </div>
@@ -67,6 +67,17 @@
     <script>
         if ( window.history.replaceState ) {
           window.history.replaceState( null, null, window.location.href );
+        }
+        function delete_discussion(){
+            $.ajax({
+                url: "/ajax-serverside-query/",
+                type: "POST",
+                data: {"discussion_id": "{{ conversation_id }}", "action":"delete-discussion"},
+                success: function(data){
+                    var url = data["new_url"];
+                    location.href=url;                
+                }
+            })
         }
     </script>
 {% endblock %}
