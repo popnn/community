@@ -253,7 +253,7 @@ def allconversationspages(request):
         if request.method == "POST":
             form = NewConversationGroupForm(request.POST)
             if form.is_valid():
-                usernames = [username.strip() for username in form.cleaned_data.get('usernames')]
+                usernames = [username.strip() for username in form.cleaned_data.get('usernames').split(",")]
                 user_ids = ",".join(str(UserProfiles.objects.get(username=username).user_id) for username in usernames if username in [str(obj.username) for obj in UserProfiles.objects.all()])
                 user_ids = str(user_id) + "," + user_ids
                 conv = Conversations(user_ids=user_ids, admin_id=str(user_id))
