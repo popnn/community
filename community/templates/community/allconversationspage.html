@@ -53,6 +53,7 @@
     <script>
         $("usernames").change(function(){
             var query = document.getElementById('usernames').value;
+            alert(query);
             $.ajax({
                 url: "/ajax-serverside-query/",
                 type: "POST",
