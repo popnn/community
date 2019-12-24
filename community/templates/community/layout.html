@@ -45,8 +45,8 @@
                         <!--<li class="nav-item">
                             <a class="nav-link" href="/"><i class="fas fa-search"></i> Explore</a>
                         </li>-->
+
                         {% if logged_in %}
-                    
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'community-profile' %}"><i class="fas fa-user"></i> Profile</a>
                             </li>
@@ -61,6 +61,7 @@
                             </li>
                         {% endif %}
                     </ul>
+
                     <form class="form-inline" action="{% url 'community-search' %}" method="get">
                         <div class="container-fluid">
                             <div class="row">
@@ -69,12 +70,18 @@
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </nav>
         <br>
+        <br>
+        <br>
+        <br>
+        <br>
         {% block ContentView %}
         {% endblock %}
+        
         {% block Scripts %}
         {% endblock %}
         <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>

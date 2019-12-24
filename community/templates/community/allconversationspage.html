@@ -1,6 +1,5 @@
 {% extends 'community/layout.html' %}
 {% block ContentView %}
-<br><br><br><br>
     <div class="container">
         <div class="card-columns">
             {% for conv in conv_list %}
@@ -19,11 +18,7 @@
                 {% csrf_token %}
                 <div class="card-header border-0 bg-white">
                     <h4>{{ form.as_p }}</h4>
-                    <!--<ul class="list-group-item">
-                        <div id="suggestions"></div>
-                    </ul>-->
                     <datalist id="suggestions">
-
                     </datalist>
                     <small class="text-secondary">Seperate usernames with commas</small>
                 </div>
@@ -33,20 +28,23 @@
             </form>
         </div>
     </div>
-    <script>
-
-        function on_input_change(){
-            var query = document.getElementById('username_val').value;
-            $.ajax({
-                url: "/ajax-serverside-query/",
-                type: "POST",
-                data: {"query": query, "action":"autocomplete-username"},
-                success: function(data){
-                    var res = data["res"];
-                    document.getElementById("suggestions").innerHTML = res;
-                }
-            })
-        }
-    </script>
     
+    
+{% endblock %}
+{% block Scripts %}
+<script>
+
+    function on_input_change(){
+        var query = document.getElementById('username_val').value;
+        $.ajax({
+            url: "/ajax-serverside-query/",
+            type: "POST",
+            data: {"query": query, "action":"autocomplete-username"},
+            success: function(data){
+                var res = data["res"];
+                document.getElementById("suggestions").innerHTML = res;
+            }
+        })
+    }
+</script>
 {% endblock %}
