@@ -21,6 +21,15 @@
                                         <a class="dropdown-item text-danger" onclick="delete_discussion();"><i class="fas fa-trash"></i>Delete Thread</a>
                                     </div>
                                 </div>
+                            {% else %}
+                                <form method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {% if not saved %}
+                                        <button name="switch" value="true" class="btn btn-light" style="border-radius:1rem;background-color: #9dfc99;" >Save</button>
+                                    {% else %}
+                                        <button name="switch" value="true" class="btn btn-light" style="border-radius:1rem;background-color: #f89c8c;" >Saved</button>
+                                    {% endif %}
+                                </form>  
                             {% endif %}
                         </div>
                     </div>

@@ -405,6 +405,7 @@ def selectdiscussionpage(request, username, discussion_id):
             "form": CommentForm(),
             "comments": [],
             "discussion_id": discussion_id,
+            "saved": str(discussion_id) in UserProfiles.objects.get(user_id=int(user_id)).user_saved_threads.split(",")
         }
         if context["editable"]:
             context["edit_url"] = "/edit-discussion/{}/{}/".format(username, discussion_id)
