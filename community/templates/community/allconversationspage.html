@@ -49,12 +49,7 @@
         card.addEventListener( 'click', function() {
         card.classList.toggle('is-flipped');
         });
-    </script>-->
-    <script>
-        $("username_val").change(function(){
-            var query = document.getElementById('username_val').value;
-            alert(query);
-            $.ajax({
+        $.ajax({
                 url: "/ajax-serverside-query/",
                 type: "POST",
                 data: {"query": query, "action":"autocomplete-username"},
@@ -63,6 +58,11 @@
                     document.getElementById("txtHint").innerHTML = res;
                 }
             })
+    </script>-->
+    <script>
+        $("username_val").change(function(){
+            var query = document.getElementById('username_val').value;
+            alert(query);
         });
 
         hide_form();
