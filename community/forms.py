@@ -27,7 +27,7 @@ class CreateUserForm(forms.Form):
         )
 
 class NewConversationGroupForm(forms.Form):
-    usernames = forms.CharField(max_length=300, widget=forms.TextInput(attrs={'class':'form-control','id':'username_val','name':'username_val','oninput':'on_input_change();'}))
+    usernames = forms.CharField(max_length=300, widget=forms.TextInput(attrs={'class':'form-control','id':'username_val','name':'username_val','oninput':'on_input_change();', 'list':'suggestions'}))
 
 class EditProfileForm(forms.Form):
     first_name = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class': 'form-control'}))
