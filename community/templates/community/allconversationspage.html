@@ -17,8 +17,7 @@
                 {% csrf_token %}
                 <div class="card-header border-0 bg-white">
                     <h4>{{ form.as_p }}</h4>
-                    <ul class="list-group-item">
-                        <span id="suggestions"></span>
+                    <ul class="list-group-item" id="suggestions">
                     </ul>
                     <p>Suggestions: <span id="txtHint"></span></p>
                     <small class="text-secondary">Seperate usernames with commas</small>
