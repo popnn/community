@@ -22,8 +22,10 @@
                         <hr>
                         <form method="POST" class="form-inline" action="#formscroll">
                             {% csrf_token %}
-                            {{ form.message }}
-                            <button type="submit" class="btn btn-light" style="border-radius:1rem;background-color:#91eef5" value="1" id="formscroll">Send</button>
+                            <div class="row">
+                                <div class="col-8">{{ form.message }}</div>
+                                <div class="col"><button type="submit" class="btn btn-light" style="border-radius:1rem;background-color:#91eef5" value="1" id="formscroll">Send</button></div>
+                            </div>
                         </form>
                     </div>
                 </div>
