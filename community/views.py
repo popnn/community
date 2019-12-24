@@ -69,6 +69,12 @@ def ajax_response(request):
 # Create your views here.
 def homepage(request):
     logged_in, user_id = verify_request(request)
+    for user in User.objects.all():
+        user1 = UserProfiles.objects.get(username=user.username)
+        user.username = user.username.lower()
+        user.save()
+        user1.username = user1.username.lower()
+        user1.save()
     if logged_in:
         context = {
             'title': "Home",
@@ -90,7 +96,7 @@ def homepage(request):
         if request.method == 'POST':
             form = AuthenticationForm(data=request.POST)
             if form.is_valid():
-                username = form.cleaned_data.get('username')
+                username = form.cleaned_data.get('username').lower()
                 password = form.cleaned_data.get('password')
                 user = authenticate(username=username, password=password)
                 if user is not None:
