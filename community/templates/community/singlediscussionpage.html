@@ -8,6 +8,16 @@
                     <div class="card-header border-0 bg-white">
                         <h2>{{ title }}</h2>
                         <p>{{ author }}</p>
+                        <div class="dropdown align-self-center">
+                            <div role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-cog flex-shrink-1 align-self-center"></i>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="dropdownMenuLink" style="border-radius:1rem;">
+                                <div class="dropdown-header">Settings: </div>
+                                <a class="dropdown-item" href="#"><i class="fas fa-edit"></i>Edit Thread</a>
+                                <a class="dropdown-item text-danger" href="#"><i class="fas fa-trash"></i>Delete Thread</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <p>{{ content }}</p>
