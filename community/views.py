@@ -62,7 +62,7 @@ def ajax_response(request):
                 if f_id.strip() != '':
                     if query in UserProfiles.objects.get(user_id=int(f_id.strip())).username:
                         raw_res.append(UserProfiles.objects.get(user_id=int(f_id.strip())).username)
-            result = {"res": " ".join(raw_res)"}
+            result = {"res": " ".join(raw_res)}
             return JsonResponse(result)
 
 # Create your views here.
