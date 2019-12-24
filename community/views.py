@@ -495,24 +495,27 @@ def newdiscussionpage(request):
         return render_template(request, 'community/newdiscussionpage.html', {"title":"New Discussion", "form":form, 'logged_in': logged_in})
 
 def search(query, logged_in):
-    res = {
-        "threads":[],
-        "users":[]
-    }
+    threads = []
+    users = []
     for thread in CommunityDiscussions.objects.all():
         for data in [thread.discussion_title, thread.discussion_description]:
             if query.lower() in data.lower():
                 break
         else:
             continue
-        res["threads"].append({
+        threads.append({
             'card_title': thread.discussion_title,
             'card_text': thread.discussion_description,
         })
     for user in UserProfiles.objects.all():
         if query in user.username:
-            res["users"].append({
+            users.append({
                 'username': user.username,
                 'url': "/profile/view/{}/".format(user.username),
             }) 
+    res = {}
+    if len(threads) > 0:
+        res["threads"] = threads
+    if len(users) > 0:
+        res["users"] = users
     return res
