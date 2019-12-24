@@ -322,6 +322,8 @@ def selectconversationpage(request, conversation_id):
         form = ConversationForm()
         current_date = datetime.datetime.now().date
         participants = []
+        conv.user_ids = ",".join(list(set(conv.user_ids.split(","))))
+        conv.save()
         for user in conv.user_ids.split(","):
             data = {
                 "username": UserProfiles.objects.get(user_id=int(user)).username + (" - admin" if int(conv.admin_id) == int(user) else ""),
