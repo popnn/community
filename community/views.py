@@ -142,7 +142,7 @@ def searchpage(request):
     if request.method == 'GET':
         query = request.GET.get('q', None)
     context = {
-        'title': 'Search-{}'.format(query) if query is not None else 'Search',
+        'title': 'Search-{}'.format(query) if (query is not None and len(query) > 0) else 'Search',
         'query': query,
         'logged_in': logged_in,
     }
