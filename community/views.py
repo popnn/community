@@ -417,9 +417,7 @@ def selectdiscussionpage(request, username, discussion_id):
                     )
                     if CommunityComments.objects.filter(discussion_id=discussion.discussion_id).count() < discussion.discussion_maximum_comments:
                         comment.save()
-        tag_split = discussion.discussion_tags
-        tag_split = (tag_split.replace(' ',',')).replace(',,',',')
-        context = {
+            context = {
             'logged_in': logged_in,
             "title": discussion.discussion_title,
             "author": UserProfiles.objects.get(user_id=discussion.discussion_author_id).username,
@@ -431,7 +429,7 @@ def selectdiscussionpage(request, username, discussion_id):
             "comments": [],
             "discussion_id": discussion_id,
             "saved": str(discussion_id) in UserProfiles.objects.get(user_id=int(user_id)).user_saved_threads.split(","),
-            "tags": tag_split.split(","),
+            "tags": ((discussion.discussion_tags.replace(' ',',')).replace(',,',',')).split(","),
         }
         if context["editable"]:
             context["edit_url"] = "/edit-discussion/{}/{}/".format(username, discussion_id)
