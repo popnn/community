@@ -71,7 +71,7 @@ def ajax_response(request):
 # Create your views here.
 def homepage(request):
     logged_in, user_id = verify_request(request)
-    for usr in UserProfiles:
+    for usr in UserProfiles.objects.all():
         usr.user_following = ",".join([str(i).strip() for i in list(set(usr.user_following.split(",")))])
         usr.save()
     if logged_in:
