@@ -13,20 +13,20 @@
                     </div>
                 </div>
             {% endfor %}
-            <form method="POST">
-                {% csrf_token %}
-                <div class="card-header border-0 bg-white">
-                    <h4>{{ form.as_p }}</h4>
-                    <ul class="list-group-item">
-                        <div id="suggestions"></div>
-                    </ul>
-                    <small class="text-secondary">Seperate usernames with commas</small>
-                </div>
-                <div class="card-body">
-                    <button class="btn btn-light" style="border-radius:1rem;background-color:#91eef5;"  type="submit"> Start Conversation</button>
-                </div>
-            </form>
         </div>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="card-header border-0 bg-white">
+                <h4>{{ form.as_p }}</h4>
+                <ul class="list-group-item">
+                    <div id="suggestions"></div>
+                </ul>
+                <small class="text-secondary">Seperate usernames with commas</small>
+            </div>
+            <div class="card-body">
+                <button class="btn btn-light" style="border-radius:1rem;background-color:#91eef5;"  type="submit"> Start Conversation</button>
+            </div>
+        </form>
     </div>
     <script>
 
