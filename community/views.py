@@ -69,12 +69,6 @@ def ajax_response(request):
 # Create your views here.
 def homepage(request):
     logged_in, user_id = verify_request(request)
-    for user in User.objects.all():
-        user1 = UserProfiles.objects.get(username=user.username)
-        user.username = user.username.lower()
-        user.save()
-        user1.username = user1.username.lower()
-        user1.save()
     if logged_in:
         context = {
             'title': "Home",
