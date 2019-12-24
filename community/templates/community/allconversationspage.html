@@ -17,7 +17,6 @@
                 {% csrf_token %}
                 <input type="text" id="usernames">
                 <p>Suggestions: <span id="txtHint"></span></p>
-                <div id="random"></div>
                 <div class="card-header border-0 bg-white">
                     <h4>{{ form.as_p }}</h4>
                 </div>
@@ -60,7 +59,7 @@
                 data: {"query": query, "action":"autocomplete-username"},
                 success: function(data){
                     var res = data["res"];
-                    document.getElementById("random").innerHTML = res;
+                    document.getElementById("txtHint").innerHTML = res;
                 }
             })
         });
