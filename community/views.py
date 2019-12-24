@@ -54,14 +54,14 @@ def ajax_response(request):
             result = {"new_url":"/"}
             return JsonResponse(result)
         elif mode == "autocomplete-username":
-            query = request.POST.get("query").split(",")[-1].strip()
+            query, *exists = request.POST.get("query").lower()split(",")[::-1].strip()
             raw_res = []
             for f_id in UserProfiles.objects.get(user_id=int(request.COOKIES.get('id'))).user_following.split(","):
                 if len(raw_res) == 3:
                     break
-                if f_id.strip() != '':
-                    if query in UserProfiles.objects.get(user_id=int(f_id.strip())).username:
-                        username = UserProfiles.objects.get(user_id=int(f_id.strip())).username
+                if f_id.strip() != '' anf int(f_id) != int(user_id):
+                    username = UserProfiles.objects.get(user_id=int(f_id.strip())).username
+                    if query in username.lower() and username.lower() not in  exists:
                         raw_res.append('<option value="{}">'.format(username))
             result = {"res": "\n".join(raw_res)}
             return JsonResponse(result)
@@ -218,7 +218,6 @@ def viewprofilepage(request, username):
         }
         return render_template(request, 'community/viewprofilepage.html', context)
 
-
 def editprofilepage(request):
     logged_in, user_id = verify_request(request)
     if not logged_in:
@@ -270,7 +269,7 @@ def allconversationspages(request):
         if request.method == "POST":
             form = NewConversationGroupForm(request.POST)
             if form.is_valid():
-                usernames = [username.strip() for username in form.cleaned_data.get('usernames').split(",")]
+                usernames = list(set([username.strip() for username in form.cleaned_data.get('usernames').split(",")]))
                 user_ids = ",".join(str(UserProfiles.objects.get(username=username).user_id) for username in usernames if username in [str(obj.username) for obj in UserProfiles.objects.all()])
                 if len(user_ids) > 0:
                     user_ids = str(user_id) + "," + user_ids
@@ -281,7 +280,7 @@ def allconversationspages(request):
                     return redirect("/conversations/")
         for conversation in Conversations.objects.all():
             if str(user_id) in conversation.user_ids.split(','):
-                if conversation.conversation_title != '':
+                if conversation.conversation_title != '' and len(conversation.user_ids.split(',')) > 2:
                     name = conversation.conversation_title 
                 else:
                     ref = conversation.user_ids.split(',')
@@ -300,16 +299,15 @@ def selectconversationpage(request, conversation_id):
     if not logged_in or str(user_id) not in Conversations.objects.get(conversation_id=int(conversation_id)).user_ids.split(","):
         return redirect('/')
     else:
+        conv = Conversations.objects.get(conversation_id=int(conversation_id))
         if request.method == "POST":
             form = ConversationForm(request.POST)
             if form.is_valid():
                 comment = re.sub('[\xF0-\xF7][\x80-\xBF][\x80-\xBF][\x80-\xBF]', '', str(form.cleaned_data.get("message")))
-                conv = Conversations.objects.get(conversation_id=int(conversation_id))
                 msg = ConversationMessages(user_id=int(user_id), conversation_id=int(conversation_id), message_text=comment)
                 msg.save()
                 conv.conversation_history = conv.conversation_history + "," + str(msg.message_id)
                 conv.save()
-        conv = Conversations.objects.get(conversation_id=int(conversation_id))
         users = [int(val) for val in conv.user_ids.split(",") if val != '']
         raw_conv_data = conv.conversation_history.split(",")
         conv_data = []
@@ -330,7 +328,7 @@ def selectconversationpage(request, conversation_id):
                 "profile_url": "/profile/view/{}/".format(int(user))
             }
             participants.append(data)
-        if conv.conversation_title != '':
+        if conv.conversation_title != '' and len(conv.user_ids.split(',')) > 2:
             name = conv.conversation_title 
         else:
             ref = conv.user_ids.split(',')
