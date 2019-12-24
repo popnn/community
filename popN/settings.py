@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     #useradded
     'django.contrib.sites',
     'bootstrap',
+    'pwa_webpush',
     'fontawesome',
     'captcha',
     'django_user_agents',
@@ -153,7 +154,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     '/var/www/static/',
 ]
-"""
+
 #PWA settings
 
 PWA_APP_NAME = 'popN'
@@ -172,15 +173,8 @@ PWA_APP_ICONS = [
     }
 ]
 
-PWA_APP_SPLASH_SCREEN = [
-    {
-        'src': '/static/images/icons/splash-640x1136.png',
-        'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
-    }
-]
-
 PWA_APP_LANG = 'en-US'
-"""
+
 # Email setup
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'eventdips.ga'
