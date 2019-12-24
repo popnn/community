@@ -13,7 +13,7 @@ class CommentForm(forms.Form):
     comment = forms.CharField(max_length=500, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
 class ConversationForm(forms.Form):
-    message = forms.CharField(max_length=256, widget=forms.TextInput(attrs={'class': 'form-control','style':'border-radius:1rem 0rem 0rem 1rem;'}))
+    message = forms.CharField(max_length=256, widget=forms.TextInput(attrs={'class': 'form-control','style':'border-radius:1rem;'}))
 
 class CreateUserForm(forms.Form):
     username = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class': 'form-control'}))
