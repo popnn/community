@@ -62,7 +62,7 @@ def ajax_response(request):
             for f_id in UserProfiles.objects.get(user_id=int(request.COOKIES.get('id'))).user_following.split(","):
                 if len(raw_res) == 3:
                     break
-                if f_id.strip() != '' and int(f_id) != int(user_id):
+                if f_id.strip() != '' and int(f_id) != int(request.COOKIES.get('id')):
                     username = UserProfiles.objects.get(user_id=int(f_id.strip())).username
                     if query in username.lower() and username.lower() not in exists:
                         raw_res.append('<option value="{}">'.format(username))
