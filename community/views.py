@@ -9,6 +9,7 @@ from django.template import Context
 from django.template.loader import render_to_string
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from dateutil.tz import *
 from PIL import Image
 from .models import *
 from .forms import *
@@ -41,7 +42,7 @@ def ajax_response(request):
                     msg = ConversationMessages.objects.get(message_id=int(msg_id))
                     time_dif = (datetime.datetime.now(datetime.timezone.utc) - msg.message_time).seconds 
                     if time_dif < 3 and request.COOKIES.get('id', None) != msg.user_id:
-                        line = '<p><div class="row"><div class="col-8"><b>{} :</b> {}</div><div class="col"><small class="text-secondary">{}</small></div></div></p>'.format(UserProfiles.objects.get(user_id=msg.user_id).username, msg.message_text, msg.message_time)
+                        line = '<p><div class="row"><div class="col-8"><b>{} :</b> {}</div><div class="col"><small class="text-secondary">{}</small></div></div></p>'.format(UserProfiles.objects.get(user_id=msg.user_id).username, msg.message_text, msg.message_time.astimezone(tzlocal()).strftime('%B. %d,%Y, %H:%M%Z%z'))
                         outbox.append(line)
             result = {"new_data":outbox}
             response = JsonResponse(result)
