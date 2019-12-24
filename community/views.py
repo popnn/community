@@ -246,11 +246,11 @@ def allconversationspages(request):
             'logged_in': logged_in,
         }
         for conversation in Conversations.objects.all():
-            if str(user_id) in conversation.user_ids.split(', '):
+            if str(user_id) in conversation.user_ids.split(','):
                 if conversation.conversation_title != '':
                     name = conversation.conversation_title 
                 else:
-                    ref = conversation.user_ids.split(', ')
+                    ref = conversation.user_ids.split(',')
                     ref.remove(str(user_id))
                     name = ", ".join(UserProfiles.objects.get(user_id=int(f_id)).username for f_id in ref)
                     if len(name) > 100:
