@@ -15,6 +15,8 @@
             {% endfor %}
             <form method="POST">
                 {% csrf_token %}
+                <input type="text" id="usernames">
+                <p>Suggestions: <span id="txtHint"></span></p>
                 <div class="card-header border-0 bg-white">
                     <h4>{{ form.as_p }}</h4>
                 </div>
@@ -57,7 +59,7 @@
                 data: {"query": query, "action":"autocomplete-username"},
                 success: function(data){
                     var res = data["res"]
-                    document.getElementById("dropdown").innerHTML = res;
+                    document.getElementById("txtHint").innerHTML = res;
                 }
             })
         });
