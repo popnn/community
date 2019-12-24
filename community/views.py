@@ -309,9 +309,8 @@ def selectconversationpage(request, conversation_id):
         participants = []
         for user in conv.user_ids.split(","):
             data = {
-                "username": UserProfiles.objects.get(user_id=int(user)).username,
+                "username": UserProfiles.objects.get(user_id=int(user)).username + "-admin" if int(admin.conv_id) == int(user) else "",
                 "profile_url": "/profile/view/{}/".format(int(user))
-                "admin": int(admin.conv_id) == int(user),
             }
             participants.append(data)
         context = {
