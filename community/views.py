@@ -531,11 +531,6 @@ def newdiscussionpage(request):
                     discussion_author_id=str(user_id),
                     discussion_tags=tags)
                 discussion.save()
-                payload = {"head": title, "body": "NEW DISCUSSION"}
-                user = request.user
-                push_infos = user.webpush_info.select_related("subscription")
-                for push_info in push_infos:
-                    send_to_subscription(push_info.subscription, payload)
                 return redirect('/')
         form = DiscussionForm()
         return render_template(request, 'community/newdiscussionpage.html', {"title":"New Discussion", "form":form, 'logged_in': logged_in})
