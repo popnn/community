@@ -1,8 +1,8 @@
 /* bootstrap-tagsinput.css file - add in local */
 
 .bootstrap-tagsinput {
-    background-color: rgb(226, 149, 149);
-    border: 1px solid #ccc;
+    background-color: rgb(149, 221, 226);
+    border: 1px solid rgb(165, 165, 165);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     display: inline-block;
     padding: 4px 6px;
@@ -39,7 +39,7 @@
   }
   .bootstrap-tagsinput .tag {
     margin-right: 2px;
-    color: white;
+    color: rgb(158, 158, 158);
   }
   .bootstrap-tagsinput .tag [data-role="remove"] {
     margin-left: 8px;
