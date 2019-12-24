@@ -36,6 +36,10 @@
                     </div>
                     <div class="card-body">
                         <p>{{ content }}</p>
+                        <br>
+                            {% for tag in tags %}
+                            <span class="badge badge-pill badge-primary">{{ tag }}</span>
+                            {% endfor %}
                     </div>
                 </div>
             </div>
