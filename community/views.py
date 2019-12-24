@@ -372,6 +372,7 @@ def selectdiscussionpage(request, username, discussion_id):
             "date": discussion.discussion_publish_date,
             "form": CommentForm(),
             "comments": [],
+            "discussion_id": discussion_id,
         }
         if context["editable"]:
             context["edit_url"] = "/edit-discussion/{}/{}/".format(username, discussion_id)

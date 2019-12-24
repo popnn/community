@@ -76,7 +76,7 @@
             $.ajax({
                 url: "/ajax-serverside-query/",
                 type: "POST",
-                data: {"discussion_id": "{{ conversation_id }}", "action":"delete-discussion"},
+                data: {"discussion_id": "{{ discussion_id }}", "action":"delete-discussion"},
                 success: function(data){
                     var url = data["new_url"];
                     location.href=url;                
