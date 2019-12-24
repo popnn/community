@@ -288,9 +288,9 @@ def allconversationspages(request):
             form = NewConversationGroupForm(request.POST)
             if form.is_valid():
                 usernames = list(set([username.strip() for username in form.cleaned_data.get('usernames').split(",")]))
-                user_ids = ",".join(str(UserProfiles.objects.get(username=username).user_id) for username in usernames if username in [str(obj.username) for obj in UserProfiles.objects.all()])
+                user_ids = [str(UserProfiles.objects.get(username=username).user_id) for username in usernames if username in [str(obj.username) for obj in UserProfiles.objects.all()]]
                 if len(user_ids) > 0:
-                    user_ids = ",".join(map(str,sorted(list(set(map(int, str(user_id) + "," + user_ids))))))
+                    user_ids = ",".join(map(str,sorted(list(set([int(i) for i in user_ids+[user_id])))))
                     conv = Conversations(user_ids=user_ids, admin_id=str(user_id))
                     conv.save()
                     return redirect("/conversations/{}/".format(conv.conversation_id))
