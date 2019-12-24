@@ -39,7 +39,7 @@
   }
   .bootstrap-tagsinput .tag {
     margin-right: 2px;
-    color: rgb(241, 125, 125);
+    color: rgb(255, 255, 255);
   }
   .bootstrap-tagsinput .tag [data-role="remove"] {
     margin-left: 8px;
