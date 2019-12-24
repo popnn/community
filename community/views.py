@@ -354,7 +354,7 @@ def newconversationpage(request, other_user_id):
         return redirect('/')
     else:
         for conv in Conversations.objects.all():
-            if str(user_id) in conv.user_ids.split(','):
+            if str(user_id) in conv.user_ids.split(',') and str(other_user_id) in conv.user_ids.split(',') and len(conv.user_ids.split(',')) == 2:
                 conv_id = conv.conversation_id
                 break
         else:
