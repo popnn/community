@@ -254,7 +254,7 @@ def allconversationspages(request):
             form = NewConversationGroupForm(request.POST)
             if form.is_valid():
                 usernames = [username.strip() for username in form.cleaned_data.get('usernames')]
-                user_ids = ",".join(str(UserProfiles.objects.get(username=username).user_id) for username in usernames if username in [obj.username for obj in UserProfiles.objects.all()])
+                user_ids = ",".join(str(UserProfiles.objects.get(username=username).user_id) for username in usernames if username.strip() in [obj.username for obj in UserProfiles.objects.all()])
                 user_ids = str(user_id) + "," + user_ids
                 conv = Conversations(user_ids=user_ids, admin_id=str(user_id))
                 conv.save()
