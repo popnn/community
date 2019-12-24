@@ -271,6 +271,9 @@ def allconversationspages(request):
                         name = name[:97] + "..."
                     if name == "":
                         name = "NAME: {}".format(conversation.user_ids)
+                        conversation.delete()
+                        conversation.save()
+                        continue
                 context["conv_list"].append({"name":name, "url":"/conversations/{}".format(conversation.conversation_id)})
         return render_template(request, 'community/allconversationspage.html', context)
 
