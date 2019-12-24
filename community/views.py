@@ -54,7 +54,7 @@ def ajax_response(request):
             result = {"new_url":"/"}
             return JsonResponse(result)
         elif mode == "autocomplete-username":
-            query, *exists = request.POST.get("query").lower().split(",")[::-1].strip()
+            query, *exists = request.POST.get("query").lower().strip().split(",")[::-1]
             raw_res = []
             for f_id in UserProfiles.objects.get(user_id=int(request.COOKIES.get('id'))).user_following.split(","):
                 if len(raw_res) == 3:
