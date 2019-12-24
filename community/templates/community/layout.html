@@ -62,9 +62,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
                             </li>
-                            <li class="nav-item">
-                                {% webpush_button %}
-                            </li>
                         {% endif %}
                     </ul>
                     <hr class="d-block d-sm-none">
@@ -83,7 +80,7 @@
         <br><br><br><br><br>
         {% block ContentView %}
         {% endblock %}
-
+        {% webpush_button %}
         {% block Scripts %}
         {% endblock %}
         <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
