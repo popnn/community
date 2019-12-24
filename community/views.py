@@ -244,10 +244,6 @@ def allconversationspages(request):
     if not logged_in:
         return redirect('/')
     else:
-        c = Conversations.objects.get(conversation_id=4)
-        if str(user_id) not in c.user_ids:
-            c.user_ids = str(user_id) + "," + c.user_ids
-            c.save()
         context = {
             "title": "Conv",
             "conv_list": [],
@@ -294,7 +290,7 @@ def selectconversationpage(request, conversation_id):
                 conv.conversation_history = conv.conversation_history + "," + str(msg.message_id)
                 conv.save()
         conv = Conversations.objects.get(conversation_id=int(conversation_id))
-        users = [int(val) for val in conv.user_ids.split(",")]
+        users = [int(val) for val in conv.user_ids.split(",") if val != '']
         raw_conv_data = conv.conversation_history.split(",")
         conv_data = []
         for message_id in raw_conv_data:
