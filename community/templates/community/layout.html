@@ -64,12 +64,12 @@
                             </li>
                         {% endif %}
                     </ul>
-
+                    <hr class="d-block d-sm-none">
                     <form class="form-inline" action="{% url 'community-search' %}" method="get">
                         <div class="container-fluid">
                             <div class="input-group">
-                                <input class="form-control d-inline" type="search" placeholder="Search" aria-label="Search" name="q" style="border-radius:1rem;">
-                                <div class="input-group-append"><button class="btn btn-outline-success d-inline" type="submit" style="border-radius:1rem;"><i class="fas fa-search"></i></button></div>
+                                <input class="form-control d-inline" type="search" placeholder="Search" aria-label="Search" name="q" style="border-radius:1rem 0rem 0rem 1rem;">
+                                <div class="input-group-append"><button class="btn btn-outline-success d-inline" type="submit" style="border-radius:0rem 1rem 1rem 0rem;"><i class="fas fa-search"></i></button></div>
                             </div>
                         </div>
                     </form>
