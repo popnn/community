@@ -164,7 +164,7 @@ def profilepage(request):
         following_users = [UserProfiles.objects.get(user_id=int(f_id)).username for f_id in user_data.user_following.split(",") if f_id != '']
         user_threads = [{"title":val.discussion_title, "url":"/discussions/{}/{}".format(UserProfiles.objects.get(user_id=int(val.discussion_author_id)).username, val.discussion_id)} for val in CommunityDiscussions.objects.filter(discussion_author_id=user_data.user_id)]
         saved_threads_ids = [CommunityDiscussions.objects.get(discussion_id=int(discussion_id)) for discussion_id in user_data.user_saved_threads.split(",") if discussion_id != '']
-        saved_thread = [{"title":val.discussion_title, "url":"/discussions/{}/{}".format(UserProfiles.objects.get(user_id=int(val.discussion_author_id)).username, val.discussion_id)} for val in saved_threads_ids]
+        saved_threads = [{"title":val.discussion_title, "url":"/discussions/{}/{}".format(UserProfiles.objects.get(user_id=int(val.discussion_author_id)).username, val.discussion_id)} for val in saved_threads_ids]
         context = {
             'title': 'Profile',
             'logged_in': logged_in,
