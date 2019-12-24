@@ -373,16 +373,27 @@ def selectdiscussionpage(request, username, discussion_id):
     else:
         discussion = CommunityDiscussions.objects.get(discussion_id=discussion_id)
         if request.method == "POST":
-            form = CommentForm(request.POST)
-            if form.is_valid():
-                desc = form.cleaned_data.get('comment')
-                comment = CommunityComments(
-                    discussion_id=discussion_id,
-                    comment_author_id=user_id,
-                    comment_description=re.sub('[\xF0-\xF7][\x80-\xBF][\x80-\xBF][\x80-\xBF]', '', str(desc))
-                )
-                if CommunityComments.objects.filter(discussion_id=discussion.discussion_id).count() < discussion.discussion_maximum_comments:
-                    comment.save()
+            save_switch = request.POST.get('switch', False):
+            if save_switch:
+                profile = UserProfiles.objects.get(user_id=int(user_id))
+                saved_threads = profile.user_saved_threads.split(",")
+                if str(discussion_id) in profile.user_saved_threads.split(","):
+                    saved_threads.remove(str(discussion_id))
+                    profile.user_saved_threads = ",".join(saved_threads)
+                else:
+                    profile.user_saved_threads = ",".join(saved_threads+[str(discussion_id)])
+                profile.save()
+            else:
+                form = CommentForm(request.POST)
+                if form.is_valid():
+                    desc = form.cleaned_data.get('comment')
+                    comment = CommunityComments(
+                        discussion_id=discussion_id,
+                        comment_author_id=user_id,
+                        comment_description=re.sub('[\xF0-\xF7][\x80-\xBF][\x80-\xBF][\x80-\xBF]', '', str(desc))
+                    )
+                    if CommunityComments.objects.filter(discussion_id=discussion.discussion_id).count() < discussion.discussion_maximum_comments:
+                        comment.save()
         context = {
             'logged_in': logged_in,
             "title": discussion.discussion_title,
