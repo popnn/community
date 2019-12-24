@@ -8,7 +8,6 @@
                         <div class="col-11">
                             <h2>{{ title }}</h2>
                             <p>{{ author }}</p>
-                            {{ tags }}
                         </div>
                         <div class="col">
                             {% if editable %}
@@ -37,6 +36,7 @@
                     <div class="card-body">
                         <p>{{ content }}</p>
                         <br>
+                        <h6>Tags: </h6>
                             {% for tag in tags %}
                             <span class="badge badge-pill badge-primary">{{ tag }}</span>
                             {% endfor %}
