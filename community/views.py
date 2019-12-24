@@ -522,7 +522,7 @@ def newdiscussionpage(request):
                 description = form.cleaned_data.get('description')
                 max_comments = form.cleaned_data.get('max_comments')
                 description = form.cleaned_data.get('description')
-                tags = ",".join(str(tag).strip().lower() for tag in form.cleaned_data.get('tags').split(","))
+                tags = " ".join(str(tag).strip().lower() for tag in form.cleaned_data.get('tags').split(" "))
                 discussion = CommunityDiscussions(
                     discussion_title=title,
                     discussion_description=re.sub('[\xF0-\xF7][\x80-\xBF][\x80-\xBF][\x80-\xBF]', '', str(description)),
