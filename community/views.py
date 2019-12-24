@@ -272,6 +272,9 @@ def allconversationspages(request):
                     name = ", ".join(UserProfiles.objects.get(user_id=int(f_id)).username for f_id in ref if f_id != "")
                     if len(name) > 100:
                         name = name[:97] + "..."
+                    if len(name) == 0:
+                        Conversations.objects.get(conversation_id=conversation.conversation_id).delete()
+                        continue
                 context["conv_list"].append({"name":name, "url":"/conversations/{}".format(conversation.conversation_id)})
         return render_template(request, 'community/allconversationspage.html', context)
 
