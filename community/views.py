@@ -48,6 +48,11 @@ def ajax_response(request):
             return response
         elif mode == 'new-conversation':
             pass
+        elif mode == "delete-discussion":
+            discussion_id = int(request.POST.get('discussion_id'))
+            CommunityDiscussions.objects.get(discussion_id=discussion_id).delete()
+            result = {"new_url":"/"}
+            return JsonResponse(result)
 
 # Create your views here.
 def homepage(request):
