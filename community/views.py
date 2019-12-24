@@ -104,6 +104,8 @@ def homepage(request):
                     user_id = UserProfiles.objects.get(username=username).user_id
                     response.set_cookie('id', user_id)
                     return response 
+                else:
+                    messages.warning(request, 'Incorrect username/password.')
         else:
             form = AuthenticationForm()
         return render_template(request, 'community/previewpage.html', {'form': form})
