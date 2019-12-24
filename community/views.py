@@ -53,7 +53,7 @@ def ajax_response(request):
             CommunityDiscussions.objects.get(discussion_id=discussion_id).delete()
             result = {"new_url":"/"}
             return JsonResponse(result)
-        elif mode == "autocomplete":
+        elif mode == "autocomplete-username":
             query = request.POST.get("query")
             raw_res = []
             for f_id in user_data.user_following.split(","):
