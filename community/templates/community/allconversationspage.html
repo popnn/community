@@ -1,21 +1,21 @@
 {% extends 'community/layout.html' %}
 {% block ContentView %}
 <br><br><br><br>
-    <div id="Conversation_List">
-        <div class="container">
-            <div class="card-columns">
-                {% for conv in conv_list %}
-                    <div class="card">
-                        <div class="card-header border-0 bg-white">
-                            <h4>{{ conv.name }}</h4>
-                        </div>
-                        <div class="card-body">
-                            <button onclick="location.href='{{ conv.url }}';" class="btn btn-light" style="border-radius:1rem;background-color:#91eef5;">Chat with {{ conv.name }}</button>
-                        </div>
+    <div class="container">
+        <div class="card-columns">
+            {% for conv in conv_list %}
+                <div class="card">
+                    <div class="card-header border-0 bg-white">
+                        <h4>{{ conv.name }}</h4>
                     </div>
-                {% endfor %}
-                <a onclick="show_form();">
-                    <div class="card" style="background-color: #91eef5;">
+                    <div class="card-body">
+                        <button onclick="location.href='{{ conv.url }}';" class="btn btn-light" style="border-radius:1rem;background-color:#91eef5;">Chat with {{ conv.name }}</button>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="scene scene--card">
+                <div class="card">
+                    <div class="card__face card__face--front">
                         <div class="card-header border-0" style="background-color: #91eef5; border-radius:2rem;">
                             <h4>New Conversation</h4>
                         </div>
@@ -23,31 +23,22 @@
                             Click here to create a new conversation
                         </div>
                     </div>
-                </a>
+                    <div class="card__face card__face--back">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="card-header border-0 bg-white">
+                                <h4>{{ form.as_p }}</h4>
+                            </div>
+                            <div class="card-body">
+                                <button class="btn btn-light" style="border-radius:1rem;background-color:#91eef5;"  type="submit"> Start Conversation</button>
+                                <button onclick="hide_form();" class="btn btn-light" style="border-radius:1rem;background-color:#f5a891;"><i class="fas fa-trash"></i>Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div id="New_Conversation">
-        <div class="container">
-            <div class="card">
-                <form method="POST">
-                    {% csrf_token %}
-                    <div class="card-header border-0 bg-white">
-                        <input type="text" id="usernames">
-                        <h4>{{ form.usernames }}</h4>
-                        <div id="dropdown">
-                            DROPDOWN TEXT
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <button class="btn btn-light" style="border-radius:1rem;background-color:#91eef5;"  type="submit"> Start Conversation</button>
-                    </div>
-                </form>
-            </div>
-            <div class="card-body">
-                <button onclick="hide_form();" class="btn btn-light" style="border-radius:1rem;background-color:#91eef5;">Cancel</button>
-            </div>
-        </div>
     <script>
         var card = document.querySelector('.card');
         card.addEventListener( 'click', function() {
@@ -55,15 +46,6 @@
         });
     </script>
     <script>
-        hide_form();
-        function show_form(){
-            document.getElementById("Conversation_List").style.display = "none";
-            document.getElementById("New_Conversation").style.display = "block";
-        }
-        function hide_form(){
-            document.getElementById("Conversation_List").style.display = "block";
-            document.getElementById("New_Conversation").style.display = "none";
-        }
         $("usernames").change(function(){
             var query = document.getElementById('usernames').value;
             $.ajax({
@@ -77,4 +59,17 @@
             })
         });
     </script>
+    <!--
+        <script>
+            hide_form();
+            function show_form(){
+                document.getElementById("Conversation_List").style.display = "none";
+                document.getElementById("New_Conversation").style.display = "block";
+            }
+            function hide_form(){
+                document.getElementById("Conversation_List").style.display = "block";
+                document.getElementById("New_Conversation").style.display = "none";
+            }
+        </script>
+    -->
 {% endblock %}
