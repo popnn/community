@@ -261,6 +261,9 @@ def allconversationspages(request):
 
 def selectconversationpage(request, conversation_id):
     logged_in, user_id = verify_request(request)
+    for c in Conversations.objects.all():
+        c.user_ids = ",".join(c.user_ids.split(", "))
+        c.save()
     if not logged_in or str(user_id) not in Conversations.objects.get(conversation_id=int(conversation_id)).user_ids.split(","):
         return redirect('/')
     else:
