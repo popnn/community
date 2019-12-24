@@ -53,6 +53,8 @@ def ajax_response(request):
             CommunityDiscussions.objects.get(discussion_id=discussion_id).delete()
             result = {"new_url":"/"}
             return JsonResponse(result)
+        elif mode == "autcomplete-search":
+            pass
         elif mode == "autocomplete-username":
             query, *exists = request.POST.get("query").lower().strip().split(",")[::-1]
             raw_res = []
@@ -144,7 +146,7 @@ def searchpage(request):
         'query': query,
         'logged_in': logged_in,
     }
-    if query is not None:
+    if query is not None and len(query) > 0:
         context['search_results'] = search(query, logged_in)
     return render_template(request, 'community/searchpage.html', context)
 
