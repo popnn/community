@@ -20,7 +20,7 @@
         {% endif %}
         <br>
         {% if threads %}
-            <h3> Threads : {{ threads ! length }}</h3>
+            <h3> Threads : {{ threads | length }}</h3>
             <div class="card-columns" >   
                 {% for card_data in search_results.threads %}
                     <a href="{{ card_data.card_url }}">
