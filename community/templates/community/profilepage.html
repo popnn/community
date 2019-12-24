@@ -1,71 +1,68 @@
 {% extends 'community/layout.html' %}
 
 {% block ContentView %}
-<br><br><br><br>
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="card col-12">
-                <div class="card-header border-0 bg-white d-flex" style="border-radius:1rem;">
-                    <img src="{{ profile_image }}" style="width: 80px;height: 80px;border-radius:2rem;max-height:9rem;" >
-                     &nbsp&nbsp<strong class="align-self-center w-100">{{ username }}</strong>
-                    <div class="dropdown align-self-center">
-                        <div role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-cog flex-shrink-1 align-self-center"></i>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card col-12">
+                    <div class="card-header border-0 bg-white d-flex" style="border-radius:1rem;">
+                        <img src="{{ profile_image }}" style="width: 80px;height: 80px;border-radius:2rem;max-height:9rem;" >
+                        &nbsp&nbsp<strong class="align-self-center w-100">{{ username }}</strong>
+                        <div class="dropdown align-self-center">
+                            <div role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-cog flex-shrink-1 align-self-center"></i>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="dropdownMenuLink" style="border-radius:1rem;">
+                                <div class="dropdown-header">Settings: </div>
+                                <a class="dropdown-item" href="#">Change Password</a>
+                                <a class="dropdown-item" href="{% url 'community-profile-edit' %}">Edit Profile</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Support/Help</a>
+                            </div>
                         </div>
-                        <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="dropdownMenuLink" style="border-radius:1rem;">
-                            <div class="dropdown-header">Settings: </div>
-                            <a class="dropdown-item" href="#">Change Password</a>
-                            <a class="dropdown-item" href="{% url 'community-profile-edit' %}">Edit Profile</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Support/Help</a>
-                        </div>
+                        <br><hr>
                     </div>
-                     
-                    <br><hr>
+                    <div class="card-body">
+                        <h2> {{ first_name }} {{ last_name }}</h2>
+                        <h6> {{ description }} </h6>
+                        <br>
+                        <h5>Email: {{ email }}</h5>
+                        <div class="row">
+                            <div class="col">
+                                <i class="fas fa-user-friends"></i> Followers: {{ followers_count }}
+                            </div>
+                            <div class="col">
+                                Following : {{ following_users_count }}
+                            </div>
+                            <div class="col">
+                                My threads : {{ my_threads_count }}
+                            </div>
+                            <div class="col">
+                                Saved threads : 0
+                            </div>
+                        </div>
+                        <br>
+                    <div>
                 </div>
-                <div class="card-body">
-                    <h2> {{ first_name }} {{ last_name }}</h2>
-                    <h6> {{ description }} </h6>
-                    <br>
-                    <h5>Email: {{ email }}</h5>
-                    <div class="row">
-                        <div class="col">
-                            <i class="fas fa-user-friends"></i> Followers: {{ followers_count }}
-                        </div>
-                        <div class="col">
-                            Following : {{ following_users_count }}
-                        </div>
-                        <div class="col">
-                            My threads : {{ my_threads_count }}
-                        </div>
-                        <div class="col">
-                            Saved threads : 0
-                        </div>
-                    </div>
-                    <br>
-                <div>
             </div>
         </div>
-    </div>
-    <br>
-    <h3>My threads: </h3>
-    <div class="col-md-6">
-        {% for thread in my_threads %}
-            {{ thread }}
-        {% endfor %}
-    </div>
-    <br>
-    <h3>Followed Users: </h3>
-    <div class="col">
-        <ul class="list-group">
-            {% for user in following_users %}
-                <a href="/profile/view/{{user}}/">
-                    <li class="list-group-item text-dark" style="text-decoration: none;">{{ user }}</li>
-                </a>
+        <br>
+        <h3>My threads: </h3>
+        <div class="col-md-6">
+            {% for thread in my_threads %}
+                {{ thread }}
             {% endfor %}
-        </ul>
+        </div>
+        <br>
+        <h3>Followed Users: </h3>
+        <div class="col">
+            <ul class="list-group">
+                {% for user in following_users %}
+                    <a href="/profile/view/{{user}}/">
+                        <li class="list-group-item text-dark" style="text-decoration: none;">{{ user }}</li>
+                    </a>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
-</div>
-
 {% endblock %}

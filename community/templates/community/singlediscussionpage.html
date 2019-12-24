@@ -1,6 +1,5 @@
 {% extends 'community/layout.html' %}
 {% block ContentView %}
-    <br><br><br><br>
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -40,7 +39,7 @@
                     </div>
                     <div class="card-body">
                         {% for comment in comments %}
-                        <p><strong>{{comment.author}}</strong> - {{comment.description}}</p>
+                            <p><strong>{{comment.author}}</strong> - {{comment.description}}</p>
                         {% endfor %}
                         <br>
                         {% if not closed %}
@@ -68,6 +67,9 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block Scripts %}
     <script>
         if ( window.history.replaceState ) {
           window.history.replaceState( null, null, window.location.href );
@@ -83,6 +85,5 @@
                 }
             })
         }
-
     </script>
 {% endblock %}

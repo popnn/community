@@ -1,6 +1,6 @@
 {% extends 'community/layout.html' %}
+
 {% block ContentView %}
-    
     <div class="container">
         <div class="row">
             <div class="col-md-8">
@@ -36,7 +36,6 @@
                     <div class="card-header border-0 bg-white" style="border-radius:2rem;">
                         <h3>Participants </h3>
                     </div>
-                    
                     <div class="card-body">
                         {% for participant in participants %}
                             <p> {{participant.username}} </p>
@@ -47,6 +46,9 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block Scripts %}
     <script>
         function refresh(){
             $.ajax({
@@ -57,9 +59,7 @@
                     var new_data = data["new_data"];
                     if (new_data){
                         $("#content").append(new_data);
-                        
-                    }
-                    
+                    }                 
                 }
             })
         }

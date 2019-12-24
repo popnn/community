@@ -1,4 +1,5 @@
 {% extends 'community/layout.html' %}
+
 {% block ContentView %}
     <div class="container">
         <div class="card-columns">
@@ -28,23 +29,21 @@
             </form>
         </div>
     </div>
-    
-    
 {% endblock %}
-{% block Scripts %}
-<script>
 
-    function on_input_change(){
-        var query = document.getElementById('username_val').value;
-        $.ajax({
-            url: "/ajax-serverside-query/",
-            type: "POST",
-            data: {"query": query, "action":"autocomplete-username"},
-            success: function(data){
-                var res = data["res"];
-                document.getElementById("suggestions").innerHTML = res;
-            }
-        })
-    }
-</script>
+{% block Scripts %}
+    <script>
+        function on_input_change(){
+            var query = document.getElementById('username_val').value;
+            $.ajax({
+                url: "/ajax-serverside-query/",
+                type: "POST",
+                data: {"query": query, "action":"autocomplete-username"},
+                success: function(data){
+                    var res = data["res"];
+                    document.getElementById("suggestions").innerHTML = res;
+                }
+            })
+        }
+    </script>
 {% endblock %}

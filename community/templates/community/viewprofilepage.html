@@ -1,66 +1,64 @@
 {% extends 'community/layout.html' %}
 
 {% block ContentView %}
-<br><br><br><br>
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="card col-12">
-                <div class="card-header border-0 bg-white d-flex" style="border-radius:1rem;">
-                    <img src="{{ profile_image }}" style="width: 80px;border-radius:2rem;max-height: 9rem;" >
-                     &nbsp&nbsp<strong class="align-self-center w-100">{{ username }}</strong>
-                    <form method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {% if not following %}
-                            <button name="follow" value="true" class="btn btn-light" style="border-radius:1rem;background-color: #9dfc99;" >Follow</button>
-                        {% else %}
-                            <button name="unfollow" value="true" class="btn btn-light" style="border-radius:1rem;background-color: #f89c8c;" >Unfollow</button>
-                        {% endif %}
-                    </form>  
-                </div>
-                <div class="card-body">
-                    <h2> {{ first_name }} {{ last_name }}</h2>
-                    <h6> {{ description }} </h6>
-                    <br>
-                    <h5>Email: {{ email }}</h5>
-                    <button name="chat" value="true" class="btn btn-light" style="border-radius:1rem;background-color:#91eef5;" onclick="location.href='{{chat_creation_url}}';"><i class="fas fa-user"></i>Chat</button>
-                    <div class="row">
-                        <div class="col">
-                            <i class="fas fa-user-friends"></i> Followers: {{ followers_count }}
-                        </div>
-                        <div class="col">
-                            Following : {{ following_users_count }}
-                        </div>
-                        <div class="col">
-                            My threads : {{ my_threads_count }}
-                        </div>
-                        <div class="col">
-                            Saved threads : 0
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card col-12">
+                    <div class="card-header border-0 bg-white d-flex" style="border-radius:1rem;">
+                        <img src="{{ profile_image }}" style="width: 80px;border-radius:2rem;max-height: 9rem;" >
+                        &nbsp&nbsp<strong class="align-self-center w-100">{{ username }}</strong>
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {% if not following %}
+                                <button name="follow" value="true" class="btn btn-light" style="border-radius:1rem;background-color: #9dfc99;" >Follow</button>
+                            {% else %}
+                                <button name="unfollow" value="true" class="btn btn-light" style="border-radius:1rem;background-color: #f89c8c;" >Unfollow</button>
+                            {% endif %}
+                        </form>  
+                    </div>
+                    <div class="card-body">
+                        <h2> {{ first_name }} {{ last_name }}</h2>
+                        <h6> {{ description }} </h6>
+                        <br>
+                        <h5>Email: {{ email }}</h5>
+                        <button name="chat" value="true" class="btn btn-light" style="border-radius:1rem;background-color:#91eef5;" onclick="location.href='{{chat_creation_url}}';"><i class="fas fa-user"></i>Chat</button>
+                        <div class="row">
+                            <div class="col">
+                                <i class="fas fa-user-friends"></i> Followers: {{ followers_count }}
+                            </div>
+                            <div class="col">
+                                Following : {{ following_users_count }}
+                            </div>
+                            <div class="col">
+                                My threads : {{ my_threads_count }}
+                            </div>
+                            <div class="col">
+                                Saved threads : 0
+                            </div>
                         </div>
                     </div>
+                    <br>
                 </div>
-                <br>
             </div>
         </div>
-    </div>
-    <br>
-    <h3>My threads: </h3>
-    <div class="card-columns">
-        {% for thread in my_threads %}
-            {{ thread }}
-        {% endfor %}
-    </div>
-    <br>
-    <h3>Followed Users: </h3>
-    <div class="col-md-5">
-        <ul class="list-group">
-            {% for user in following_users %}
-                <a href="/profile/view/{{user}}/">
-                    <li class="list-group-item text-dark" style="text-decoration: none;">{{ user }}</li>
-                </a>
+        <br>
+        <h3>My threads: </h3>
+        <div class="card-columns">
+            {% for thread in my_threads %}
+                {{ thread }}
             {% endfor %}
-        </ul>
+        </div>
+        <br>
+        <h3>Followed Users: </h3>
+        <div class="col-md-5">
+            <ul class="list-group">
+                {% for user in following_users %}
+                    <a href="/profile/view/{{user}}/">
+                        <li class="list-group-item text-dark" style="text-decoration: none;">{{ user }}</li>
+                    </a>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
-</div>
-
 {% endblock %}
