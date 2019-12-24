@@ -4,8 +4,8 @@
     <div class="container">
         <h1>Search: {{ query }}</h1>
         <br>
-        {% if users %}
-            <h3> Users : {{ users | length }}</h3>
+        {% if search_results.users %}
+            <h3> Users : {{ search_results.users | length }}</h3>
             <div class="card-columns">
                 {% for card_data in search_results.users %}
                     <a href="{{ card_data.url }}">
@@ -19,8 +19,8 @@
             </div>
         {% endif %}
         <br>
-        {% if threads %}
-            <h3> Threads : {{ threads | length }}</h3>
+        {% if search_results.threads %}
+            <h3> Threads : {{ search_results.threads | length }}</h3>
             <div class="card-columns" >   
                 {% for card_data in search_results.threads %}
                     <a href="{{ card_data.card_url }}">
@@ -36,7 +36,7 @@
                 {% endfor %}
             </div>
         {% endif %}
-        {% if not users and not thread %}
+        {% if not search_results.users and not search_results.thread %}
             <h3> No Results Found. </h3>
         {% endif %}
     </div>
