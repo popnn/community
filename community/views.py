@@ -373,7 +373,7 @@ def selectdiscussionpage(request, username, discussion_id):
     else:
         discussion = CommunityDiscussions.objects.get(discussion_id=discussion_id)
         if request.method == "POST":
-            save_switch = request.POST.get('switch', False):
+            save_switch = request.POST.get('switch', False)
             if save_switch:
                 profile = UserProfiles.objects.get(user_id=int(user_id))
                 saved_threads = profile.user_saved_threads.split(",")
@@ -405,7 +405,7 @@ def selectdiscussionpage(request, username, discussion_id):
             "form": CommentForm(),
             "comments": [],
             "discussion_id": discussion_id,
-            "saved": str(discussion_id) in UserProfiles.objects.get(user_id=int(user_id)).user_saved_threads.split(",")
+            "saved": str(discussion_id) in UserProfiles.objects.get(user_id=int(user_id)).user_saved_threads.split(","),
         }
         if context["editable"]:
             context["edit_url"] = "/edit-discussion/{}/{}/".format(username, discussion_id)
