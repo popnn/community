@@ -160,8 +160,8 @@ def profilepage(request):
     else:
         user_data = UserProfiles.objects.get(user_id=user_id)
         user_data_main = User.objects.get(username=user_data.username)
-        followers_count = sum(1 for val in UserProfiles.objects.all() if str(user_data.user_id) in val.user_following.split(", "))
-        following_users = [UserProfiles.objects.get(user_id=int(f_id)).username for f_id in user_data.user_following.split(", ") if f_id != '']
+        followers_count = sum(1 for val in UserProfiles.objects.all() if str(user_data.user_id) in val.user_following.split(","))
+        following_users = [UserProfiles.objects.get(user_id=int(f_id)).username for f_id in user_data.user_following.split(",") if f_id != '']
         my_threads = [val.discussion_title for val in CommunityDiscussions.objects.filter(discussion_author_id=user_id)]
         saved_threads = [CommunityDiscussions.objects.get(discussion_id=discussion_id).discussion_title for discussion_id in user_data.user_saved_threads]
         context = {
@@ -193,18 +193,18 @@ def viewprofilepage(request, username):
         if request.method == "POST":
             if request.POST.get("follow"):
                 user_obj = UserProfiles.objects.get(user_id=user_id)
-                user_obj.user_following = ", ".join(user_obj.user_following.split(", ") + [str(UserProfiles.objects.get(username=username).user_id)])
+                user_obj.user_following = ",".join(user_obj.user_following.split(",") + [str(UserProfiles.objects.get(username=username).user_id)])
                 user_obj.save()
             elif request.POST.get("unfollow"):
                 user_obj = UserProfiles.objects.get(user_id=user_id)
-                base = user_obj.user_following.split(", ")
+                base = user_obj.user_following.split(",")
                 base.remove(str(UserProfiles.objects.get(username=username).user_id))
-                user_obj.user_following = ", ".join(base)
+                user_obj.user_following = ",".join(base)
                 user_obj.save()
         user_data = UserProfiles.objects.get(user_id=UserProfiles.objects.get(username=username).user_id)
         user_data_main = User.objects.get(username=username)
-        followers_count = sum(1 for val in UserProfiles.objects.all() if str(user_data.user_id) in val.user_following.split(", "))
-        following_users = [UserProfiles.objects.get(user_id=int(f_id)).username for f_id in user_data.user_following.split(", ") if f_id != '']
+        followers_count = sum(1 for val in UserProfiles.objects.all() if str(user_data.user_id) in val.user_following.split(","))
+        following_users = [UserProfiles.objects.get(user_id=int(f_id)).username for f_id in user_data.user_following.split(",") if f_id != '']
         user_threads = [val.discussion_title for val in CommunityDiscussions.objects.filter(discussion_author_id=user_data.user_id)]
         saved_threads = [CommunityDiscussions.objects.get(discussion_id=discussion_id).discussion_title for discussion_id in user_data.user_saved_threads]
         chat_creation_url = '/new-conversation/{}/'.format(user_data.user_id)
