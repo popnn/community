@@ -53,7 +53,7 @@ def ajax_response(request):
             CommunityDiscussions.objects.get(discussion_id=discussion_id).delete()
             result = {"new_url":"/"}
             return JsonResponse(result)
-        elif mode == "autocomplete":
+        elif mode == "autocomplete-username":
             query = request.POST.get("query")
             raw_res = []
             for f_id in user_data.user_following.split(","):
@@ -62,7 +62,7 @@ def ajax_response(request):
                 if f_id.strip() != '':
                     if query in UserProfiles.objects.get(user_id=int(f_id.strip())).username:
                         raw_res.append(UserProfiles.objects.get(user_id=int(f_id.strip())).username)
-            result = {"res": " ".join(raw_res)}
+            result = {"res": "HELLO WORLD   "}
             return JsonResponse(result)
 # Create your views here.
 def homepage(request):

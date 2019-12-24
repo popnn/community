@@ -47,9 +47,6 @@
     </script>
     <script>
         $("usernames").change(function(){
-            autocomplete()
-        });
-        function autocomplete(){
             var query = document.getElementById('usernames').value;
             $.ajax({
                 url: "/ajax-serverside-query/",
@@ -60,7 +57,7 @@
                     document.getElementById("dropdown").innerHTML = res;
                 }
             })
-        }
+        });
     </script>
     <!--
         <script>
