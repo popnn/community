@@ -318,6 +318,14 @@ def selectconversationpage(request, conversation_id):
                 "profile_url": "/profile/view/{}/".format(int(user))
             }
             participants.append(data)
+        if conv.conversation_title != '':
+            name = conv.conversation_title 
+        else:
+            ref = conv.user_ids.split(',')
+            ref.remove(str(user_id))
+            name = ", ".join(UserProfiles.objects.get(user_id=int(f_id)).username for f_id in ref if f_id != "")
+            if len(name) > 100:
+                name = name[:97] + "..."
         context = {
             "form": form,
             "title": title,
@@ -326,6 +334,7 @@ def selectconversationpage(request, conversation_id):
             "conversation_id": conversation_id,
             "current_date": current_date,
             "participants": participants,
+            "chat_title": name,
             }
         return render_template(request, 'community/conversationpage.html', context)
 
