@@ -19,6 +19,7 @@ import datetime
 import re
 from tracking_analyzer.models import Tracker
 from time import time as xTime
+from webpush import send_user_notification
 
 #TODO Account_status 
 def datetime_from_utc_to_local(utc_datetime):
@@ -330,6 +331,8 @@ def selectconversationpage(request, conversation_id):
                 comment = re.sub('[\xF0-\xF7][\x80-\xBF][\x80-\xBF][\x80-\xBF]', '', str(form.cleaned_data.get("message")))
                 msg = ConversationMessages(user_id=int(user_id), conversation_id=int(conversation_id), message_text=comment)
                 msg.save()
+                notification_payload = {"head": "New message.", "body": comment}
+                send_user_notification(user=UserProfiles.objects.get(user_id=int(user)).username, payload=payload, ttl=1000)
                 conv.conversation_history = conv.conversation_history + "," + str(msg.message_id)
                 conv.save()
         users = [int(val) for val in conv.user_ids.split(",") if val != '']
