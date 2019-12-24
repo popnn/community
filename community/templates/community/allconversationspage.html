@@ -36,7 +36,12 @@
                 </div>
             </div>
         </div>
-    
+    <script>
+        var card = document.querySelector('.card');
+        card.addEventListener( 'click', function() {
+        card.classList.toggle('is-flipped');
+        });
+    </script>
     <!--<script>
         hide_form();
         function show_form(){
