@@ -70,13 +70,6 @@ def ajax_response(request):
 def homepage(request):
     logged_in, user_id = verify_request(request)
     if logged_in:
-        obj_list =  Conversations.objects.all()
-        for conv in obj_list:
-            conv.user_ids = ",".join(map(str,sorted(list(set(int(i) for i in  conv.user_ids.split(",") if i != '')))))
-            if len(conv.user_ids) == 1:
-                Conversations.objects.get(conversation_id=conv.conversation_id).delete()
-            else:
-                conv.save()
         context = {
             'title': "Home",
             'logged_in': logged_in,
