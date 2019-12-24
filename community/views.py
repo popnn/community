@@ -283,10 +283,6 @@ def selectconversationpage(request, conversation_id):
     if not logged_in or str(user_id) not in Conversations.objects.get(conversation_id=int(conversation_id)).user_ids.split(","):
         return redirect('/')
     else:
-        c = Conversations.objects.get(conversation_id=3)
-        c.user_ids = c.user_ids + ",2"
-        c.conversation_title = "Group Chat"
-        c.save()
         if request.method == "POST":
             form = ConversationForm(request.POST)
             if form.is_valid():
@@ -310,13 +306,22 @@ def selectconversationpage(request, conversation_id):
         title = conv.conversation_title
         form = ConversationForm()
         current_date = datetime.datetime.now().date
+        participants = []
+        for user in conv.user_ids.split(","):
+            data = {
+                "username": UserProfiles.objects.get(user_id=int(user)).username,
+                "profile_url": "/profile/view/{}/".format(int(user))
+                "admin": int(admin.conv_id) == int(user),
+            }
+            participants.append(data)
         context = {
             "form": form,
             "title": title,
             "conv_data": conv_data,
             'logged_in': logged_in,
             "conversation_id": conversation_id,
-            "current_date": current_date
+            "current_date": current_date,
+            "participants": participants,
             }
         return render_template(request, 'community/conversationpage.html', context)
 

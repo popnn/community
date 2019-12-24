@@ -33,9 +33,11 @@
                     <div class="card-header border-0 bg-white" style="border-radius:2rem;">
                         <h3>Participants </h3>
                     </div>
-                    <div class="card-body">
-                        <p>Name and prifle image of users here SAMAY</p>
-                    </div>
+                    {% for particpant in participants %}
+                        <div class="card-body">
+                            <p>{{ particpant.username }}</p>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
