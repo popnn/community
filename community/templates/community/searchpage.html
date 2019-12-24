@@ -36,5 +36,8 @@
                 {% endfor %}
             </div>
         {% endif %}
+        {% if not users and not thread %}
+            <h3> No Results Found. </h3>
+        {% endif %}
     </div>
 {% endblock %}
