@@ -326,9 +326,6 @@ def selectconversationpage(request, conversation_id):
             name = ", ".join(UserProfiles.objects.get(user_id=int(f_id)).username for f_id in ref if f_id != "")
             if len(name) > 100:
                 name = name[:97] + "..."
-            if len(name) == 0:
-                Conversations.objects.get(conversation_id=conv.conversation_id).delete()
-                continue
         context = {
             "form": form,
             "title": title,
