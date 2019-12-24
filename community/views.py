@@ -444,7 +444,7 @@ def editdiscussionpage(request, username, discussion_id):
             "max_comments": discussion.discussion_maximum_comments
         }
         form = DiscussionForm(form_data)
-        return render_template(request, 'community/newdiscussionpage.html', {"title":"New Discussion", "form":form, 'logged_in': logged_in})
+        return render_template(request, 'community/newdiscussionpage.html', {"title":"Edit Discussion", "form":form, 'logged_in': logged_in})
 
 def alldiscussionspage(request):
     logged_in, user_id = verify_request(request)
