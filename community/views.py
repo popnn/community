@@ -19,7 +19,7 @@ import datetime
 import re
 from tracking_analyzer.models import Tracker
 from time import time as xTime
-from webpush import send_user_notification
+from pwa_webpush import send_user_notification
 
 #TODO Account_status 
 def datetime_from_utc_to_local(utc_datetime):
