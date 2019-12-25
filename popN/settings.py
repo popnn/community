@@ -150,7 +150,7 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = [
     '/home/ubuntu/popNData',
-    os.path.join(BASE_DIR, 'media'),
+    #os.path.join(BASE_DIR, 'media'),
     ]
 
 STATICFILES_DIRS = [
