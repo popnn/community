@@ -77,6 +77,10 @@ def ajax_response(request):
             return JsonResponse(result)
 
 # Create your views here.
+def error_404(request):
+    data = {}
+    return render(request,'error-pages/error404.html', data)
+
 def homepage(request):
     logged_in, user_id = verify_request(request)
     for usr in UserProfiles.objects.all():
