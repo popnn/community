@@ -1,6 +1,5 @@
 from django.urls import path
 from . import views
-from django.conf.urls import handler404
 
 urlpatterns = [
     path('', views.homepage, name='community-homepage'),
@@ -19,5 +18,3 @@ urlpatterns = [
     path('edit-discussion/<slug:username>/<int:discussion_id>/', views.editdiscussionpage, name='community-edit-discussion-single'),
     path('ajax-serverside-query/', views.ajax_response, name='ajax-response'),
 ]
-
-handler404 = views.error_404
