@@ -149,7 +149,7 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = [
-    '/home/ubuntu/popNData',
+    '/home/ubuntu/popNData/',
     #os.path.join(BASE_DIR, 'media'),
     ]
 
