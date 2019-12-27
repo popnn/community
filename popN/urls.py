@@ -59,6 +59,14 @@ urlpatterns = [
          ),
          name='password_reset_complete'),
     # password Change
+    path(
+        'change-password/',
+        auth_views.PasswordChangeView.as_view(
+            template_name='passReset/change_password.html',
+            success_url = '/'
+        ),
+        name='change_password'
+    ),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
