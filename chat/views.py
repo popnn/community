@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
+from django.utils.safestring import mark_safe
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import EmailMessage,EmailMultiAlternatives
 from django.template import Context
