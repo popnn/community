@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django_user_agents',
     'tracking_analyzer',
     'channels',
+    'chat',
 ]
 
 SITE_ID = 1

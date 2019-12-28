@@ -33,6 +33,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('logout/', logout_function, name='logout'),
     path('', include('community.urls'), name='community'),
+    path('', include('chat.urls'))
     path('', include('pwa_webpush.urls')),
     #password Reset
     path('reset-password/',
