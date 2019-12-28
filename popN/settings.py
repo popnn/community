@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'captcha',
     'django_user_agents',
     'tracking_analyzer',
+    'channels',
 ]
 
 SITE_ID = 1
@@ -82,7 +83,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'popN.wsgi.application'
-
+ASGI_APPLICATION = "popN.routing.application"
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -179,7 +180,7 @@ PWA_APP_LANG = 'en-US'
 
 # Email setup
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'eventdips.ga'
+EMAIL_HOST = 'popn.ml`'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'no-reply@popn.ml'
