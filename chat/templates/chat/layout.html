@@ -27,31 +27,32 @@
     </head>
 
     <body>
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
                 <a class="navbar-brand" href="/chat" style="animation-duration: 0.7s;animation-name: bounceInDown;"><img src="{% static 'popNcropped.png' %}" style="height: 3rem;"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
             
                 <div class="collapse navbar-collapse" id="navbarColor01">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                    <a class="nav-link" href="/">popN Home</a>
-                    </li>
-                </ul>
-                <hr class="d-block d-sm-none">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                        <a class="nav-link" href="/">popN Home</a>
+                        </li>
+                    </ul>
+                    <hr class="d-block d-sm-none">
                     <form class="form-inline" action="{% url 'community-search' %}" method="get">
                         <div class="container-fluid">
                             <div class="input-group">
-                                <input id="room-name-input" type="text" size="100" class="form-control d-inline"/><br/>
-                                <input id="room-name-submit" type="button" value="+" class="btn btn-outline-success"/>
+                                <input id="room-name-input" type="text" size="100" class="form-control d-inline" style="width: 15rem;border-radius:1rem 0rem 0rem 1rem;"/><br/>
+                                <input id="room-name-submit" type="button" value="+" class="btn btn-outline-success" style="border-radius:0rem 1rem 1rem 0rem"/>
                             </div>
                         </div>
                     </form>
                 </div>
-            </nav>
-        </div>
+            </div>
+        </nav>
+    
           <br><br><br><br><br>
         <div class="container">
             {% block ContentView %}
