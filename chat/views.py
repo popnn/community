@@ -6,7 +6,11 @@ def verify_request(request):
     return request.COOKIES.get('id', None) is not None, request.COOKIES.get('id', None)
 
 def index(request):
-    return render(request, 'chat/index.html', {})
+    logged_in, user_id = verify_request(request)
+    if logged_in:
+        return render(request, 'chat/index.html', {})
+    else:
+        return redirect("/")
 
 def room(request, room_name):
     logged_in, user_id = verify_request(request)
