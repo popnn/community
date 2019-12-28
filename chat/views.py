@@ -34,7 +34,7 @@ def render_template(request, template_name, context={}):
 def homepage(request):
     return render_template(request, 'chat/homepage.html', {})
 
-def chatroom(request, room_name):
-    return render_template(request, 'chat/chatroom.html', {
+def room(request, room_name):
+    return render_template(request, 'chat/room.html', {
         'room_name_json': mark_safe(json.dumps(room_name))
     })
