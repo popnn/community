@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="theme-color" content="#91eef5">
+        {% progressive_web_app_meta %}
+        {% webpush_header %}
+        <link rel="stylesheet" href="{% static 'darkly/bootstrap.min.css' %}">
+        <script defer src="{% static 'fontawesome/js/all.min.js' %}"></script>
+        <link rel="shortcut icon" type="image/png" href="{% static 'popNiconpurple.png' %}"/>
+        <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+        <title>{{ title }}</title>
+        <style>
+            body{
+                font-family: 'Montserrat', sans-serif;
+            }
+            .card{
+                border-radius:2rem;
+            }
+            .card-header{
+                border-radius:2rem;
+            }
+        </style>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="/chat" style="animation-duration: 0.7s;animation-name: bounceInDown;"><img src="{% static 'popNcropped.png' %}" style="height: 3rem;"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarColor01">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="/">popN Home</a>
+                </li>
+              </ul>
+              <hr class="d-block d-sm-none">
+                <form class="form-inline" action="{% url 'community-search' %}" method="get">
+                    <div class="container-fluid">
+                        <div class="input-group">
+                            <input class="form-control d-inline" id="room-name-input" type="text" size="100" style="border-radius:1rem 0rem 0rem 1rem;">
+                            <div class="input-group-append"><button class="btn btn-outline-success d-inline" type="submit" style="border-radius:0rem 1rem 1rem 0rem;"><i class="fas fa-plus"></i></button></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+          </nav>
+        {% block ContentView %}
+        {% endblock %}
+        {% block Scripts %}
+        {% endblock %}
+        <script>
+            document.querySelector('#room-name-input').focus();
+            document.querySelector('#room-name-input').onkeyup = function(e) {
+                if (e.keyCode === 13) {  // enter, return
+                    document.querySelector('#room-name-submit').click();
+                }
+            };
+    
+            document.querySelector('#room-name-submit').onclick = function(e) {
+                var roomName = document.querySelector('#room-name-input').value;
+                window.location.pathname = '/chat/' + roomName + '/';
+            };
+        </script>
+        <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
+        <script src="{% static 'taginput/taginput.js' %}"></script>
+        <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        
+    </body>

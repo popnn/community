@@ -1,14 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8"/>
-    <title>Chat Room</title>
-</head>
-<body>
-    <textarea id="chat-log" cols="100" rows="20"></textarea><br/>
-    <input id="chat-message-input" type="text" size="100"/><br/>
-    <input id="chat-message-submit" type="button" value="Send"/>
-</body>
+{% extends 'community/layout.html' %}
+
+{% block ContentView %}
+<center>
+    <div class="form-group">
+        <textarea id="chat-log" cols="100" rows="20" class="form-control"></textarea><br/>
+        <input id="chat-message-input" type="text" size="100" class="form-control-plaintext"/><br/> 
+        <button class="btn btn-primary" type="button" id="chat-message-submit">Send</button>
+    </div>   
+</center>
 <script>
     var roomName = {{ room_name_json }};
 
@@ -43,4 +42,4 @@
         messageInputDom.value = '';
     };
 </script>
-</html>
+{% endblock %}
