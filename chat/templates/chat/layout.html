@@ -43,8 +43,8 @@
                 <form class="form-inline" action="{% url 'community-search' %}" method="get">
                     <div class="container-fluid">
                         <div class="input-group">
-                            <input class="form-control d-inline" id="room-name-input" type="text" size="100" style="border-radius:1rem 0rem 0rem 1rem;">
-                            <div class="input-group-append"><button class="btn btn-outline-success d-inline" type="submit" style="border-radius:0rem 1rem 1rem 0rem;"><i class="fas fa-plus"></i></button></div>
+                            <input id="room-name-input" type="text" size="100" class="form-control d-inline"/><br/>
+                            <input id="room-name-submit" type="button" value="+" class="btn btn-outline-success"/>
                         </div>
                     </div>
                 </form>
