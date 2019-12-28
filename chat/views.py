@@ -10,4 +10,4 @@ def render_template(request, template_name, context={}):
     return response
 
 def homepage(request):
-    return render_template(request, 'chat/index.html', {})
+    return render_template(request, 'chat/homepage.html', {})
