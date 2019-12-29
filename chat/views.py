@@ -17,7 +17,7 @@ def index(request):
 def room(request, room_name):
     logged_in, user_id = verify_request(request)
     if logged_in:
-        user_data = UserProfiles.objects.get(user_id=UserProfiles.objects.get(username=username).user_id)
+        user_data = UserProfiles.objects.get(user_id=user_id)
         return render(request, 'chat/room.html', {
             'room_name_json': mark_safe(json.dumps(room_name)),
             'username': user_data.username,
