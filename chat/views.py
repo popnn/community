@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
 from django.contrib.auth.models import User
 import json
+from community.models import *
 
 def verify_request(request):
     return request.COOKIES.get('id', None) is not None, request.COOKIES.get('id', None)
