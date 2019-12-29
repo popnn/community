@@ -34,7 +34,7 @@
 
     document.querySelector('#chat-message-submit').onclick = function(e) {
         var messageInputDom = document.querySelector('#chat-message-input');
-        var message = messageInputDom.value;
+        var message = '{{username}} : ' + messageInputDom.value;
         chatSocket.send(JSON.stringify({
             'message': message
         }));
