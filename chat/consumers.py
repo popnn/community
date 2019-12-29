@@ -2,8 +2,7 @@ from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 import json
 from .models import *
-from community.models import *
-from .views import verify_request
+
 class ChatConsumer(WebsocketConsumer):
     def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
@@ -36,7 +35,6 @@ class ChatConsumer(WebsocketConsumer):
                 'message': message
             }
         )
-        add_log(message)
 
     # Receive message from room group
     def chat_message(self, event):
@@ -45,12 +43,3 @@ class ChatConsumer(WebsocketConsumer):
         self.send(text_data=json.dumps({
             'message': message
         }))
-
-    def add_log(message):
-        logged_in, user_id = verify_request(request)
-        add_log_toSQL = ChatMessage(
-            chatroom_name = self.room_name,
-            message_text = message,
-            user_id = user_id,
-        )
-        add_log_toSQL.save()
