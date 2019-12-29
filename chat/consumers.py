@@ -41,6 +41,12 @@ class ChatConsumer(WebsocketConsumer):
     # Receive message from room group
     def chat_message(self, event):
         message = event['message']
+        # Send message to WebSocket
+        self.send(text_data=json.dumps({
+            'message': message
+        }))
+
+    def add_log(message):
         logged_in, user_id = verify_request(request)
         add_log_toSQL = ChatMessage(
             chatroom_name = self.room_name,
@@ -48,7 +54,3 @@ class ChatConsumer(WebsocketConsumer):
             user_id = user_id,
         )
         add_log_toSQL.save()
-        # Send message to WebSocket
-        self.send(text_data=json.dumps({
-            'message': message
-        }))
