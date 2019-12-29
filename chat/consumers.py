@@ -43,9 +43,9 @@ class ChatConsumer(WebsocketConsumer):
         message = event['message']
         logged_in, user_id = verify_request(request)
         add_log_toSQL = ChatMessage(
-            chatroom_name = self.room_name
-            message_text = message
-            user_id = user_id
+            chatroom_name = self.room_name,
+            message_text = message,
+            user_id = user_id,
         )
         add_log_toSQL.save()
         # Send message to WebSocket
