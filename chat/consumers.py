@@ -47,6 +47,7 @@ class ChatConsumer(WebsocketConsumer):
             message_text = message
             user_id = user_id
         )
+        add_log_toSQL.save()
         # Send message to WebSocket
         self.send(text_data=json.dumps({
             'message': message
