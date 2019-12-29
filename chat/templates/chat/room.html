@@ -8,8 +8,8 @@
         </div>
         <div class="card-body">
             <div class="form-group">
-                <textarea id="chat-log" readonly="" cols="100" rows="20" class="form-control-plaintext"></textarea><br/>
-                </div> 
+                <ul id="dynamic-list" class="list-group"></ul>
+            </div> 
         </div>
         <div class="card-footer">
             <input id="chat-message-input" type="text" size="100" class="form-control" style="border-radius: 2rem;"/><br/> 
@@ -27,7 +27,11 @@
     chatSocket.onmessage = function(e) {
         var data = JSON.parse(e.data);
         var message = data['message'];
-        document.querySelector('#chat-log').value += (message + '\n');
+        var ul = document.getElementById("dynamic-list");
+        var li = document.createElement("li");
+        li.setAttribute('id',message);
+        li.appendChild(document.createTextNode(message));
+        ul.appendChild(li);
     };
 
     chatSocket.onclose = function(e) {
