@@ -29,6 +29,7 @@
         var message = data['message'];
         var ul = document.getElementById("dynamic-list");
         var li = document.createElement("li");
+        li.classList.add("list-group-item")
         li.setAttribute('id',message);
         li.appendChild(document.createTextNode(message));
         ul.appendChild(li);
