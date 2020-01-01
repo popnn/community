@@ -33,6 +33,7 @@
         li.setAttribute('id',message);
         li.appendChild(document.createTextNode(message));
         ul.appendChild(li);
+        navigator.vibrate([200,100,200]);
     };
 
     chatSocket.onclose = function(e) {
