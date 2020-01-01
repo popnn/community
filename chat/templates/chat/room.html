@@ -17,6 +17,7 @@
         </div>
     </div>  
 </center>
+<audio id="notification" src="../../static/sounds/chatnotify.wav" preload="auto"></audio>
 <script>
     var roomName = {{ room_name_json }};
 
@@ -33,7 +34,7 @@
         li.setAttribute('id',message);
         li.appendChild(document.createTextNode(message));
         ul.appendChild(li);
-        navigator.vibrate([200,100,200]);
+        document.getElementById('notification').play();
     };
 
     chatSocket.onclose = function(e) {
