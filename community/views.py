@@ -37,7 +37,7 @@ def render_template(request, template_name, context={}):
 
 def load_notifications(user_id):
     notifications = []
-    for notif in NotificationMessages.objects.get(user_id=user_id).order_by('notification_time'):
+    for notif in NotificationMessages.objects.get(notification_user_id=user_id).order_by('notification_time'):
         notifications.append(
             {
                 "text": notif.notification_text,
