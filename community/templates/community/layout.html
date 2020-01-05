@@ -78,16 +78,24 @@
             </div>
         </nav>
         <br><br><br><br>
-            {% if notifications %}
-            <div>
-                {% for notif in notifications %}
-                    <a href="{{notif.url}}">
-                        <span class="badge badge-pill badge-light" style="background-color: #91eef5;display: inline-block;">{{notif.text}}</span>
+        {% if notifications %}
+            <div class="dropdown">
+                <a- class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for notif in notifications %}
+                    <a href="{{notif.url}}" class="dropdown-item">
+                        {{notif.text}}
                     </a>
                 {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+            <div>
+                
             </div>
             <br>
-            {% endif %}
         {% block ContentView %}
         {% endblock %}
         {% block Scripts %}
