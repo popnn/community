@@ -50,7 +50,7 @@ def load_notifications(user_id):
         unread += 1 if notifications[-1]["read"] == False else 0
     if unread > 9:
         unread = "9+"
-    return {"all":notifications, "count":str(unread)}
+    return {"all":notifications[:7], "count":str(unread)}
 
 @csrf_exempt
 def ajax_response(request):
