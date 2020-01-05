@@ -46,3 +46,10 @@ class ConversationMessages(models.Model):
     message_text = models.TextField(max_length=500)
     user_id = models.IntegerField()
     message_time = models.DateTimeField(auto_now_add=True) 
+
+class NotificationMessages(models.Model):
+    notification_id = models.AutoField(primary_key=True)
+    notification_user_id = models.IntegerField()
+    notification_url = models.CharField(max_length=256)
+    notification_text = models.CharField(max_length=512)
+    notification_time = models.DateTimeField(auto_now_add=True) 
