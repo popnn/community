@@ -82,7 +82,7 @@
             {% if notifications %}
                 <div class="dropdown">
                     <div class="border-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-bell" style="text-align: right;">{{notifications.count}}</i>
+                    <i class="fas fa-bell" style="text-align: right;"></i>{{notifications.count}}
                     </div>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         {% for notif in notifications.all %}
