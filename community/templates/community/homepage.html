@@ -2,6 +2,16 @@
 {% extends 'community/layout.html' %}
 
 {% block ContentView %}
+    {% if notifications %}
+        <div>
+            {% for notification_data in notifications.unread %}
+                <a href="{{notification_data.url_redirect}}">
+                    <span class="badge badge-pill badge-dark" style="background-color: #2196f3;display: inline-block;">{{notification_data.text}}</span>
+                </a>
+            {% endfor %}
+        </div>
+        <br>
+    {% endif %}
     <div class="container">
         <h2>All Threads:</h2>
         <br>
