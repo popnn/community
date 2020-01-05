@@ -52,4 +52,5 @@ class NotificationMessages(models.Model):
     notification_user_id = models.IntegerField()
     notification_url = models.CharField(max_length=256)
     notification_text = models.CharField(max_length=512)
-    notification_time = models.DateTimeField(auto_now_add=True) 
+    notification_time = models.DateTimeField(auto_now_add=True)
+    notification_read = models.IntegerField(max_length=1)
