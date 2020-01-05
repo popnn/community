@@ -78,26 +78,26 @@
             </div>
         </nav>
         <br><br><br><br>
-        {% if notifications %}
-            <div class="dropdown">
-                <a- class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell"></i>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    {% for notif in notifications %}
-                    <a href="{{notif.url}}" class="dropdown-item">
-                        {{notif.text}}
-                    </a>
-                {% endfor %}
+        <div class="container">
+            {% if notifications %}
+                <div class="dropdown">
+                    <div type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-bell"></i>
+                    </div>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        {% for notif in notifications %}
+                        <a href="{{notif.url}}" class="dropdown-item">
+                            {{notif.text}}
+                        </a>
+                    {% endfor %}
+                    </div>
                 </div>
-            </div>
-        {% endif %}
-            <div>
-                
-            </div>
-            <br>
+            {% endif %}
+        </div>
+        
         {% block ContentView %}
         {% endblock %}
+
         {% block Scripts %}
         {% endblock %}
         <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
