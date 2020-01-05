@@ -139,7 +139,7 @@ def signuppage(request):
                     #email_message = EmailMessage('popN - User Created', Email_content, to=[email])
                     msg = EmailMultiAlternatives(subject=subject,to=[email])
                     msg.attach_alternative(html_body, "text/html")
-                    msg.send()
+                    #msg.send()
                     user = authenticate(username=username, password=password)
                     login(request, user)
                     response = redirect("/profile/edit")
