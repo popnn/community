@@ -43,7 +43,7 @@ def load_notifications(user_id):
                 "text": notif.notification_text,
                 "url": notif.notification_url,
                 "time": datetime_from_utc_to_local(notif.notification_time).strftime("%H:%M:%S.%f %b %d %Y"),
-                "read": True if notif.notification_read == 1 else 0,
+                "read": False, #True if notif.notification_read == 1 else 0,
             }
         )
     return notifications
