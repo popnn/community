@@ -48,7 +48,6 @@ def load_notifications(user_id):
         )
     return notifications
 
-
 @csrf_exempt
 def ajax_response(request):
     if request.method=="POST":
@@ -101,6 +100,7 @@ def homepage(request):
             'title': "Home",
             'logged_in': logged_in,
             "all_cards": [],
+            "notifications": load_notifications(user_id),
         }
         for card in CommunityDiscussions.objects.all():
             cnt = {
@@ -172,6 +172,7 @@ def searchpage(request):
         'title': 'Search-{}'.format(query) if (query is not None and len(query) > 0) else 'Search',
         'query': query,
         'logged_in': logged_in,
+        "notifications": load_notifications(user_id),
     }
     if query is not None and len(query) > 0:
         context['search_results'] = search(query, logged_in)
@@ -191,6 +192,7 @@ def profilepage(request):
         saved_threads = [{"title":val.discussion_title, "url":"/discussions/{}/{}".format(UserProfiles.objects.get(user_id=int(val.discussion_author_id)).username, val.discussion_id)} for val in saved_threads_ids]
         context = {
             'title': 'Profile',
+            "notifications": load_notifications(user_id),
             'logged_in': logged_in,
             'first_name': user_data_main.first_name,
             'last_name': user_data_main.last_name,
@@ -237,6 +239,7 @@ def viewprofilepage(request, username):
         chat_creation_url = '/new-conversation/{}/'.format(user_data.user_id)
         context = {
             'title': 'Profile',
+            "notifications": load_notifications(user_id),
             'logged_in': logged_in,
             'first_name': user_data_main.first_name,
             'last_name': user_data_main.last_name,
@@ -303,7 +306,8 @@ def allconversationspages(request):
             "title": "Conv",
             "conv_list": [],
             'logged_in': logged_in,
-            "form": NewConversationGroupForm()
+            "form": NewConversationGroupForm(),
+            "notifications": load_notifications(user_id),
         }
         if request.method == "POST":
             form = NewConversationGroupForm(request.POST)
@@ -384,6 +388,7 @@ def selectconversationpage(request, conversation_id):
             "current_date": current_date,
             "participants": participants,
             "chat_title": name,
+            "notifications": load_notifications(user_id),
             }
         return render_template(request, 'community/conversationpage.html', context)
 
@@ -446,6 +451,7 @@ def selectdiscussionpage(request, username, discussion_id):
             "discussion_id": discussion_id,
             "saved": str(discussion_id) in UserProfiles.objects.get(user_id=int(user_id)).user_saved_threads.split(","),
             "tags": tag_split.split(","),
+            "notifications": load_notifications(user_id),
         }
         if context["editable"]:
             context["edit_url"] = "/edit-discussion/{}/{}/".format(username, discussion_id)
@@ -499,6 +505,7 @@ def alldiscussionspage(request):
             'title': "Discussions",
             'logged_in': logged_in,
             "all_cards": [],
+            "notifications": load_notifications(user_id),
         }
         for card in CommunityDiscussions.objects.all():
             cnt = {
@@ -517,6 +524,7 @@ def mydiscussionpage(request, username):
             'title': "Discussions",
             'logged_in': logged_in,
             "all_cards": [],
+            "notifications": load_notifications(user_id),
         }
         for card in CommunityDiscussions.objects.filter(discussion_author_id=UserProfiles.objects.get(username=username).user_id):
             cnt = {
