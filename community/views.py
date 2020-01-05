@@ -436,12 +436,13 @@ def selectdiscussionpage(request, username, discussion_id):
                     )
                     if CommunityComments.objects.filter(discussion_id=discussion.discussion_id).count() < discussion.discussion_maximum_comments:
                         comment.save()
-                    notif = NotificationMessages(
-                        notification_user_id=UserProfiles.objects.get(username=username).user_id,
-                        notification_url='/discussions/{}/{}'.format(username, discussion_id),
-                        notification_text='New comment: {} '.format(desc),
-                        )
-                    notif.save()
+                    if int(user_id) != UserProfiles.objects.get(username=username).user_id:
+                        notif = NotificationMessages(
+                            notification_user_id=UserProfiles.objects.get(username=username).user_id,
+                            notification_url='/discussions/{}/{}'.format(username, discussion_id),
+                            notification_text='New comment: {} '.format(desc),
+                            )
+                        notif.save()
                     
         
         tag_split = (discussion.discussion_tags.replace(' ',',')).replace(',,',',')
