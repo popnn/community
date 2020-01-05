@@ -555,7 +555,7 @@ def newdiscussionpage(request):
                     discussion_author_id=str(user_id),
                     discussion_tags=tags)
                 discussion.save()
-                profile_ids = followers = [val.username for val in UserProfiles.objects.all() if str(user_data.user_id) in val.user_following.split(",")]
+                profile_ids = [val.username for val in UserProfiles.objects.all() if str(user_id) in val.user_following.split(",")]
                 username = UserProfiles.objects.get(user_id=user_id).username
                 for profile_id in profile_ids:
                     notif = NotificationMessages(
