@@ -78,6 +78,16 @@
             </div>
         </nav>
         <br><br><br><br><br>
+        {% if notifications %}
+        <div>
+            {% for notif in notifications %}
+                <a href="{{notif.url}}">
+                    <span class="badge badge-pill badge-dark" style="background-color: #2196f3;display: inline-block;">{{notif.text}}</span>
+                </a>
+            {% endfor %}
+        </div>
+        <br>
+        {% endif %}
         {% block ContentView %}
         {% endblock %}
         {% block Scripts %}
