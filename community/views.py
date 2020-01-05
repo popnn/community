@@ -35,6 +35,20 @@ def render_template(request, template_name, context={}):
     response.set_cookie('load', datetime.datetime.now().strftime("%H:%M:%S.%f %b %d %Y"))
     return response
 
+def load_notifications(user_id):
+    notifications = []
+    for notif in NotificationMessages.objects.get(user_id=user_id).order_by('notification_time'):
+        notifications.append(
+            {
+                "text": notif.notification_text,
+                "url": notif.notification_url,
+                "time": datetime_from_utc_to_local(notif.notification_time).strftime("%H:%M:%S.%f %b %d %Y"),
+                "read": True if notif.notification_read == 1 else 0,
+            }
+        )
+    return notifications
+
+
 @csrf_exempt
 def ajax_response(request):
     if request.method=="POST":
@@ -533,6 +547,15 @@ def newdiscussionpage(request):
                     discussion_author_id=str(user_id),
                     discussion_tags=tags)
                 discussion.save()
+                profile_ids = followers = [val.username for val in UserProfiles.objects.all() if str(user_data.user_id) in val.user_following.split(",")]
+                username = UserProfiles.objects.get(user_id=user_id).username
+                for profile_id in profile_ids:
+                    notif = NotificationMessages(
+                        notification_user_id=profile_id,
+                        notification_url='/discussions/{}/{}'.format(username, discussion.discussion_id),
+                        notification_text='New discussion by {}: {} '.format(username, discussion.discussion_title),
+                        )
+                    notif.save()
                 return redirect('/')
         form = DiscussionForm()
         return render_template(request, 'community/newdiscussionpage.html', {"title":"New Discussion", "form":form, 'logged_in': logged_in})
