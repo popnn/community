@@ -189,7 +189,7 @@ PWA_APP_LANG = 'en-US'
 
 # Email setup
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'popn.ml`'
+EMAIL_HOST = 'popn.ml'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'no-reply@popn.ml'
