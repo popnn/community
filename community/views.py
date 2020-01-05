@@ -37,6 +37,7 @@ def render_template(request, template_name, context={}):
 
 def load_notifications(user_id):
     notifications = []
+    unread = 0
     for notif in NotificationMessages.objects.filter(notification_user_id=user_id).order_by('notification_time'):
         notifications.append(
             {
@@ -46,7 +47,10 @@ def load_notifications(user_id):
                 "read": False, #True if notif.notification_read == 1 else 0,
             }
         )
-    return notifications
+        unread += 1 if notifications[-1]["read"] == False else 0
+    if unread > 9:
+        unread = "9+"
+    return {"all":notifications[:7], "count":str(unread)}
 
 @csrf_exempt
 def ajax_response(request):
