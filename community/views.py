@@ -25,7 +25,7 @@ from tracking_analyzer.models import Tracker
 from .forms import *
 from .models import *
 
-EMAIL_SERVER_IS_RUNNING = False
+EMAIL_SERVER_IS_RUNNING = True
 
 def datetime_from_utc_to_local(utc_datetime):
     now_timestamp = xTime()
