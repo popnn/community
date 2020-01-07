@@ -48,7 +48,7 @@ def send_email(to, subject, body=None, template_name='', context={}):
         else:
             email_message = EmailMessage(subject, body, to=to)
         email_message.send()
-        print(to, subject)
+    print(to, subject)
 
 def load_notifications(user_id):
     notifications = []
