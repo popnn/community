@@ -603,7 +603,7 @@ def discussion_access_page(request, access_token):
         if access_token in [req.access_token for req in PrivateDiscussionsAccess.objects.all()]:
             obj = PrivateDiscussionsAccess.objects.get(access_token=access_token)
             if obj.token_used == False:
-                if user_id not in [val.user_id for val in PrivateDiscussionsAccess.objects.get(discussion_id=obj.discussion_id)]:
+                if user_id not in [val.user_id for val in PrivateDiscussionsAccess.objects.filter(discussion_id=obj.discussion_id)]:
                     obj.user_id = int(user_id)
                     obj.token_used = True
             return redirect("discussions/{}/{}/".format(UserProfiles.objects.get(user_id=CommunityDiscussions.objects.get(discussion_id=obj.discussion_id)).username, obj.discussion_id))
