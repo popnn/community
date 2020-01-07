@@ -587,7 +587,7 @@ def discussion_access_page(request, access_token):
     logged_in, user_id = verify_request(request)
     if not logged_in:
         return redirect('/')
-    elif:
+    elif True:
         pass
     else:
         pass
