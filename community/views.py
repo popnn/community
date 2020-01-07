@@ -605,7 +605,7 @@ def invitetodiscussionpage(request, username, discussion_id):
             usernames = request.POST.get("usernames").lower().replace(",", " ").split()
             to = []
             author = UserProfiles.objects.get(user_id=user_id).username
-            discussion_name = CommunityDiscussions.objects.get(discussion_id=discussion_id).discussion_name
+            discussion_name = CommunityDiscussions.objects.get(discussion_id=discussion_id).discussion_title
             for username in usernames:
                 if username in [user.username.lower() for user in Users.objects.all()] and PrivateDiscussionsAccess.objects.filter(discussion_id=discussion_id).filter(user_id=UserProfiles.objects.get(username=username).user_id).count() == 0:
                     private_url = 'community.popn.ml/privatediscussions/access/accesstoken/{}/'.format(generate_access_token(discussion_id))
