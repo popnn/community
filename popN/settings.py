@@ -14,7 +14,7 @@ import os
 import json
 
 json_data_file = '~/djangoData/access_data.json'
-private_access_data = json.load(json_data_file)
+private_access_data = json.loads(open(json_data_file).read())
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
