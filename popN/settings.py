@@ -11,10 +11,13 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import json
+
+json_data_file = '~/djangoData/access_data.json'
+private_access_data = json.load(json_data_file)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -89,9 +92,9 @@ ASGI_APPLICATION = "popN.routing.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_db',
-        'USER': 'djangouser',
-        'PASSWORD': 'popnsecurepassword',
+        'NAME': private_access_data["mysql"]["name"],
+        'USER': private_access_data["mysql"]["user"],
+        'PASSWORD': private_access_data["mysql"]["pswd"],
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {'charset': 'utf8mb4'}
@@ -190,13 +193,13 @@ EMAIL_HOST_PASSWORD = 'popnpassnoreply'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 #Recaptcha
-RECAPTCHA_PUBLIC_KEY = '6LfNLskUAAAAAJ8wFJXXblKm94vMO1cUiEoJ8Frv'
-RECAPTCHA_PRIVATE_KEY = '6LfNLskUAAAAAEqM3Vi8fHMZ2w4KM4KLXeKbGiGP'
+RECAPTCHA_PUBLIC_KEY = private_access_data["recaptcha"]["public_key"]
+RECAPTCHA_PRIVATE_KEY = private_access_data["recaptcha"]["private_key"]
 
 #push notify
-WEBPUSH_SETTINGS = {
-    "VAPID_PUBLIC_KEY": "BKtyQqSmOoIW7NGRFYCok25Hts7JOoFMFaPaT5YJSyeoEm_MPn-v9mYyn2q-d1IhuNCifeV2OVKH1iYfFKYmQj4",
-    "VAPID_PRIVATE_KEY":"ePR1uNXX_WWHpCEsoMwfX4QU4IgOfzAl6Vi3AYcAIok",
+WEBPUSH_SETTINGS = {    
+    "VAPID_PUBLIC_KEY": private_access_data["webpush"]["public_key"],
+    "VAPID_PRIVATE_KEY": private_access_data["webpush"]["private_key"],
     "VAPID_ADMIN_EMAIL": "arham@popn.ml"
 }
 

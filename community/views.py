@@ -87,6 +87,8 @@ def ajax_response(request):
             return response
         elif mode == 'new-conversation':
             pass
+        elif mode == 'invite-to-discussion':
+            pass
         elif mode == "delete-discussion":
             discussion_id = int(request.POST.get('discussion_id'))
             CommunityDiscussions.objects.get(discussion_id=discussion_id).delete()
@@ -594,13 +596,39 @@ def newdiscussionpage(request):
         form = DiscussionForm()
         return render_template(request, 'community/newdiscussionpage.html', {"title":"New Discussion", "form":form, 'logged_in': logged_in})
 
-def generatepage(request, username, discussion_id):
+def invitetodiscussionpage(request, username, discussion_id):
     logged_in, user_id = verify_request(request)
     if not logged_in or CommunityDiscussions.objects.get(discussion_id=discussion_id).discussion_type.upper() != "PRIVATE" or username != UserProfiles.objects.get(user_id=int(user_id)).username:
         return redirect('/')
     else:
-        return HttpResponse('community.popn.ml/privatediscussions/access/accesstoken/{}/'.format(generate_access_token(discussion_id)))
-    
+        if request.method == "POST":
+            usernames = request.POST.get("usernames").lower().replace(",", " ").split()
+            to = []
+            author = UserProfiles.objects.get(user_id=user_id).username
+            discussion_name = CommunityDiscussions.objects.get(discussion_id=discussion_id).discussion_name
+            for username in usernames:
+                if username in [user.username.lower() for user is Users.objects.all()] and PrivateDiscussionsAccess.objects.filter(discussion_id=discussion_id).filter(user_id=UserProfiles.objects.get(username=username).user_id).count == 0:
+                    private_url = 'community.popn.ml/privatediscussions/access/accesstoken/{}/'.format(generate_access_token(discussion_id))
+                    send_email(
+                        to=Users.objects.get(username=username).email,
+                        subject="Invitation to Discussion",
+                        body="text/html",
+                        template_name="email-template/private_discussion_invite.html",
+                        context={
+                            "username":username, 
+                            "author":author,
+                            "discussion_name": discussion_name,
+                            "private_url": private_url, 
+                            }
+                    )
+                    NotificationMessages(
+                        notification_user_id=Users.objects.get(username=username).user_id,
+                        notification_url=private_url,
+                        notification_text="Invitation to join: {}".format(discussion_name),
+                    ).save()    
+            return redirect("/")
+        return render_template(request, "community/invitetodiscussionpage.html")
+
 def discussion_access_page(request, access_token):
     logged_in, user_id = verify_request(request)
     if not logged_in:
