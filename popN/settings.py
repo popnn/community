@@ -28,7 +28,7 @@ SECRET_KEY = '##rkc53uu_3_$gx+vvrc9h0t*yzmw$7h(ze-gd^8%i-3p_k@kr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['community.popn.ml','192.168.29.47', '127.0.0.1']
+ALLOWED_HOSTS = ['popn.ml','192.168.29.47', '127.0.0.1']
 
 
 # Application definition
