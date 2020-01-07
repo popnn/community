@@ -607,10 +607,10 @@ def invitetodiscussionpage(request, username, discussion_id):
             author = UserProfiles.objects.get(user_id=user_id).username
             discussion_name = CommunityDiscussions.objects.get(discussion_id=discussion_id).discussion_title
             for username in usernames:
-                if username in [user.username.lower() for user in Users.objects.all()] and PrivateDiscussionsAccess.objects.filter(discussion_id=discussion_id).filter(user_id=UserProfiles.objects.get(username=username).user_id).count() == 0:
+                if username in [user.username.lower() for user in UserProfiles.objects.all()] and PrivateDiscussionsAccess.objects.filter(discussion_id=discussion_id).filter(user_id=UserProfiles.objects.get(username=username).user_id).count() == 0:
                     private_url = 'community.popn.ml/privatediscussions/access/accesstoken/{}/'.format(generate_access_token(discussion_id))
                     send_email(
-                        to=Users.objects.get(username=username).email,
+                        to=User.objects.get(username=username).email,
                         subject="Invitation to Discussion",
                         body="text/html",
                         template_name="email-template/private_discussion_invite.html",
@@ -622,7 +622,7 @@ def invitetodiscussionpage(request, username, discussion_id):
                             }
                     )
                     NotificationMessages(
-                        notification_user_id=Users.objects.get(username=username).user_id,
+                        notification_user_id=UserProfiles.objects.get(username=username).user_id,
                         notification_url=private_url,
                         notification_text="Invitation to join: {}".format(discussion_name),
                     ).save()    
