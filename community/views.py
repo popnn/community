@@ -606,7 +606,7 @@ def discussion_access_page(request, access_token):
                 if user_id not in [val.user_id for val in PrivateDiscussionsAccess.objects.filter(discussion_id=obj.discussion_id)]:
                     obj.user_id = int(user_id)
                     obj.token_used = True
-            return redirect("discussions/{}/{}/".format(UserProfiles.objects.get(user_id=CommunityDiscussions.objects.get(discussion_id=obj.discussion_id).user_id).username, obj.discussion_id))
+            return redirect("discussions/{}/{}/".format(UserProfiles.objects.get(user_id=CommunityDiscussions.objects.get(discussion_id=obj.discussion_id).discussion_author_id).username, obj.discussion_id))
 
 def generate_access_token(discussion_id):
     char_list = "abcdefghijklmnopqrstuvwxyz1234567890"
