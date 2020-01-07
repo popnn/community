@@ -608,7 +608,7 @@ def invitetodiscussionpage(request, username, discussion_id):
             discussion_name = CommunityDiscussions.objects.get(discussion_id=discussion_id).discussion_title
             for username in usernames:
                 if username in [user.username.lower() for user in UserProfiles.objects.all()] and PrivateDiscussionsAccess.objects.filter(discussion_id=discussion_id).filter(user_id=UserProfiles.objects.get(username=username).user_id).count() == 0:
-                    private_url = 'community.popn.ml/privatediscussions/access/accesstoken/{}/'.format(generate_access_token(discussion_id))
+                    private_url = '/privatediscussions/access/accesstoken/{}/'.format(generate_access_token(discussion_id))
                     send_email(
                         to=User.objects.get(username=username).email,
                         subject="Invitation to Discussion",
@@ -618,7 +618,7 @@ def invitetodiscussionpage(request, username, discussion_id):
                             "username":username, 
                             "author":author,
                             "discussion_name": discussion_name,
-                            "private_url": private_url, 
+                            "private_url": 'popn.ml' + private_url, 
                             }
                     )
                     NotificationMessages(
