@@ -667,7 +667,7 @@ def on_notification_click(request, notification_id):
 def clear_all_notification(request):
     logged_in, user_id = verify_request(request)
     if logged_in:
-        NotificationMessages.objects.get(user_id=user_id).delete()
+        NotificationMessages.objects.get(notification_user_id=user_id).delete()
     return redirect('/')
 
 def search(query, logged_in):
