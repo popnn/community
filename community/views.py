@@ -451,7 +451,6 @@ def selectdiscussionpage(request, username, discussion_id):
                             notification_text='New comment: {} '.format(desc),
                             )
                         notif.save()
-        
         tag_split = (discussion.discussion_tags.replace(' ',',')).replace(',,',',')
         context = {
             'logged_in': logged_in,
@@ -467,6 +466,7 @@ def selectdiscussionpage(request, username, discussion_id):
             "saved": str(discussion_id) in UserProfiles.objects.get(user_id=int(user_id)).user_saved_threads.split(","),
             "tags": tag_split.split(","),
             "notifications": load_notifications(user_id),
+            "private_post": discussion.discussion_type == "PRIVATE",
         }
         if context["editable"]:
             context["edit_url"] = "/edit-discussion/{}/{}/".format(username, discussion_id)
@@ -583,7 +583,6 @@ def newdiscussionpage(request):
                 return redirect('/')
         form = DiscussionForm()
         return render_template(request, 'community/newdiscussionpage.html', {"title":"New Discussion", "form":form, 'logged_in': logged_in})
-
 
 def generatepage(request, username, discussion_id):
     logged_in, user_id = verify_request(request)

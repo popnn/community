@@ -15,9 +15,14 @@
                                     <div role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-cog flex-shrink-1 align-self-center"></i>
                                     </div>
+                                    
+                                
                                     <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="dropdownMenuLink" style="border-radius:1rem;">
                                         <div class="dropdown-header">Settings: </div>
                                         <a class="dropdown-item" href="{{ edit_url }}"><i class="fas fa-edit"></i>Edit Thread</a>
+                                        {% if private_post %}
+                                        <a class="dropdown-item" href="generate/"><i class="fas fa-edit"></i>Generate Token</a>
+                                        {% endif %}
                                         <a class="dropdown-item text-danger" onclick="delete_discussion();"><i class="fas fa-trash"></i>Delete Thread</a>
                                     </div>
                                 </div>
