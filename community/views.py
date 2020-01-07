@@ -169,7 +169,7 @@ def signuppage(request):
                         subject="popN - Profile created",
                         body="text/html",
                         template_name="email-template/user_created.html",
-                        context = {"username" : username}.
+                        context = {"username" : username},
                         )
                     user = authenticate(username=username, password=password)
                     login(request, user)
