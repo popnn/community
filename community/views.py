@@ -42,7 +42,7 @@ def render_template(request, template_name, context={}):
 
 def send_email(to, subject, body=None, template_name='', context={}):
     if EMAIL_SERVER_IS_RUNNING:
-        if body != "text/html":
+        if body == "text/html":
             email_message = EmailMultiAlternatives(subject=subject, to=to)
             email_message.attach_alternative(render_to_string(template_name), body)
         else:
