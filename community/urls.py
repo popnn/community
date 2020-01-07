@@ -19,5 +19,6 @@ urlpatterns = [
     path('discussions/<slug:username>/<int:discussion_id>/invite/', views.invitetodiscussionpage, name='community-discussions-single-generate'),
     path('edit-discussion/<slug:username>/<int:discussion_id>/', views.editdiscussionpage, name='community-edit-discussion-single'),
     path('privatediscussions/access/accesstoken/<slug:access_token>/', views.discussion_access_page, name='community-discussion-private-acces_token'),
+    path('notifications/redirect/<int:notification_id>', views.on_notification_click, name='notification-handler'),
     path('ajax-serverside-query/', views.ajax_response, name='ajax-response'),
 ]

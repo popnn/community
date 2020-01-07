@@ -69,9 +69,16 @@
                                 <div class="dropdown-menu mr-auto mt-2 mt-lg-0 shadow" aria-labelledby="navbarDropdown" style="animation-duration: 0.7s;animation-name: jackInTheBox;border-radius:1rem">
                                     {% if notifications %}
                                         {% for notif in notifications.all %}
-                                            <a href="{{notif.url}}" class="dropdown-item text-dark" style="font-size: 70%;">
-                                                {{notif.text}}
-                                            </a>
+                                            {% if notif.read %}
+                                                <a href="{{notif.url}}" class="dropdown-item text-dark" style="font-size: 70%;text-decoration: line-through;" >
+                                                    {{ notif.text }}
+                                                </a>
+                                            {% else %}
+                                                <a href="{{notif.url}}" class="dropdown-item text-dark" style="font-size: 70%;" >
+                                                    {{ notif.text }}
+                                                </a>
+                                            {% endif %}
+                                            
                                         {% endfor %}
                                     {% else %}
                                         <div class="dropdown-item"> No New Notifications</div>

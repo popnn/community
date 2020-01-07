@@ -56,9 +56,9 @@ def load_notifications(user_id):
         notifications.append(
             {
                 "text": notif.notification_text,
-                "url": notif.notification_url,
+                "url": '/notifications/redirect/{}'.format(notif.notification_id),
                 "time": datetime_from_utc_to_local(notif.notification_time).strftime("%H:%M:%S.%f %b %d %Y"),
-                "read": False, #True if notif.notification_read == 1 else 0,
+                "read": True if notif.notification_read == 1 else 0,
             }
         )
         unread += 1 if notifications[-1]["read"] == False else 0
@@ -653,6 +653,16 @@ def generate_access_token(discussion_id):
     else:
         PrivateDiscussionsAccess(discussion_id=discussion_id, access_token=token).save()
         return token
+
+def on_notification_click(request, notification_id):
+    logged_in, user_id = verify_request(request)
+    if not logged_in:
+        return redirect('/')
+    else:
+        notif = NotificationMessages.objects.get(notification_id=notification_id)
+        notif.notification_read = 1
+        notif.save()
+        return redirect(notif.notification_url)
 
 def search(query, logged_in):
     threads = []
