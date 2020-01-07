@@ -9,7 +9,7 @@ class DiscussionForm(forms.Form):
     max_comments = forms.IntegerField(initial=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
     description = forms.CharField(max_length=256, required=False, widget=forms.Textarea(attrs={'class': 'form-control'}))
     tags = forms.CharField(max_length=64, required=False, widget=forms.Textarea(attrs={'class': 'form-control'}))
-    public = forms.ChoiceField(choices=(("Public", True), ("Private", False)), def)
+    public = forms.ChoiceField(choices=(("Public", True), ("Private", False)))
 
 class CommentForm(forms.Form):
     comment = forms.CharField(max_length=500, widget=forms.TextInput(attrs={'class': 'form-control'}))
