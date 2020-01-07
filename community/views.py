@@ -611,7 +611,7 @@ def invitetodiscussionpage(request, username, discussion_id):
                 if username in [user.username.lower() for user in UserProfiles.objects.all()] and PrivateDiscussionsAccess.objects.filter(discussion_id=discussion_id).filter(user_id=UserProfiles.objects.get(username=username).user_id).count() == 0:
                     private_url = '/privatediscussions/access/accesstoken/{}/'.format(generate_access_token(discussion_id))
                     send_email(
-                        to=User.objects.get(username=username).email,
+                        to=[User.objects.get(username=username).email,],
                         subject="Invitation to Discussion",
                         body="text/html",
                         template_name="email-template/private_discussion_invite.html",
