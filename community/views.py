@@ -56,7 +56,7 @@ def load_notifications(user_id):
         notifications.append(
             {
                 "text": notif.notification_text,
-                "url": '/notifications/redirect/{}'.format(notif.notification_id),
+                "url": '/notifications/redirect/{}/'.format(notif.notification_id),
                 "time": datetime_from_utc_to_local(notif.notification_time).strftime("%H:%M:%S.%f %b %d %Y"),
                 "read": True if notif.notification_read == 1 else 0,
             }
@@ -663,6 +663,12 @@ def on_notification_click(request, notification_id):
         notif.notification_read = 1
         notif.save()
         return redirect(notif.notification_url)
+
+def clear_all_notification(request):
+    logged_in, user_id = verify_request(request)
+    if logged_in:
+        NotificationMessages.objects.get(user_id=user_id).delete()
+    return redirect('/')
 
 def search(query, logged_in):
     threads = []
