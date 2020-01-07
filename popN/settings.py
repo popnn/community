@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 import json
 
-json_data_file = '~/djangoData/access_data.json'
+json_data_file = '/home/ubuntu/djangoData/access_data.json'
 private_access_data = json.loads(open(json_data_file).read())
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -158,7 +158,7 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = '~/djangoData/popNData/' #os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = '/home/ubuntu/djangoData/popNData/' #os.path.join(BASE_DIR, 'media')
     
 
 STATICFILES_DIRS = [
