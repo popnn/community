@@ -423,7 +423,7 @@ def selectdiscussionpage(request, username, discussion_id):
         return redirect('/')
     else:
         discussion = CommunityDiscussions.objects.get(discussion_id=discussion_id)
-        if discussion.discussion_type == "PRIVATE":# and user_id not in [str(dsc.user_id) for dsc in PrivateDiscussionsAccess.objects.filter(discussion_id=discussion_id)]:
+        if discussion.discussion_type == "PRIVATE" and user_id not in [str(dsc.user_id) for dsc in PrivateDiscussionsAccess.objects.filter(discussion_id=discussion_id)]:
             return redirect("/")
         if request.method == "POST":
             save_switch = request.POST.get('switch', False)
@@ -499,7 +499,7 @@ def editdiscussionpage(request, username, discussion_id):
                 discussion.discussion_title=title
                 discussion.discussion_description=re.sub('[\xF0-\xF7][\x80-\xBF][\x80-\xBF][\x80-\xBF]', '', str(description))
                 discussion.discussion_maximum_comments=max_comments
-                discussion.discussion_type="PUBLIC" if form.cleaned_data.get("public") else "PRIVATE"
+                discussion.discussion_type=form.cleaned_data.get("public").upper()
                 discussion.discussion_author_id=str(user_id)
                 discussion.discussion_tags = tags
                 discussion.save()
@@ -510,6 +510,7 @@ def editdiscussionpage(request, username, discussion_id):
             "description": discussion.discussion_description,
             "max_comments": discussion.discussion_maximum_comments,
             "tags": discussion.discussion_tags,
+            "public": discussion.discussion_type,
         }
         form = DiscussionForm(form_data)
         return render_template(request, 'community/newdiscussionpage.html', {"title":"Edit Discussion", "form":form, 'logged_in': logged_in})
@@ -569,7 +570,7 @@ def newdiscussionpage(request):
                     discussion_title=title,
                     discussion_description=re.sub('[\xF0-\xF7][\x80-\xBF][\x80-\xBF][\x80-\xBF]', '', str(description)),
                     discussion_maximum_comments=max_comments,
-                    discussion_type="PUBLIC" if form.cleaned_data.get("public") else "PRIVATE",
+                    discussion_type=form.cleaned_data.get("public").upper(),
                     discussion_author_id=str(user_id),
                     discussion_tags=tags)
                 discussion.save()
