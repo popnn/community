@@ -1,6 +1,7 @@
 import datetime
 import json
 import os
+import random
 import re
 from time import time as xTime
 
@@ -422,6 +423,8 @@ def selectdiscussionpage(request, username, discussion_id):
         return redirect('/')
     else:
         discussion = CommunityDiscussions.objects.get(discussion_id=discussion_id)
+        if discussion.discussion_type == "PRIVATE" and user_id not in [dsc.user_id for dsc in PrivateDiscussionsAccess.objects.filter(discussion_id=discussion_id)]:
+            return redirect("/")
         if request.method == "POST":
             save_switch = request.POST.get('switch', False)
             if save_switch:
@@ -587,10 +590,25 @@ def discussion_access_page(request, access_token):
     logged_in, user_id = verify_request(request)
     if not logged_in:
         return redirect('/')
-    elif True:
-        pass
     else:
-        pass
+        if access_token in [req.access_token for req in PrivateDiscussionsAccess.objects.all()]:
+            obj = PrivateDiscussionsAccess.objects.get(access_token=access_token)
+            if obj.token_used == False:
+                if user_id not in [val.user_id for val in PrivateDiscussionsAccess.objects.get(discussion_id=obj.discussion_id)]:
+                    obj.user_id = int(user_id)
+                    obj.token_used = True
+            return redirect("discussions/{}/{}/".format(UserProfiles.objects.get(user_id=CommunityDiscussions.objects.get(discussion_id=obj.discussion_id)).username, obj.discussion_id))
+
+def generate_access_token(discussion_id):
+    char_list = "abcdefghijklmnopqrstuvwxyz1234567890"
+    token = ''
+    while len(token) == 0:
+        token = ''.join(random.choice(char_list) for _ in range(64))
+        if token in [req.access_token for req in PrivateDiscussionsAccess.objects.all()]:
+            token = ''
+    else:
+        PrivateDiscussionsAccess(discussion_id=discussion_id, access_token=token).save()
+        return token
 
 def search(query, logged_in):
     threads = []
