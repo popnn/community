@@ -458,7 +458,7 @@ def selectdiscussionpage(request, username, discussion_id):
         tag_split = (discussion.discussion_tags.replace(' ',',')).replace(',,',',')
         context = {
             'logged_in': logged_in,
-            "title": discussion.discussion_title,
+            "title": discussion.discussion_title+discussion.discussion_type,
             "author": UserProfiles.objects.get(user_id=discussion.discussion_author_id).username,
             "content": discussion.discussion_description,
             "editable": discussion.discussion_author_id==user_id,
