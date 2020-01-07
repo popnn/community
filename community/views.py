@@ -499,7 +499,7 @@ def editdiscussionpage(request, username, discussion_id):
                 discussion.discussion_title=title
                 discussion.discussion_description=re.sub('[\xF0-\xF7][\x80-\xBF][\x80-\xBF][\x80-\xBF]', '', str(description))
                 discussion.discussion_maximum_comments=max_comments
-                discussion.discussion_type="OPEN"
+                discussion.discussion_type="PUBLIC" if form.cleaned_data.get("public") else "PRIVATE"
                 discussion.discussion_author_id=str(user_id)
                 discussion.discussion_tags = tags
                 discussion.save()
