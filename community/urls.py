@@ -16,7 +16,8 @@ urlpatterns = [
     path('discussions/', views.alldiscussionspage, name='community-discussions'),
     path('discussions/<slug:username>/', views.mydiscussionpage, name='community-discussions-user'),
     path('discussions/<slug:username>/<int:discussion_id>/', views.selectdiscussionpage, name='community-discussions-single'),
+    path('discussions/<slug:username>/<int:discussion_id>/generate', views.generatepage, name='community-discussions-single-generate'),
     path('edit-discussion/<slug:username>/<int:discussion_id>/', views.editdiscussionpage, name='community-edit-discussion-single'),
-    path('privatediscussions/access/accesstoken/<slug:access_token>', views.discussion_access_page, name='community-discussion-private-acces_token'),
+    path('privatediscussions/access/accesstoken/<slug:access_token>/', views.discussion_access_page, name='community-discussion-private-acces_token'),
     path('ajax-serverside-query/', views.ajax_response, name='ajax-response'),
 ]

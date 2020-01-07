@@ -11,7 +11,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import EmailMessage, EmailMultiAlternatives
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect, render
 from django.template import Context
 from django.template.loader import render_to_string
@@ -587,6 +587,14 @@ def newdiscussionpage(request):
         form = DiscussionForm()
         return render_template(request, 'community/newdiscussionpage.html', {"title":"New Discussion", "form":form, 'logged_in': logged_in})
 
+
+def generatepage(request, username, discussion_id):
+    logged_in, user_id = verify_request(request)
+    if not logged_in or username != UserProfiles.objects.get(user_id=int(user_id)).username:
+        return redirect('/')
+    else:
+        return HttpResponse('community.popn.ml/privatediscussions/access/accesstoken/{}/'.format(generate_access_token(discussion_id)))
+    
 def discussion_access_page(request, access_token):
     logged_in, user_id = verify_request(request)
     if not logged_in:
