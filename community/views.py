@@ -424,7 +424,7 @@ def selectdiscussionpage(request, username, discussion_id):
     else:
         discussion = CommunityDiscussions.objects.get(discussion_id=discussion_id)
         if UserProfiles.objects.get(user_id=int(user_id)).username.lower() != username.lower() and discussion.discussion_type == "PRIVATE" and user_id not in [str(dsc.user_id) for dsc in PrivateDiscussionsAccess.objects.filter(discussion_id=discussion_id)]:
-            val = "1" #return redirect("/")
+            return redirect("/")
         if request.method == "POST":
             save_switch = request.POST.get('switch', False)
             if save_switch:
@@ -458,7 +458,7 @@ def selectdiscussionpage(request, username, discussion_id):
         tag_split = (discussion.discussion_tags.replace(' ',',')).replace(',,',',')
         context = {
             'logged_in': logged_in,
-            "title": discussion.discussion_title+discussion.discussion_type+val,
+            "title": discussion.discussion_title,
             "author": UserProfiles.objects.get(user_id=discussion.discussion_author_id).username,
             "content": discussion.discussion_description,
             "editable": discussion.discussion_author_id==user_id,
