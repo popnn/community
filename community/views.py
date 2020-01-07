@@ -1,25 +1,29 @@
-from django.shortcuts import render, redirect
+import datetime
+import json
+import os
+import re
+from time import time as xTime
+
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
-from django.core.mail import EmailMessage,EmailMultiAlternatives
+from django.core.mail import EmailMessage, EmailMultiAlternatives
+from django.http import JsonResponse
+from django.shortcuts import redirect, render
 from django.template import Context
 from django.template.loader import render_to_string
 from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
 from PIL import Image
-from .models import *
-from .forms import *
-import json
-import os
-from popN.settings import BASE_DIR 
-import datetime
-import re
-from tracking_analyzer.models import Tracker
-from time import time as xTime
+
+from popN.settings import BASE_DIR
 from pwa_webpush.utils import send_to_subscription
+from tracking_analyzer.models import Tracker
+
+from .forms import *
+from .models import *
+
 
 #TODO Account_status 
 def datetime_from_utc_to_local(utc_datetime):
@@ -563,7 +567,7 @@ def newdiscussionpage(request):
                     discussion_title=title,
                     discussion_description=re.sub('[\xF0-\xF7][\x80-\xBF][\x80-\xBF][\x80-\xBF]', '', str(description)),
                     discussion_maximum_comments=max_comments,
-                    discussion_type="OPEN",
+                    discussion_type="PUBLIC" if form.cleaned_data.get("public") else "PRIVATE",
                     discussion_author_id=str(user_id),
                     discussion_tags=tags)
                 discussion.save()
