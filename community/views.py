@@ -451,7 +451,6 @@ def selectdiscussionpage(request, username, discussion_id):
                             notification_text='New comment: {} '.format(desc),
                             )
                         notif.save()
-                    
         
         tag_split = (discussion.discussion_tags.replace(' ',',')).replace(',,',',')
         context = {
@@ -583,6 +582,15 @@ def newdiscussionpage(request):
                 return redirect('/')
         form = DiscussionForm()
         return render_template(request, 'community/newdiscussionpage.html', {"title":"New Discussion", "form":form, 'logged_in': logged_in})
+
+def discussion_access_page(request, access_token):
+    logged_in, user_id = verify_request(request)
+    if not logged_in:
+        return redirect('/')
+    elif:
+        pass
+    else:
+        pass
 
 def search(query, logged_in):
     threads = []

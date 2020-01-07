@@ -25,6 +25,12 @@ class CommunityDiscussions(models.Model):
     discussion_maximum_comments = models.IntegerField(default=100)
     discussion_type = models.CharField(max_length=8)
     discussion_tags = models.TextField(default="")
+
+class PrivateDiscussionsAccess(models.Model):
+    access_token = models.CharField(max_length=64, primary_key=True)
+    user_id = models.IntegerField(blank=True)
+    discussion_id = models.IntegerField()
+    token_used = models.BooleanField(default=False)
     
 class CommunityComments(models.Model):
     comment_id = models.AutoField(primary_key=True)
