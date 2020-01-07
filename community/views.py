@@ -25,8 +25,8 @@ from tracking_analyzer.models import Tracker
 from .forms import *
 from .models import *
 
+EMAIL_SERVER_IS_RUNNING = False
 
-#TODO Account_status 
 def datetime_from_utc_to_local(utc_datetime):
     now_timestamp = xTime()
     offset = datetime.datetime.fromtimestamp(now_timestamp) - datetime.datetime.utcfromtimestamp(now_timestamp)
@@ -39,6 +39,15 @@ def render_template(request, template_name, context={}):
     response = render(request, template_name, context)
     response.set_cookie('load', datetime.datetime.now().strftime("%H:%M:%S.%f %b %d %Y"))
     return response
+
+def send_email(to, subject, body=None, template_name='', context={}):
+    if EMAIL_SERVER_IS_RUNNING:
+        if body != "text/html":
+            email_message = EmailMultiAlternatives(subject=subject, to=to)
+            email_message.attach_alternative(render_to_string(template_name), body)
+        else:
+            email_message = EmailMessage(subject, body, to=to)
+        email_message.send()
 
 def load_notifications(user_id):
     notifications = []
@@ -153,13 +162,13 @@ def signuppage(request):
                 if username not in [user.username for user in User.objects.all()] and str(password)==str(password_verify):
                     User.objects.create_user(username=username, password=password, email=email).save()
                     UserProfiles(username=username).save()
-                    #Email_content="Dear " + username + ",\n\nYour user is successfully created with username " + username + " Logon to popn.ml to access your account.\n\n For support email us support@popn.ml\n\nThank You\n\nTeam popN" 
-                    subject="popN - Profile created"
-                    html_body = render_to_string("email-template/user_created.html",{'username':username})
-                    #email_message = EmailMessage('popN - User Created', Email_content, to=[email])
-                    msg = EmailMultiAlternatives(subject=subject,to=[email])
-                    msg.attach_alternative(html_body, "text/html")
-                    msg.send()
+                    send_email(
+                        to=[email], 
+                        subject="popN - Profile created",
+                        body="text/html",
+                        template_name="email-template/user_created.html",
+                        context = {"username" : username}.
+                        )
                     user = authenticate(username=username, password=password)
                     login(request, user)
                     response = redirect("/profile/edit")
@@ -286,10 +295,11 @@ def editprofilepage(request):
                     user_data.user_profile_image = img
                 user_data.save()
                 user_data_main.save()
-                email_subject = 'popN - Profile Updated'
-                email_body = 'Dear {},\n\nYour profile has been updated.\n\nThank You\n\nTeam popN'.format(user_data_main.first_name)
-                email = EmailMessage(email_subject,email_body, to=[email_address])
-                email.send()
+                send_email(
+                    to=[email_address,],
+                    subject="popN- Profile Updated",
+                    body='Dear {},\n\nYour profile has been updated.\n\nThank You\n\nTeam popN'.format(user_data_main.first_name)
+                )
                 return redirect('/profile/')
         user_data = UserProfiles.objects.get(user_id=user_id)
         user_data_main = User.objects.get(username=user_data.username)
