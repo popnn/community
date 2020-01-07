@@ -64,6 +64,7 @@ def load_notifications(user_id):
         unread += 1 if notifications[-1]["read"] == False else 0
     if unread > 9:
         unread = "9+"
+    notifications = [notif for notif in notifications if notif["read"]==False] + [notif for notif in notifications if notif["read"]==True]
     return {"all":notifications[:7], "count":str(unread)}
 
 @csrf_exempt
