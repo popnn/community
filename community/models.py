@@ -28,7 +28,7 @@ class CommunityDiscussions(models.Model):
 
 class PrivateDiscussionsAccess(models.Model):
     access_token = models.CharField(max_length=64, primary_key=True)
-    user_id = models.IntegerField(blank=True)
+    user_id = models.IntegerField(blank=True, null=True)
     discussion_id = models.IntegerField()
     token_used = models.BooleanField(default=False)
     
