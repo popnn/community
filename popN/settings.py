@@ -29,8 +29,6 @@ ALLOWED_HOSTS = ['community.popn.ml','192.168.29.47', '127.0.0.1']
 
 
 # Application definition
-
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -88,15 +86,6 @@ ASGI_APPLICATION = "popN.routing.application"
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -109,6 +98,14 @@ DATABASES = {
     }
 }
 
+"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -158,8 +155,7 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = '/home/ubuntu/popNData/'
-    #os.path.join(BASE_DIR, 'media'),
+MEDIA_ROOT = '/home/ubuntu/popNData/' #os.path.join(BASE_DIR, 'media')
     
 
 STATICFILES_DIRS = [
@@ -168,7 +164,6 @@ STATICFILES_DIRS = [
 ]
 
 #PWA settings
-
 PWA_APP_NAME = 'popN'
 PWA_APP_DESCRIPTION = "The open community"
 PWA_APP_THEME_COLOR = '#91eef5'
@@ -177,14 +172,12 @@ PWA_APP_DISPLAY = 'standalone'
 PWA_APP_SCOPE = '/',
 PWA_APP_ORIENTATION = 'any'
 PWA_APP_START_URL = '/'
-
 PWA_APP_ICONS = [
     {
         'src': '/static/popNicon.png',
         'sizes': '300x300'
     }
 ]
-
 PWA_APP_LANG = 'en-US'
 
 # Email setup
@@ -207,5 +200,4 @@ WEBPUSH_SETTINGS = {
     "VAPID_ADMIN_EMAIL": "arham@popn.ml"
 }
 
-
-GEOIP_PATH =os.path.join(BASE_DIR, 'geoip/')
+GEOIP_PATH = os.path.join(BASE_DIR, 'geoip/')
