@@ -424,7 +424,7 @@ def selectdiscussionpage(request, username, discussion_id):
     else:
         discussion = CommunityDiscussions.objects.get(discussion_id=discussion_id)
         if UserProfiles.objects.get(user_id=int(user_id)).username.lower() != username.lower() and discussion.discussion_type == "PRIVATE" and user_id not in [str(dsc.user_id) for dsc in PrivateDiscussionsAccess.objects.filter(discussion_id=discussion_id)]:
-            return redirect("/")
+            pass #return redirect("/")
         if request.method == "POST":
             save_switch = request.POST.get('switch', False)
             if save_switch:
