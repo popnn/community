@@ -590,7 +590,7 @@ def newdiscussionpage(request):
 
 def generatepage(request, username, discussion_id):
     logged_in, user_id = verify_request(request)
-    if not logged_in or username != UserProfiles.objects.get(user_id=int(user_id)).username:
+    if not logged_in or CommunityDiscussions.objects.get(discussion_id=discussion_id).discussion_type.upper() != "PRIVATE" or username != UserProfiles.objects.get(user_id=int(user_id)).username:
         return redirect('/')
     else:
         return HttpResponse('community.popn.ml/privatediscussions/access/accesstoken/{}/'.format(generate_access_token(discussion_id)))
