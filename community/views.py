@@ -41,14 +41,15 @@ def render_template(request, template_name, context={}):
     return response
 
 def send_email(to, subject, body=None, template_name='', context={}):
+    print(to, subject)
     if EMAIL_SERVER_IS_RUNNING:
         if body == "text/html":
-            email_message = EmailMultiAlternatives(subject=subject, to=to)
+            email_message = EmailMultiAlternatives(subject=subject, to=to, )
             email_message.attach_alternative(render_to_string(template_name), body)
         else:
             email_message = EmailMessage(subject, body, to=to)
         email_message.send()
-        print(to, subject)
+    print(to, subject)
 
 def load_notifications(user_id):
     notifications = []
