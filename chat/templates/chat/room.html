@@ -35,6 +35,7 @@
         li.appendChild(document.createTextNode(message));
         ul.appendChild(li);
         document.getElementById('notification').play();
+        document.title = message;
     };
 
     chatSocket.onclose = function(e) {
