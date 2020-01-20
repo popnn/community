@@ -169,7 +169,7 @@ STATICFILES_DIRS = [
 #PWA settings
 PWA_APP_NAME = 'popN'
 PWA_APP_DESCRIPTION = "The open community"
-PWA_APP_THEME_COLOR = '#91eef5'
+PWA_APP_THEME_COLOR = '#ff5757'
 PWA_APP_BACKGROUND_COLOR = '#ffffff'
 PWA_APP_DISPLAY = 'standalone'
 PWA_APP_SCOPE = '/',
