@@ -17,12 +17,12 @@
         </div>
     </div>  
 </center>
-<audio id="notification" src="../../static/sounds/chatnotify.mp3" preload="auto"></audio>
+<audio id="notification" src="../../static/sounds/chatnotify.wav" preload="auto"></audio>
 <script>
     var roomName = {{ room_name_json }};
 
     var chatSocket = new WebSocket(
-        'wss://' + window.location.host +
+        'ws://' + window.location.host +
         '/ws/chat/' + roomName + '/');
 
     chatSocket.onmessage = function(e) {
